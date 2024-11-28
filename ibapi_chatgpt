@@ -1,0 +1,73 @@
+from ibapi.client import EClient
+from ibapi.wrapper import EWrapper
+from ibapi.contract import Contract
+from ibapi.order import Order
+from ibapi.order_condition import PriceCondition
+from ibapi.common import *
+import time
+
+class MyWrapper(EWrapper):
+    def __init__(self):
+        super().__init__()
+
+    def nextValidId(self, orderId: int):
+        self.next_order_id = orderId
+
+class IBClient(EClient):
+    def __init__(self, wrapper):
+        super().__init__(wrapper)
+
+class IBApp(MyWrapper, IBClient):
+    def __init__(self, ipaddress, portid, clientid):
+        MyWrapper.__init__(self)
+        IBClient.__init__(self, wrapper=self)
+
+        self.connect(ipaddress, portid, clientid)
+
+    def place_limit_order_with_bracket(self, symbol, quantity, limit_price, stop_loss_price, take_profit_price):
+        contract = Contract()
+        contract.symbol = symbol
+        contract.secType = "STK"
+        contract.exchange = "SMART"
+        contract.currency = "USD"
+
+        parent_order = Order()
+        parent_order.action = "BUY"
+        parent_order.orderType = "LMT"
+        parent_order.totalQuantity = quantity
+        parent_order.lmtPrice = limit_price
+
+        stop_loss_condition = PriceCondition()
+        stop_loss_condition.price = stop_loss_price
+        stop_loss_condition.conId = contract.conId
+        stop_loss_condition.exchange = contract.exchange
+
+        stop_loss_order = Order()
+        stop_loss_order.action = "SELL"
+        stop_loss_order.orderType = "STP"
+        stop_loss_order.totalQuantity = quantity
+        stop_loss_order.auxPrice = stop_loss_price
+        stop_loss_order.conditions.append(stop_loss_condition)
+
+        take_profit_order = Order()
+        take_profit_order.action = "SELL"
+        take_profit_order.orderType = "LMT"
+        take_profit_order.totalQuantity = quantity
+        take_profit_order.lmtPrice = take_profit_price
+
+        self.next_order_id += 1
+
+        parent_order.orderId = self.next_order_id
+        stop_loss_order.orderId = self.next_order_id + 1
+        take_profit_order.orderId = self.next_order_id + 2
+
+        self.placeOrder(parent_order.orderId, contract, parent_order)
+        self.placeOrder(stop_loss_order.orderId, contract, stop_loss_order)
+        self.placeOrder(take_profit_order.orderId, contract, take_profit_order)
+
+app = IBApp("127.0.0.1", 7497, 1)  # Replace with your IP address, port, and client ID
+app.next_order_id = 10    # Initialize the next_order_id attribute
+app.place_limit_order_with_bracket("TSLA", 100, 270.0, 265.0, 280.0)  # Replace with your desired values
+
+time.sleep(10)  # Allow time for orders to be placed
+app.disconnect()
