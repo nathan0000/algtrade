@@ -204,6 +204,14 @@ def writeResult(contractDict):
   print("Job's done.")
 
 if __name__ == "__main__":
+  
+  with open('config.yml', 'r') as c:
+    config = yaml.safe_load(c)
+    baseUrl = config['baseUrl']
+    paper_account = config['paper_account']
+    live_short_account = config['live_short_account']
+    live_long_account = config['live_long_account']
+  
   # Setup Logging
   logger = loggerSetup()
 
