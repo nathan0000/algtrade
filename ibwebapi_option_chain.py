@@ -50,7 +50,26 @@ def tradesInfo():
 
   return json.dumps(search_trades.text)
 
-def optionSamurai()
+def optionSamurai(input="samurai.csv"):
+  with open(input, 'r') as samurai_csv:
+    samurai_reader = csv.DictReader(samurai_csv)
+    for row in samurai_reader:
+      symbol = row["Symbol"]
+      legs = row["strategy"].spilit("/")
+      if len(legs) == 0:
+        logger.error("Invalid strategy")
+        return
+      for i in range(len(legs)):
+        contract[i] = legs[i].split(" ")
+      underConid,months = secdefSearch(symbol, exchange)
+      month = months[0]
+      itmStrikes = secdefStrikes(underConid,month)
+      contractDict = {}
+      for strike in itmStrikes:
+        contractDict[strike] = secdefInfo(underConid,month,strike)
+      writeResult(contractDict)
+
+  return
 
 def orderCombo(account="DU3232524"):
   us_spread_conid = "28812380"
