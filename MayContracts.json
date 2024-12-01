@@ -1,0 +1,214 @@
+{
+  "227.5": [
+    {
+      "conid": 742850046,
+      "symbol": "AAPL",
+      "strike": 227.5,
+      "prices": "{\"bid\": \"0.22\", \"bidSize\": \"53\", \"ask\": \"0.24\", \"askSize\": \"193\"}",
+      "maturityDate": "20241206"
+    },
+    {
+      "conid": 744439354,
+      "symbol": "AAPL",
+      "strike": 227.5,
+      "prices": "{\"bid\": \"0.52\", \"bidSize\": \"131\", \"ask\": \"0.57\", \"askSize\": \"76\"}",
+      "maturityDate": "20241213"
+    },
+    {
+      "conid": 742851249,
+      "symbol": "AAPL",
+      "strike": 227.5,
+      "prices": "{\"bid\": \"0.87\", \"bidSize\": \"197\", \"ask\": \"0.92\", \"askSize\": \"48\"}",
+      "maturityDate": "20241220"
+    }
+  ],
+  "230.0": [
+    {
+      "conid": 737589941,
+      "symbol": "AAPL",
+      "strike": 230.0,
+      "prices": "{\"bid\": \"0.35\", \"bidSize\": \"29\", \"ask\": \"0.38\", \"askSize\": \"92\"}",
+      "maturityDate": "20241206"
+    },
+    {
+      "conid": 738758600,
+      "symbol": "AAPL",
+      "strike": 230.0,
+      "prices": "{\"bid\": \"0.80\", \"bidSize\": \"3\", \"ask\": \"0.86\", \"askSize\": \"735\"}",
+      "maturityDate": "20241213"
+    },
+    {
+      "conid": 621537325,
+      "symbol": "AAPL",
+      "strike": 230.0,
+      "prices": "{\"bid\": \"1.23\", \"bidSize\": \"122\", \"ask\": \"1.29\", \"askSize\": \"36\"}",
+      "maturityDate": "20241220"
+    },
+    {
+      "conid": 740113697,
+      "symbol": "AAPL",
+      "strike": 230.0,
+      "prices": "{\"bid\": \"1.51\", \"bidSize\": \"29\", \"ask\": \"1.67\", \"askSize\": \"1,295\"}",
+      "maturityDate": "20241227"
+    }
+  ],
+  "232.5": [
+    {
+      "conid": 742850085,
+      "symbol": "AAPL",
+      "strike": 232.5,
+      "prices": "{\"bid\": \"0.61\", \"bidSize\": \"51\", \"ask\": \"0.65\", \"askSize\": \"10\"}",
+      "maturityDate": "20241206"
+    },
+    {
+      "conid": 744439397,
+      "symbol": "AAPL",
+      "strike": 232.5,
+      "prices": "{\"bid\": \"1.21\", \"bidSize\": \"4\", \"ask\": \"1.30\", \"askSize\": \"392\"}",
+      "maturityDate": "20241213"
+    },
+    {
+      "conid": 742851322,
+      "symbol": "AAPL",
+      "strike": 232.5,
+      "prices": "{\"bid\": \"1.76\", \"bidSize\": \"57\", \"ask\": \"1.85\", \"askSize\": \"1,894\"}",
+      "maturityDate": "20241220"
+    }
+  ],
+  "235.0": [
+    {
+      "conid": 737590014,
+      "symbol": "AAPL",
+      "strike": 235.0,
+      "prices": "{\"bid\": \"1.15\", \"bidSize\": \"1\", \"ask\": \"1.19\", \"askSize\": \"10\"}",
+      "maturityDate": "20241206"
+    },
+    {
+      "conid": 738758656,
+      "symbol": "AAPL",
+      "strike": 235.0,
+      "prices": "{\"bid\": \"1.87\", \"bidSize\": \"19\", \"ask\": \"1.97\", \"askSize\": \"156\"}",
+      "maturityDate": "20241213"
+    },
+    {
+      "conid": 621537375,
+      "symbol": "AAPL",
+      "strike": 235.0,
+      "prices": "{\"bid\": \"2.51\", \"bidSize\": \"31\", \"ask\": \"2.63\", \"askSize\": \"303\"}",
+      "maturityDate": "20241220"
+    },
+    {
+      "conid": 740113760,
+      "symbol": "AAPL",
+      "strike": 235.0,
+      "prices": "{\"bid\": \"2.83\", \"bidSize\": \"39\", \"ask\": \"3.05\", \"askSize\": \"1,812\"}",
+      "maturityDate": "20241227"
+    }
+  ],
+  "237.5": [
+    {
+      "conid": 742850141,
+      "symbol": "AAPL",
+      "strike": 237.5,
+      "prices": "{\"bid\": \"2.07\", \"bidSize\": \"71\", \"ask\": \"2.16\", \"askSize\": \"43\"}",
+      "maturityDate": "20241206"
+    },
+    {
+      "conid": 744439440,
+      "symbol": "AAPL",
+      "strike": 237.5,
+      "prices": "{\"bid\": \"2.85\", \"bidSize\": \"4\", \"ask\": \"2.99\", \"askSize\": \"513\"}",
+      "maturityDate": "20241213"
+    },
+    {
+      "conid": 742851369,
+      "symbol": "AAPL",
+      "strike": 237.5,
+      "prices": "{\"bid\": \"3.50\", \"bidSize\": \"77\", \"ask\": \"3.65\", \"askSize\": \"416\"}",
+      "maturityDate": "20241220"
+    }
+  ],
+  "240.0": [
+    {
+      "conid": 737590070,
+      "symbol": "AAPL",
+      "strike": 240.0,
+      "prices": "{\"bid\": \"3.50\", \"bidSize\": \"88\", \"ask\": \"3.65\", \"askSize\": \"243\"}",
+      "maturityDate": "20241206"
+    },
+    {
+      "conid": 738758731,
+      "symbol": "AAPL",
+      "strike": 240.0,
+      "prices": "{\"bid\": \"4.20\", \"bidSize\": \"248\", \"ask\": \"4.35\", \"askSize\": \"207\"}",
+      "maturityDate": "20241213"
+    },
+    {
+      "conid": 621537427,
+      "symbol": "AAPL",
+      "strike": 240.0,
+      "prices": "{\"bid\": \"4.75\", \"bidSize\": \"1,256\", \"ask\": \"5.00\", \"askSize\": \"1,606\"}",
+      "maturityDate": "20241220"
+    },
+    {
+      "conid": 740113818,
+      "symbol": "AAPL",
+      "strike": 240.0,
+      "prices": "{\"bid\": \"5.10\", \"bidSize\": \"162\", \"ask\": \"5.55\", \"askSize\": \"549\"}",
+      "maturityDate": "20241227"
+    }
+  ],
+  "242.5": [
+    {
+      "conid": 742850203,
+      "symbol": "AAPL",
+      "strike": 242.5,
+      "prices": "{\"bid\": \"5.25\", \"bidSize\": \"2,304\", \"ask\": \"6.00\", \"askSize\": \"1,900\"}",
+      "maturityDate": "20241206"
+    },
+    {
+      "conid": 744439480,
+      "symbol": "AAPL",
+      "strike": 242.5,
+      "prices": "{\"bid\": \"5.40\", \"bidSize\": \"562\", \"ask\": \"6.70\", \"askSize\": \"1,250\"}",
+      "maturityDate": "20241213"
+    },
+    {
+      "conid": 742851419,
+      "symbol": "AAPL",
+      "strike": 242.5,
+      "prices": "{\"bid\": \"6.15\", \"bidSize\": \"4,002\", \"ask\": \"6.90\", \"askSize\": \"2,197\"}",
+      "maturityDate": "20241220"
+    }
+  ],
+  "245.0": [
+    {
+      "conid": 737590124,
+      "symbol": "AAPL",
+      "strike": 245.0,
+      "prices": "{\"bid\": \"7.45\", \"bidSize\": \"870\", \"ask\": \"8.35\", \"askSize\": \"1,666\"}",
+      "maturityDate": "20241206"
+    },
+    {
+      "conid": 738758806,
+      "symbol": "AAPL",
+      "strike": 245.0,
+      "prices": "{\"bid\": \"7.75\", \"bidSize\": \"617\", \"ask\": \"8.45\", \"askSize\": \"2,216\"}",
+      "maturityDate": "20241213"
+    },
+    {
+      "conid": 621537475,
+      "symbol": "AAPL",
+      "strike": 245.0,
+      "prices": "{\"bid\": \"8.15\", \"bidSize\": \"1,853\", \"ask\": \"8.70\", \"askSize\": \"2,157\"}",
+      "maturityDate": "20241220"
+    },
+    {
+      "conid": 740113876,
+      "symbol": "AAPL",
+      "strike": 245.0,
+      "prices": "{\"bid\": \"8.30\", \"bidSize\": \"216\", \"ask\": \"9.70\", \"askSize\": \"1,198\"}",
+      "maturityDate": "20241227"
+    }
+  ]
+}
