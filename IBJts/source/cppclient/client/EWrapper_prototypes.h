@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 /* not using "#pragma once" on purpose! */
@@ -16,7 +16,7 @@ virtual void tickString(TickerId tickerId, TickType tickType, const std::string&
 virtual void tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
 	double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) EWRAPPER_VIRTUAL_IMPL;
 virtual void orderStatus( OrderId orderId, const std::string& status, Decimal filled,
-	Decimal remaining, double avgFillPrice, int permId, int parentId,
+	Decimal remaining, double avgFillPrice, long long permId, int parentId,
 	double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice) EWRAPPER_VIRTUAL_IMPL;
 virtual void openOrder( OrderId orderId, const Contract&, const Order&, const OrderState&) EWRAPPER_VIRTUAL_IMPL;
 virtual void openOrderEnd() EWRAPPER_VIRTUAL_IMPL;
@@ -35,7 +35,7 @@ virtual void bondContractDetails( int reqId, const ContractDetails& contractDeta
 virtual void contractDetailsEnd( int reqId) EWRAPPER_VIRTUAL_IMPL;
 virtual void execDetails( int reqId, const Contract& contract, const Execution& execution) EWRAPPER_VIRTUAL_IMPL;
 virtual void execDetailsEnd( int reqId) EWRAPPER_VIRTUAL_IMPL;
-virtual void error(int id, int errorCode, const std::string& errorString, const std::string& advancedOrderRejectJson) EWRAPPER_VIRTUAL_IMPL;
+virtual void error(int id, time_t errorTime, int errorCode,const std::string& errorString, const std::string& advancedOrderRejectJson) EWRAPPER_VIRTUAL_IMPL;
 virtual void updateMktDepth(TickerId id, int position, int operation, int side,
 	double price, Decimal size) EWRAPPER_VIRTUAL_IMPL;
 virtual void updateMktDepthL2(TickerId id, int position, const std::string& marketMaker, int operation,
@@ -57,10 +57,10 @@ virtual void fundamentalData(TickerId reqId, const std::string& data) EWRAPPER_V
 virtual void deltaNeutralValidation(int reqId, const DeltaNeutralContract& deltaNeutralContract) EWRAPPER_VIRTUAL_IMPL;
 virtual void tickSnapshotEnd( int reqId) EWRAPPER_VIRTUAL_IMPL;
 virtual void marketDataType( TickerId reqId, int marketDataType) EWRAPPER_VIRTUAL_IMPL;
-virtual void commissionReport( const CommissionReport& commissionReport) EWRAPPER_VIRTUAL_IMPL;
+virtual void commissionAndFeesReport( const CommissionAndFeesReport& commissionAndFeesReport) EWRAPPER_VIRTUAL_IMPL;
 virtual void position( const std::string& account, const Contract& contract, Decimal position, double avgCost) EWRAPPER_VIRTUAL_IMPL;
 virtual void positionEnd() EWRAPPER_VIRTUAL_IMPL;
-virtual void accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency) EWRAPPER_VIRTUAL_IMPL;
+virtual void accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& currency) EWRAPPER_VIRTUAL_IMPL;
 virtual void accountSummaryEnd( int reqId) EWRAPPER_VIRTUAL_IMPL;
 virtual void verifyMessageAPI( const std::string& apiData) EWRAPPER_VIRTUAL_IMPL;
 virtual void verifyCompleted( bool isSuccessful, const std::string& errorText) EWRAPPER_VIRTUAL_IMPL;
@@ -101,7 +101,7 @@ virtual void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast
 virtual void tickByTickAllLast(int reqId, int tickType, time_t time, double price, Decimal size, const TickAttribLast& tickAttribLast, const std::string& exchange, const std::string& specialConditions) EWRAPPER_VIRTUAL_IMPL;
 virtual void tickByTickBidAsk(int reqId, time_t time, double bidPrice, double askPrice, Decimal bidSize, Decimal askSize, const TickAttribBidAsk& tickAttribBidAsk) EWRAPPER_VIRTUAL_IMPL;
 virtual void tickByTickMidPoint(int reqId, time_t time, double midPoint) EWRAPPER_VIRTUAL_IMPL;
-virtual void orderBound(long long orderId, int apiClientId, int apiOrderId) EWRAPPER_VIRTUAL_IMPL;
+virtual void orderBound(long long permId, int clientId, int orderId) EWRAPPER_VIRTUAL_IMPL;
 virtual void completedOrder(const Contract& contract, const Order& order, const OrderState& orderState) EWRAPPER_VIRTUAL_IMPL;
 virtual void completedOrdersEnd() EWRAPPER_VIRTUAL_IMPL;
 virtual void replaceFAEnd(int reqId, const std::string& text) EWRAPPER_VIRTUAL_IMPL;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo.util;
@@ -15,6 +15,6 @@ public interface IConnectionConfiguration {
 	class DefaultConnectionConfiguration implements IConnectionConfiguration {
 	    @Override public String getDefaultHost() { return ""; }
 	    @Override public String getDefaultPort() { return "7496"; }
-	    @Override public String getDefaultConnectOptions() { return null; }
+	    @Override public String getDefaultConnectOptions() { return "+PACEAPI"; }
 	}
 }

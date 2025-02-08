@@ -1,4 +1,4 @@
-/* Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import com.ib.client.Types.SecType;
 
 public class EWrapperMsgGenerator {
     public static final String SCANNER_PARAMETERS = "SCANNER PARAMETERS:";
@@ -58,9 +59,9 @@ public class EWrapperMsgGenerator {
     }
     
     public static String orderStatus( int orderId, String status, Decimal filled, Decimal remaining,
-            double avgFillPrice, int permId, int parentId, double lastFillPrice,
+            double avgFillPrice, long permId, int parentId, double lastFillPrice,
             int clientId, String whyHeld, double mktCapPrice) {
-    	return "order status: orderId=" + orderId + " clientId=" + Util.IntMaxString(clientId) + " permId=" + Util.IntMaxString(permId) +
+    	return "order status: orderId=" + orderId + " clientId=" + Util.IntMaxString(clientId) + " permId=" + Util.LongMaxString(permId) +
         " status=" + status + " filled=" + filled + " remaining=" + remaining +
         " avgFillPrice=" + Util.DoubleMaxString(avgFillPrice) + " lastFillPrice=" + Util.DoubleMaxString(lastFillPrice) +
         " parent Id=" + Util.IntMaxString(parentId) + " whyHeld=" + whyHeld + " mktCapPrice=" + Util.DoubleMaxString(mktCapPrice);
@@ -138,14 +139,47 @@ public class EWrapperMsgGenerator {
         + "minSize = " + contractDetails.minSize() + "\n"
         + "sizeIncrement = " + contractDetails.sizeIncrement() + "\n"
         + "suggestedSizeIncrement = " + contractDetails.suggestedSizeIncrement() + "\n"
-        + contractDetailsSecIdList(contractDetails);
+        + contractDetailsFundData(contractDetails)
+        + contractDetailsSecIdList(contractDetails) 
+        + contractDetailsIneligibilityReasons(contractDetails);
     }
-    
+
+    private static String contractDetailsFundData(ContractDetails contractDetails) {
+        final StringBuilder sb = new StringBuilder();
+        if (contractDetails.contract().secType() == SecType.FUND) {
+            sb.append("fundData={\n");
+            sb.append("  fundName=").append(contractDetails.fundName()).append("\n");
+            sb.append("  fundFamily=").append(contractDetails.fundFamily()).append("\n");
+            sb.append("  fundType=").append(contractDetails.fundType()).append("\n");
+            sb.append("  fundFrontLoad=").append(contractDetails.fundFrontLoad()).append("\n");
+            sb.append("  fundBackLoad=").append(contractDetails.fundBackLoad()).append("\n");
+            sb.append("  fundBackLoadTimeInterval=").append(contractDetails.fundBackLoadTimeInterval()).append("\n");
+            sb.append("  fundManagementFee=").append(contractDetails.fundManagementFee()).append("\n");
+            sb.append("  fundClosed=").append(contractDetails.fundClosed()).append("\n");
+            sb.append("  fundClosedForNewInvestors=").append(contractDetails.fundClosedForNewInvestors()).append("\n");
+            sb.append("  fundClosedForNewMoney=").append(contractDetails.fundClosedForNewMoney()).append("\n");
+            sb.append("  fundNotifyAmount=").append(contractDetails.fundNotifyAmount()).append("\n");
+            sb.append("  fundMinimumInitialPurchase=").append(contractDetails.fundMinimumInitialPurchase()).append("\n");
+            sb.append("  fundSubsequentMinimumPurchase=").append(contractDetails.fundSubsequentMinimumPurchase()).append("\n");
+            sb.append("  fundBlueSkyStates=").append(contractDetails.fundBlueSkyStates()).append("\n");
+            sb.append("  fundBlueSkyTerritories=").append(contractDetails.fundBlueSkyTerritories()).append("\n");
+            if (contractDetails.fundDistributionPolicyIndicator() != null) {
+                sb.append("  fundDistributionPolicyIndicator=").append(contractDetails.fundDistributionPolicyIndicator().name()).append("\n");
+            }
+            if (contractDetails.fundAssetType() != null) {
+                sb.append("  fundAssetType=").append(contractDetails.fundAssetType().name()).append("\n");
+            }
+            sb.append("}\n");
+        }
+        return sb.toString();
+    }
+
 	private static String contractMsg(Contract contract) {
 		return "conid = " + contract.conid() + "\n"
         + "symbol = " + contract.symbol() + "\n"
         + "secType = " + contract.getSecType() + "\n"
-        + "lastTradeDate = " + contract.lastTradeDateOrContractMonth() + "\n"
+        + "lastTradeDateOrContractMonth = " + contract.lastTradeDateOrContractMonth() + "\n"
+        + "lastTradeDate = " + contract.lastTradeDate() + "\n"
         + "strike = " + Util.DoubleMaxString(contract.strike()) + "\n"
         + "right = " + contract.getRight() + "\n"
         + "multiplier = " + contract.multiplier() + "\n"
@@ -186,11 +220,13 @@ public class EWrapperMsgGenerator {
         + "nextOptionPartial = " + contractDetails.nextOptionPartial() + "\n"
         + "notes = " + contractDetails.notes() + "\n"
         + "longName = " + contractDetails.longName() + "\n"
+        + "timeZoneId = " + contractDetails.timeZoneId() + "\n"
+        + "tradingHours = " + contractDetails.tradingHours() + "\n"
+        + "liquidHours = " + contractDetails.liquidHours() + "\n"
         + "evRule = " + contractDetails.evRule() + "\n"
         + "evMultiplier = " + Util.DoubleMaxString(contractDetails.evMultiplier()) + "\n"
         + "aggGroup = " + Util.IntMaxString(contractDetails.aggGroup()) + "\n"
         + "marketRuleIds = " + contractDetails.marketRuleIds() + "\n"
-        + "timeZoneId = " + contractDetails.timeZoneId() + "\n"
         + "lastTradeTime = " + contractDetails.lastTradeTime() + "\n"
         + "minSize = " + contractDetails.minSize() + "\n"
         + "sizeIncrement = " + contractDetails.sizeIncrement() + "\n"
@@ -213,7 +249,25 @@ public class EWrapperMsgGenerator {
         sb.append("}\n");
         return sb.toString();
     }
+    
+    public static String contractDetailsIneligibilityReasons(ContractDetails contractDetails) {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("ineligibilityReasonList={");
+        sb.append(contractDetailsIneligibilityReasonList(contractDetails));
+        sb.append("}\n");
+        return sb.toString();
+    }
 
+    public static String contractDetailsIneligibilityReasonList(ContractDetails contractDetails) {
+        final StringBuilder sb = new StringBuilder();
+        if (contractDetails.ineligibilityReasonList() != null) {
+            for (IneligibilityReason ineligibilityReason : contractDetails.ineligibilityReasonList()) {
+                sb.append(ineligibilityReason).append(";");
+            }
+        }
+        return sb.toString();
+    }
+    
     public static String contractDetailsEnd(int reqId) {
     	return "reqId = " + reqId + " =============== end ===============";
     }
@@ -231,7 +285,7 @@ public class EWrapperMsgGenerator {
         + "side = " + execution.side() + "\n"
         + "shares = " + execution.shares() + "\n"
         + "price = " + Util.DoubleMaxString(execution.price()) + "\n"
-        + "permId = " + Util.IntMaxString(execution.permId()) + "\n"
+        + "permId = " + Util.LongMaxString(execution.permId()) + "\n"
         + "liquidation = " + Util.IntMaxString(execution.liquidation()) + "\n"
         + "cumQty = " + execution.cumQty() + "\n"
         + "avgPrice = " + Util.DoubleMaxString(execution.avgPrice()) + "\n"
@@ -240,6 +294,7 @@ public class EWrapperMsgGenerator {
         + "evMultiplier = " + Util.DoubleMaxString(execution.evMultiplier()) + "\n"
         + "modelCode = " + execution.modelCode() + "\n"
         + "lastLiquidity = " + execution.lastLiquidity() + "\n"
+        + "pendingPriceRevision = " + execution.pendingPriceRevision() + "\n"
         + " ---- Execution Details end ----\n";
     }
     
@@ -312,7 +367,7 @@ public class EWrapperMsgGenerator {
         " rank=" + Util.IntMaxString(rank) +
         " symbol=" + contract.symbol() +
         " secType=" + contract.getSecType() +
-        " lastTradeDate=" + contract.lastTradeDateOrContractMonth() +
+        " lastTradeDateOrContractMonth=" + contract.lastTradeDateOrContractMonth() +
         " strike=" + Util.DoubleMaxString(contract.strike()) +
         " right=" + contract.getRight() +
         " exchange=" + contract.exchange() +
@@ -353,14 +408,14 @@ public class EWrapperMsgGenerator {
     	return "id=" + reqId + " marketDataType = " + MarketDataType.getField(marketDataType);
     }
     
-    public static String commissionReport( CommissionReport commissionReport) {
-		return "commission report:" +
-        " execId=" + commissionReport.execId() +
-        " commission=" + Util.DoubleMaxString(commissionReport.commission()) +
-        " currency=" + commissionReport.currency() +
-        " realizedPNL=" + Util.DoubleMaxString(commissionReport.realizedPNL()) +
-        " yield=" + Util.DoubleMaxString(commissionReport.yield()) +
-        " yieldRedemptionDate=" + Util.IntMaxString(commissionReport.yieldRedemptionDate());
+    public static String commissionAndFeesReport( CommissionAndFeesReport commissionAndFeesReport) {
+		return "commissionAndFees report:" +
+        " execId=" + commissionAndFeesReport.execId() +
+        " commissionAndFees=" + Util.DoubleMaxString(commissionAndFeesReport.commissionAndFees()) +
+        " currency=" + commissionAndFeesReport.currency() +
+        " realizedPNL=" + Util.DoubleMaxString(commissionAndFeesReport.realizedPNL()) +
+        " yield=" + Util.DoubleMaxString(commissionAndFeesReport.yield()) +
+        " yieldRedemptionDate=" + Util.IntMaxString(commissionAndFeesReport.yieldRedemptionDate());
     }
     
     public static String position( String account, Contract contract, Decimal pos, double avgCost) {
@@ -521,8 +576,9 @@ public class EWrapperMsgGenerator {
     public static String error( Exception ex) { return "Error - " + ex;}
     public static String error( String str) { return str;}
 
-	public static String error(int id, int errorCode, String errorMsg, String advancedOrderRejectJson) {
-		String ret = id + " | " + errorCode + " | " + errorMsg;
+	public static String error(int id, long errorTime, int errorCode, String errorMsg, String advancedOrderRejectJson) {
+		String errorTimeStr = errorTime != 0 ? Util.UnixMillisecondsToString(errorTime, "yyyyMMdd-HH:mm:ss") + "|" : ""; 
+		String ret = id + " | " + errorTimeStr + errorCode + " | " + errorMsg;
 		if (advancedOrderRejectJson != null) {
 			ret += (" | " + advancedOrderRejectJson);
 		}
@@ -666,8 +722,8 @@ public class EWrapperMsgGenerator {
         return "MidPoint. Req Id: " + reqId + " Time: " + Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss") + " MidPoint: " + Util.DoubleMaxString(midPoint);
     }
     
-    public static String orderBound(long orderId, int apiClientId, int apiOrderId){
-        return "order bound: apiOrderId=" + Util.IntMaxString(apiOrderId) + " apiClientId=" + Util.IntMaxString(apiClientId) + " permId=" + Util.LongMaxString(orderId);
+    public static String orderBound(long permId, int clientId, int orderId){
+        return "order bound: orderId=" + Util.IntMaxString(orderId) + " clientId=" + Util.IntMaxString(clientId) + " permId=" + Util.LongMaxString(permId);
     }
     
     public static String completedOrder( Contract contract, Order order, OrderState orderState) {
@@ -725,7 +781,7 @@ public class EWrapperMsgGenerator {
         Util.appendPositiveIntValue(sb, "conid", contract.conid());
         Util.appendNonEmptyString(sb, "symbol", contract.symbol());
         Util.appendNonEmptyString(sb, "secType", contract.getSecType());
-        Util.appendNonEmptyString(sb, "lastTradeDate", contract.lastTradeDateOrContractMonth());
+        Util.appendNonEmptyString(sb, "lastTradeDateOrContractMonth", contract.lastTradeDateOrContractMonth());
         Util.appendPositiveDoubleValue(sb, "strike", contract.strike());
         Util.appendNonEmptyString(sb, "right", contract.getRight(), "?");
         Util.appendNonEmptyString(sb, "multiplier", contract.multiplier());
@@ -743,7 +799,7 @@ public class EWrapperMsgGenerator {
         Util.appendNonEmptyString(sb, "orderRef", order.orderRef());
         Util.appendValidIntValue(sb, "clientId", order.clientId());
         Util.appendValidIntValue(sb, "parentId", order.parentId());
-        Util.appendValidIntValue(sb, "permId", order.permId());
+        Util.appendValidLongValue(sb, "permId", order.permId());
         Util.appendBooleanFlag(sb, "outsideRth", order.outsideRth());
         Util.appendBooleanFlag(sb, "hidden", order.hidden());
         Util.appendValidDoubleValue(sb, "discretionaryAmt", order.discretionaryAmt());
@@ -925,6 +981,12 @@ public class EWrapperMsgGenerator {
         }
         Util.appendValidDoubleValue(sb, "midOffsetAtWhole", order.midOffsetAtWhole());
         Util.appendValidDoubleValue(sb, "midOffsetAtHalf", order.midOffsetAtHalf());
+        Util.appendNonEmptyString(sb, "customerAccount", order.customerAccount());
+        Util.appendBooleanFlag(sb, "professionalCustomer", order.professionalCustomer());
+        Util.appendNonEmptyString(sb, "bondAccruedInterest", order.bondAccruedInterest());
+        Util.appendBooleanFlag(sb, "includeOvernight", order.includeOvernight());
+        Util.appendNonEmptyString(sb, "extOperator", order.extOperator());
+        Util.appendValidIntValue(sb, "manualOrderIndicator", order.manualOrderIndicator());
         
         Util.appendNonEmptyString(sb, "status", orderState.getStatus());
         Util.appendNonEmptyString(sb, "completedTime", orderState.completedTime());
@@ -940,10 +1002,33 @@ public class EWrapperMsgGenerator {
             Util.appendValidDoubleValue(sb, "initMarginAfter", orderState.initMarginAfter());
             Util.appendValidDoubleValue(sb, "maintMarginAfter", orderState.maintMarginAfter());
             Util.appendValidDoubleValue(sb, "equityWithLoanAfter", orderState.equityWithLoanAfter());
-            Util.appendValidDoubleValue(sb, "commission", orderState.commission());
-            Util.appendValidDoubleValue(sb, "minCommission", orderState.minCommission());
-            Util.appendValidDoubleValue(sb, "maxCommission", orderState.maxCommission());
-            Util.appendNonEmptyString(sb, "commissionCurrency", orderState.commissionCurrency());
+            Util.appendValidDoubleValue(sb, "commissionAndFees", orderState.commissionAndFees());
+            Util.appendValidDoubleValue(sb, "minCommissionAndFees", orderState.minCommissionAndFees());
+            Util.appendValidDoubleValue(sb, "maxCommissionAndFees", orderState.maxCommissionAndFees());
+            Util.appendNonEmptyString(sb, "commissionAndFeesCurrency", orderState.commissionAndFeesCurrency());
+            Util.appendNonEmptyString(sb, "marginCurrency", orderState.marginCurrency());
+            Util.appendValidDoubleValue(sb, "initMarginBeforeOutsideRTH", orderState.initMarginBeforeOutsideRTH());
+            Util.appendValidDoubleValue(sb, "maintMarginBeforeOutsideRTH", orderState.maintMarginBeforeOutsideRTH());
+            Util.appendValidDoubleValue(sb, "equityWithLoanBeforeOutsideRTH", orderState.equityWithLoanBeforeOutsideRTH());
+            Util.appendValidDoubleValue(sb, "initMarginChangeOutsideRTH", orderState.initMarginChangeOutsideRTH());
+            Util.appendValidDoubleValue(sb, "maintMarginChangeOutsideRTH", orderState.maintMarginChangeOutsideRTH());
+            Util.appendValidDoubleValue(sb, "equityWithLoanChangeOutsideRTH", orderState.equityWithLoanChangeOutsideRTH());
+            Util.appendValidDoubleValue(sb, "initMarginAfterOutsideRTH", orderState.initMarginAfterOutsideRTH());
+            Util.appendValidDoubleValue(sb, "maintMarginAfterOutsideRTH", orderState.maintMarginAfterOutsideRTH());
+            Util.appendValidDoubleValue(sb, "equityWithLoanAfterOutsideRTH", orderState.equityWithLoanAfterOutsideRTH());
+            Util.appendNonEmptyString(sb, "suggestedSize", orderState.suggestedSize().toString());
+            Util.appendNonEmptyString(sb, "rejectReason", orderState.rejectReason());
+
+            if (orderState.orderAllocations().size() > 0) {
+                sb.append(" orderAllocations={");
+                for (OrderAllocation orderAllocation : orderState.orderAllocations()) {
+                    sb.append(orderAllocation).append(";");
+                }
+                if (!orderState.orderAllocations().isEmpty()) {
+                    sb.setLength(sb.length() - 1);
+                }
+                sb.append('}');
+            }
             Util.appendNonEmptyString(sb, "warningText", orderState.warningText());
         }
         

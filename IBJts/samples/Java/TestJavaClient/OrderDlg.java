@@ -1,4 +1,4 @@
-/* Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -24,6 +24,7 @@ import com.ib.client.Decimal;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
+import com.ib.client.OrderCancel;
 import com.ib.client.TagValue;
 import com.ib.client.Types.UsePriceMgmtAlgo;
 
@@ -47,6 +48,7 @@ public class OrderDlg extends JDialog {
     public int          m_marketDepthRows;
     private Contract 	m_contract = new Contract();
     public Order 		m_order = new Order();
+    public OrderCancel  m_orderCancel = new OrderCancel();
     public DeltaNeutralContract	m_deltaNeutralContract = new DeltaNeutralContract();
     public int          m_exerciseAction;
     public int          m_exerciseQuantity;

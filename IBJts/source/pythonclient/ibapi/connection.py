@@ -1,14 +1,12 @@
 """
-Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 """
-
 
 """
 Just a thin wrapper around a socket.
 It allows us to keep some other info along with it.
 """
-
 
 import socket
 import threading
@@ -16,10 +14,10 @@ import logging
 import sys
 from ibapi.errors import FAIL_CREATE_SOCK
 from ibapi.errors import CONNECT_FAIL
-from ibapi.common import NO_VALID_ID
+from ibapi.const import NO_VALID_ID
+from ibapi.utils import currentTimeMillis
 
-
-#TODO: support SSL !!
+# TODO: support SSL !!
 
 logger = logging.getLogger(__name__)
 
@@ -35,18 +33,20 @@ class Connection:
     def connect(self):
         try:
             self.socket = socket.socket()
-        #TODO: list the exceptions you want to catch
+        # TODO: list the exceptions you want to catch
         except socket.error:
             if self.wrapper:
-                self.wrapper.error(NO_VALID_ID, FAIL_CREATE_SOCK.code(), FAIL_CREATE_SOCK.msg())
+                self.wrapper.error(
+                    NO_VALID_ID, currentTimeMillis(), FAIL_CREATE_SOCK.code(), FAIL_CREATE_SOCK.msg()
+                )
 
         try:
             self.socket.connect((self.host, self.port))
         except socket.error:
             if self.wrapper:
-                self.wrapper.error(NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg())
+                self.wrapper.error(NO_VALID_ID, currentTimeMillis(), CONNECT_FAIL.code(), CONNECT_FAIL.msg())
 
-        self.socket.settimeout(1)   #non-blocking
+        self.socket.settimeout(1)  # non-blocking
 
     def disconnect(self):
         self.lock.acquire()
@@ -105,7 +105,7 @@ class Connection:
             self.disconnect()
             buf = b""
         except OSError:
-            # Thrown if the socket was closed (ex: disconnected at end of script) 
+            # Thrown if the socket was closed (ex: disconnected at end of script)
             # while waiting for self.socket.recv() to timeout.
             logger.debug("Socket is broken or closed.")
 
@@ -124,4 +124,3 @@ class Connection:
                 cont = False
 
         return allbuf
-

@@ -19,6 +19,7 @@ public enum OrderType implements IApiEnum {
 	LIT( Arrays.asList("LIT") ),
 	LMT_PLUS_MKT( Arrays.asList("LMT + MKT", "LMT+MKT") ),
 	LOC( Arrays.asList("LOC", "LMT CLS", "LMTCLS") ),
+	MIDPRICE( Arrays.asList("MIDPRICE") ),
 	MIT( Arrays.asList("MIT") ),
 	MKT_PRT( Arrays.asList("MKT PRT", "MKTPRT") ),
 	MOC( Arrays.asList("MOC", "MKT CLS","MKTCLS") ),

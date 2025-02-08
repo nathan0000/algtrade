@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package samples.testbed.contracts;
@@ -27,7 +27,7 @@ public class ContractSamples {
 		//! [bondwithcusip]
 		Contract contract = new Contract();
 		// enter CUSIP as symbol
-		contract.symbol("912828C57");
+		contract.symbol("449276AA2");
 		contract.secType("BOND");
 		contract.exchange("SMART");
 		contract.currency("USD");
@@ -255,11 +255,11 @@ public class ContractSamples {
 	public static Contract SimpleFuture() {
 		//! [futcontract]
 		Contract contract = new Contract();
-		contract.symbol("GBL");
+		contract.symbol("ES");
 		contract.secType("FUT");
-		contract.currency("EUR");
-		contract.exchange("EUREX");
-		contract.lastTradeDateOrContractMonth("202303");
+		contract.currency("USD");
+		contract.exchange("CME");
+		contract.lastTradeDateOrContractMonth("202503");
 		//! [futcontract]
 		return contract;
 	}
@@ -661,5 +661,15 @@ public class ContractSamples {
 		return contract;
 	}
 	
+	public static Contract Fund() {
+		//! [Fund]
+		Contract contract = new Contract();
+		contract.symbol("I406801954");
+		contract.secType("FUND");
+		contract.currency("USD");
+		contract.exchange("ALLFUNDS");
+		//! [Fund]
+		return contract;
+	}
 	
 }

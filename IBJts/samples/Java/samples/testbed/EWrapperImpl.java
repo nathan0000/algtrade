@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package samples.testbed;
@@ -81,7 +81,7 @@ public class EWrapperImpl implements EWrapper {
 	}
 	//! [orderstatus]
 	@Override
-	public void orderStatus(int orderId, String status, Decimal filled, Decimal remaining, double avgFillPrice, int permId, int parentId,
+	public void orderStatus(int orderId, String status, Decimal filled, Decimal remaining, double avgFillPrice, long permId, int parentId,
 			double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
 		System.out.println(EWrapperMsgGenerator.orderStatus( orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice));
 	}
@@ -274,12 +274,12 @@ public class EWrapperImpl implements EWrapper {
 	}
 	//! [marketdatatype]
 	
-	//! [commissionreport]
+	//! [commissionandfeesreport]
 	@Override
-	public void commissionReport(CommissionReport commissionReport) {
-		System.out.println(EWrapperMsgGenerator.commissionReport(commissionReport));
+	public void commissionAndFeesReport(CommissionAndFeesReport commissionAndFeesReport) {
+		System.out.println(EWrapperMsgGenerator.commissionAndFeesReport(commissionAndFeesReport));
 	}
-	//! [commissionreport]
+	//! [commissionandfeesreport]
 	
 	//! [position]
 	@Override
@@ -351,8 +351,9 @@ public class EWrapperImpl implements EWrapper {
 	}
 	//! [error]
 	@Override
-	public void error(int id, int errorCode, String errorMsg, String advancedOrderRejectJson) {
-		String str = "Error. Id: " + id + ", Code: " + errorCode + ", Msg: " + errorMsg;
+	public void error(int id, long errorTime, int errorCode, String errorMsg, String advancedOrderRejectJson) {
+		String errorTimeStr = errorTime != 0 ? ", Time: " + Util.UnixMillisecondsToString(errorTime, "yyyyMMdd-HH:mm:ss") : ""; 
+		String str = "Error. Id: " + id + errorTimeStr + ", Code: " + errorCode + ", Msg: " + errorMsg;
 		if (advancedOrderRejectJson != null) {
 			str += (", AdvancedOrderRejectJson: " + advancedOrderRejectJson);
 		}
@@ -604,8 +605,8 @@ public class EWrapperImpl implements EWrapper {
 
     //! [orderbound]
     @Override
-    public void orderBound(long orderId, int apiClientId, int apiOrderId) {
-        System.out.println(EWrapperMsgGenerator.orderBound(orderId, apiClientId, apiOrderId));
+    public void orderBound(long permId, int clientId, int orderId) {
+        System.out.println(EWrapperMsgGenerator.orderBound(permId, clientId, orderId));
     }
     //! [orderbound]
 

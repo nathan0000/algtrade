@@ -1,5 +1,5 @@
 """
-Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 """
 
@@ -14,7 +14,7 @@ import os.path
 
 from ibapi import wrapper
 from ibapi.client import EClient
-from ibapi.utils import longMaxString
+from ibapi.utils import getTimeStrFromMillis, longMaxString
 from ibapi.utils import iswrapper
 
 # types
@@ -25,7 +25,7 @@ from ibapi.order import * # @UnusedWildImport
 from ibapi.order_state import * # @UnusedWildImport
 from ibapi.execution import Execution
 from ibapi.execution import ExecutionFilter
-from ibapi.commission_report import CommissionReport
+from ibapi.commission_and_fees_report import CommissionAndFeesReport
 from ibapi.ticktype import * # @UnusedWildImport
 from ibapi.tag_value import TagValue
 
@@ -37,6 +37,8 @@ from AvailableAlgoParams import AvailableAlgoParams
 from ScannerSubscriptionSamples import ScannerSubscriptionSamples
 from FaAllocationSamples import FaAllocationSamples
 from ibapi.scanner import ScanData
+from decimal import Decimal
+from ibapi.ineligibility_reason import IneligibilityReason
 
 
 def SetupLogger():
@@ -71,10 +73,12 @@ def printWhenExecuting(fn):
 
 def printinstance(inst:Object):
     attrs = vars(inst)
-    #print(', '.join('{}:{}'.format(key, decimalMaxString(value) if type(value) is Decimal else value) for key, value in attrs.items()))
     print(', '.join('{}:{}'.format(key, decimalMaxString(value) if type(value) is Decimal else
                                    floatMaxString(value) if type(value) is float else
-                                   intMaxString(value) if type(value) is int else  
+                                   intMaxString(value) if type(value) is int else
+                                   getEnumTypeName(FundAssetType, value) if type(value) is FundAssetType else
+                                   getEnumTypeName(FundDistributionPolicyIndicator, value) if type(value) is FundDistributionPolicyIndicator else  
+                                   "{%s}" % "; ".join(map(str, value)) if type(value) is list else  
                                    value) for key, value in attrs.items()))
 
 class Activity(Object):
@@ -251,10 +255,10 @@ class TestApp(TestWrapper, TestClient):
 
         if self.globalCancelOnly:
             print("Executing GlobalCancel only")
-            self.reqGlobalCancel()
+            self.reqGlobalCancel(OrderSamples.CancelOrderEmpty())
         else:
             print("Executing requests")
-            #self.reqGlobalCancel()
+            #self.reqGlobalCancel(OrderSamples.CancelOrderEmpty()))
             #self.marketDataTypeOperations()
             #self.accountOperations_req()
             #self.tickDataOperations_req()
@@ -266,12 +270,12 @@ class TestApp(TestWrapper, TestClient):
             #self.marketScannersOperations_req()
             #self.fundamentalsOperations_req()
             #self.bulletinsOperations_req()
-            self.contractOperations()
+            #self.contractOperations()
             #self.newsOperations_req()
             #self.miscelaneousOperations()
             #self.linkingOperations()
             #self.financialAdvisorOperations()
-            #self.orderOperations_req()
+            self.orderOperations_req()
             #self.orderOperations_cancel()
             #self.rerouteCFDOperations()
             #self.marketRuleOperations()
@@ -320,12 +324,13 @@ class TestApp(TestWrapper, TestClient):
 
     @iswrapper
     # ! [error]
-    def error(self, reqId: TickerId, errorCode: int, errorString: str, advancedOrderRejectJson = ""):
-        super().error(reqId, errorCode, errorString, advancedOrderRejectJson)
+    def error(self, reqId: TickerId, errorTime: int, errorCode: int, errorString: str, advancedOrderRejectJson = ""):
+        super().error(reqId, errorTime, errorCode, errorString, advancedOrderRejectJson)
+        errorTimeStr = getTimeStrFromMillis(errorTime)
         if advancedOrderRejectJson:
-            print("Error. Id:", reqId, "Code:", errorCode, "Msg:", errorString, "AdvancedOrderRejectJson:", advancedOrderRejectJson)
+            print("Error. Id:", reqId, "Time:", errorTimeStr, "Code:", errorCode, "Msg:", errorString, "AdvancedOrderRejectJson:", advancedOrderRejectJson)
         else:
-            print("Error. Id:", reqId, "Code:", errorCode, "Msg:", errorString)
+            print("Error. Id:", reqId, "Time:", errorTimeStr, "Code:", errorCode, "Msg:", errorString)
 
     # ! [error] self.reqId2nErr[reqId] += 1
 
@@ -339,7 +344,7 @@ class TestApp(TestWrapper, TestClient):
     def openOrder(self, orderId: OrderId, contract: Contract, order: Order,
                   orderState: OrderState):
         super().openOrder(orderId, contract, order, orderState)
-        print("OpenOrder. PermId:", intMaxString(order.permId), "ClientId:", intMaxString(order.clientId), " OrderId:", intMaxString(orderId), 
+        print("OpenOrder. PermId:", longMaxString(order.permId), "ClientId:", intMaxString(order.clientId), " OrderId:", intMaxString(orderId), 
               "Account:", order.account, "Symbol:", contract.symbol, "SecType:", contract.secType,
               "Exchange:", contract.exchange, "Action:", order.action, "OrderType:", order.orderType,
               "TotalQty:", decimalMaxString(order.totalQuantity), "CashQty:", floatMaxString(order.cashQty), 
@@ -347,7 +352,12 @@ class TestApp(TestWrapper, TestClient):
               "MinTradeQty:", intMaxString(order.minTradeQty), "MinCompeteSize:", intMaxString(order.minCompeteSize),
               "competeAgainstBestOffset:", "UpToMid" if order.competeAgainstBestOffset == COMPETE_AGAINST_BEST_OFFSET_UP_TO_MID else floatMaxString(order.competeAgainstBestOffset),
               "MidOffsetAtWhole:", floatMaxString(order.midOffsetAtWhole),"MidOffsetAtHalf:" ,floatMaxString(order.midOffsetAtHalf),
-              "FAGroup:", order.faGroup, "FAMethod:", order.faMethod)
+              "FAGroup:", order.faGroup, "FAMethod:", order.faMethod, "CustomerAccount:", order.customerAccount, "ProfessionalCustomer:", order.professionalCustomer, 
+              "BondAccruedInterest:", order.bondAccruedInterest, "IncludeOvernight:", order.includeOvernight, "ExtOperator:", order.extOperator, 
+              "ManualOrderIndicator:", intMaxString(order.manualOrderIndicator))
+        
+        if order.whatIf:
+            print(orderState)
 
         order.contract = contract
         self.permId2ord[order.permId] = order
@@ -372,7 +382,7 @@ class TestApp(TestWrapper, TestClient):
                             avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice)
         print("OrderStatus. Id:", orderId, "Status:", status, "Filled:", decimalMaxString(filled),
               "Remaining:", decimalMaxString(remaining), "AvgFillPrice:", floatMaxString(avgFillPrice),
-              "PermId:", intMaxString(permId), "ParentId:", intMaxString(parentId), "LastFillPrice:",
+              "PermId:", longMaxString(permId), "ParentId:", intMaxString(parentId), "LastFillPrice:",
               floatMaxString(lastFillPrice), "ClientId:", intMaxString(clientId), "WhyHeld:",
               whyHeld, "MktCapPrice:", floatMaxString(mktCapPrice))
     # ! [orderstatus]
@@ -722,7 +732,7 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqsmartcomponents]
         
         # ! [reqetfticks]
-        self.reqMktData(1019, ContractSamples.etf(), "mdoff,576,577,578,623,614", False, False, [])
+        self.reqMktData(1019, ContractSamples.etf(), "mdoff,577,623,614", False, False, [])
         # ! [reqetfticks]
 
         # ! [reqetfticks]
@@ -875,9 +885,9 @@ class TestApp(TestWrapper, TestClient):
         
     @iswrapper
     # ! [orderbound]
-    def orderBound(self, orderId: int, apiClientId: int, apiOrderId: int):
-        super().orderBound(orderId, apiClientId, apiOrderId)
-        print("OrderBound.", "OrderId:", intMaxString(orderId), "ApiClientId:", intMaxString(apiClientId), "ApiOrderId:", intMaxString(apiOrderId))
+    def orderBound(self, permId: int, clientId: int, orderId: int):
+        super().orderBound(permId, clientId, orderId)
+        print("OrderBound.", "PermId:", longMaxString(permId), "ClientId:", intMaxString(clientId), "OrderId:", intMaxString(orderId))
     # ! [orderbound]
 
     @iswrapper
@@ -892,7 +902,7 @@ class TestApp(TestWrapper, TestClient):
         else:
             print("AllLast.", end='')
         print(" ReqId:", reqId,
-              "Time:", datetime.datetime.fromtimestamp(time).strftime("%Y%m%d-%H:%M:%S"),
+              "Time:", getTimeStrFromMillis(time),
               "Price:", floatMaxString(price), "Size:", decimalMaxString(size), "Exch:" , exchange,
               "Spec Cond:", specialConditions, "PastLimit:", tickAtrribLast.pastLimit, "Unreported:", tickAtrribLast.unreported)
     # ! [tickbytickalllast]
@@ -904,7 +914,7 @@ class TestApp(TestWrapper, TestClient):
         super().tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize,
                                  askSize, tickAttribBidAsk)
         print("BidAsk. ReqId:", reqId,
-              "Time:", datetime.datetime.fromtimestamp(time).strftime("%Y%m%d-%H:%M:%S"),
+              "Time:", getTimeStrFromMillis(time),
               "BidPrice:", floatMaxString(bidPrice), "AskPrice:", floatMaxString(askPrice), "BidSize:", decimalMaxString(bidSize),
               "AskSize:", decimalMaxString(askSize), "BidPastLow:", tickAttribBidAsk.bidPastLow, "AskPastHigh:", tickAttribBidAsk.askPastHigh)
     # ! [tickbytickbidask]
@@ -914,7 +924,7 @@ class TestApp(TestWrapper, TestClient):
     def tickByTickMidPoint(self, reqId: int, time: int, midPoint: float):
         super().tickByTickMidPoint(reqId, time, midPoint)
         print("Midpoint. ReqId:", reqId,
-              "Time:", datetime.datetime.fromtimestamp(time).strftime("%Y%m%d-%H:%M:%S"),
+              "Time:", getTimeStrFromMillis(time),
               "MidPoint:", floatMaxString(midPoint))
     # ! [tickbytickmidpoint]
 
@@ -1107,7 +1117,7 @@ class TestApp(TestWrapper, TestClient):
         # Exercising options
         # ! [exercise_options]
         self.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1,
-                             1, self.account, 1)
+                             1, self.account, 1, "20231018-12:00:00", "CustAcct", True)
         # ! [exercise_options]
 
     @printWhenExecuting
@@ -1163,6 +1173,9 @@ class TestApp(TestWrapper, TestClient):
         self.reqContractDetails(215, ContractSamples.USStockAtSmart())
         self.reqContractDetails(216, ContractSamples.CryptoContract())
         self.reqContractDetails(217, ContractSamples.ByIssuerId())
+        self.reqContractDetails(219, ContractSamples.FundContract())
+        self.reqContractDetails(220, ContractSamples.USStock())
+        self.reqContractDetails(221, ContractSamples.USStockAtSmart())
         # ! [reqcontractdetails]
 
         # ! [reqmatchingsymbols]
@@ -1697,9 +1710,9 @@ class TestApp(TestWrapper, TestClient):
     @printWhenExecuting
     def whatIfOrderOperations(self):
     # ! [whatiflimitorder]
-        whatIfOrder = OrderSamples.LimitOrder("SELL", 5, 70)
+        whatIfOrder = OrderSamples.LimitOrder("BUY", 100, 20)
         whatIfOrder.whatIf = True
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), whatIfOrder)
+        self.placeOrder(self.nextOrderId(), ContractSamples.BondWithCusip(), whatIfOrder)
     # ! [whatiflimitorder]
         time.sleep(2)
 
@@ -1885,21 +1898,45 @@ class TestApp(TestWrapper, TestClient):
         self.placeOrder(self.nextOrderId(), ContractSamples.IBKRATSContract(), OrderSamples.PegMidOrder("BUY", Decimal("100"), 111.11, 100, 0.02, 0.025))
         # ! [place_peg_mid_order]
 
+        # Placing limit order with customer accounte
+        # ! [place_order_with_customer_account]
+        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), OrderSamples.LimitOrderWithCustomerAccount("BUY", Decimal("100"), 111.11, "CustAcct"))
+        # ! [place_order_with_customer_account]
+
+        # Placing limit order with include overnight
+        # ! [place_order_with_include_overnight]
+        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), OrderSamples.LimitOrderWithIncludeOvernight("BUY", Decimal("100"), 111.11))
+        # ! [place_order_with_include_overnight]
+
+        # Placing limit order with CME tagging fields
+        # ! [cme_tagging_fields]
+        self.simplePlaceOid = self.nextOrderId()
+        self.placeOrder(self.simplePlaceOid, ContractSamples.SimpleFuture(), OrderSamples.LimitOrderWithCmeTaggingFields("BUY", Decimal("1"), 5333, "ABCD", 1))
+        time.sleep(5)
+        if self.simplePlaceOid is not None:
+            self.cancelOrder(self.simplePlaceOid, OrderSamples.OrderCancelWithCmeTaggingFields("BCDE", 0));
+        time.sleep(2)
+        self.simplePlaceOid = self.nextOrderId()
+        self.placeOrder(self.simplePlaceOid, ContractSamples.SimpleFuture(), OrderSamples.LimitOrderWithCmeTaggingFields("BUY", Decimal("1"), 5444, "CDEF", 0))
+        time.sleep(5)
+        self.reqGlobalCancel(OrderSamples.OrderCancelWithCmeTaggingFields("DEFG", 1))
+        # ! [cme_tagging_fields]
+
     def orderOperations_cancel(self):
         if self.simplePlaceOid is not None:
             # ! [cancelorder]
-            self.cancelOrder(self.simplePlaceOid, "")
+            self.cancelOrder(self.simplePlaceOid, OrderSamples.CancelOrderEmpty())
             # ! [cancelorder]
             
         # Cancel all orders for all accounts
         # ! [reqglobalcancel]
-        self.reqGlobalCancel()
+        self.reqGlobalCancel(OrderSamples.CancelOrderEmpty())
         # ! [reqglobalcancel]
          
         # Cancel limit order with manual order cancel time
         if self.simplePlaceOid is not None:
             # ! [cancel_order_with_manual_order_time]
-            self.cancelOrder(self.simplePlaceOid, "20220303-13:00:00")
+            self.cancelOrder(self.simplePlaceOid, OrderSamples.CancelOrderWithManualTime("20240614-00:00:10"))
             # ! [cancel_order_with_manual_order_time]
 
     def rerouteCFDOperations(self):
@@ -1945,17 +1982,17 @@ class TestApp(TestWrapper, TestClient):
     # ! [execdetailsend]
 
     @iswrapper
-    # ! [commissionreport]
-    def commissionReport(self, commissionReport: CommissionReport):
-        super().commissionReport(commissionReport)
-        print("CommissionReport.", commissionReport)
-    # ! [commissionreport]
+    # ! [commissionandfeesreport]
+    def commissionAndFeesReport(self, commissionAndFeesReport: CommissionAndFeesReport):
+        super().commissionAndFeesReport(commissionAndFeesReport)
+        print("CommissionAndFeesReport.", commissionAndFeesReport)
+    # ! [commissionandfeesreport]
 
     @iswrapper
     # ! [currenttime]
     def currentTime(self, time:int):
         super().currentTime(time)
-        print("CurrentTime:", datetime.datetime.fromtimestamp(time).strftime("%Y%m%d-%H:%M:%S"))
+        print("CurrentTime:", getTimeStrFromMillis(time))
     # ! [currenttime]
 
     @iswrapper
@@ -1963,7 +2000,7 @@ class TestApp(TestWrapper, TestClient):
     def completedOrder(self, contract: Contract, order: Order,
                   orderState: OrderState):
         super().completedOrder(contract, order, orderState)
-        print("CompletedOrder. PermId:", intMaxString(order.permId), "ParentPermId:", longMaxString(order.parentPermId), "Account:", order.account, 
+        print("CompletedOrder. PermId:", longMaxString(order.permId), "ParentPermId:", longMaxString(order.parentPermId), "Account:", order.account, 
               "Symbol:", contract.symbol, "SecType:", contract.secType, "Exchange:", contract.exchange, 
               "Action:", order.action, "OrderType:", order.orderType, "TotalQty:", decimalMaxString(order.totalQuantity), 
               "CashQty:", floatMaxString(order.cashQty), "FilledQty:", decimalMaxString(order.filledQuantity), 
@@ -1971,7 +2008,8 @@ class TestApp(TestWrapper, TestClient):
               "Completed time:", orderState.completedTime, "Completed Status:" + orderState.completedStatus,
               "MinTradeQty:", intMaxString(order.minTradeQty), "MinCompeteSize:", intMaxString(order.minCompeteSize),
               "competeAgainstBestOffset:", "UpToMid" if order.competeAgainstBestOffset == COMPETE_AGAINST_BEST_OFFSET_UP_TO_MID else floatMaxString(order.competeAgainstBestOffset),
-              "MidOffsetAtWhole:", floatMaxString(order.midOffsetAtWhole),"MidOffsetAtHalf:" ,floatMaxString(order.midOffsetAtHalf))
+              "MidOffsetAtWhole:", floatMaxString(order.midOffsetAtWhole),"MidOffsetAtHalf:" ,floatMaxString(order.midOffsetAtHalf), "CustomerAccount:", order.customerAccount,
+              "ProfessionalCustomer:", order.professionalCustomer)
     # ! [completedorder]
 
     @iswrapper
@@ -2065,6 +2103,7 @@ def main():
         if args.global_cancel:
             app.globalCancelOnly = True
         # ! [connect]
+        app.setConnectOptions("+PACEAPI")
         app.connect("127.0.0.1", args.port, clientId=0)
         # ! [connect]
         print("serverVersion:%s connectionTime:%s" % (app.serverVersion(),

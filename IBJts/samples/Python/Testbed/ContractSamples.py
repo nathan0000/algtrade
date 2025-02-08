@@ -1,5 +1,5 @@
 """
-Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 """
 
@@ -83,49 +83,49 @@ class ContractSamples:
 
     @staticmethod
     def BondWithCusip():
-            #! [bondwithcusip]
-            contract = Contract()
-            # enter CUSIP as symbol
-            contract.symbol= "912828C57"
-            contract.secType = "BOND"
-            contract.exchange = "SMART"
-            contract.currency = "USD"
-            #! [bondwithcusip]
-            return contract
+        #! [bondwithcusip]
+        contract = Contract()
+        # enter CUSIP as symbol
+        contract.symbol= "449276AA2"
+        contract.secType = "BOND"
+        contract.exchange = "SMART"
+        contract.currency = "USD"
+        #! [bondwithcusip]
+        return contract
 
 
     @staticmethod
     def Bond():
-            #! [bond]
-            contract = Contract()
-            contract.conId = 456467716
-            contract.exchange = "SMART"
-            #! [bond]
-            return contract
+        #! [bond]
+        contract = Contract()
+        contract.conId = 456467716
+        contract.exchange = "SMART"
+        #! [bond]
+        return contract
 
 
     @staticmethod
     def MutualFund():
-            #! [fundcontract]
-            contract = Contract()
-            contract.symbol = "VINIX"
-            contract.secType = "FUND"
-            contract.exchange = "FUNDSERV"
-            contract.currency = "USD"
-            #! [fundcontract]
-            return contract
+        #! [fundcontract]
+        contract = Contract()
+        contract.symbol = "VINIX"
+        contract.secType = "FUND"
+        contract.exchange = "FUNDSERV"
+        contract.currency = "USD"
+        #! [fundcontract]
+        return contract
 
 
     @staticmethod
     def Commodity():
-            #! [commoditycontract]
-            contract = Contract()
-            contract.symbol = "XAUUSD"
-            contract.secType = "CMDTY"
-            contract.exchange = "SMART"
-            contract.currency = "USD"
-            #! [commoditycontract]
-            return contract
+        #! [commoditycontract]
+        contract = Contract()
+        contract.symbol = "XAUUSD"
+        contract.secType = "CMDTY"
+        contract.exchange = "SMART"
+        contract.currency = "USD"
+        #! [commoditycontract]
+        return contract
     
 
     @staticmethod
@@ -261,11 +261,11 @@ class ContractSamples:
     def SimpleFuture():
         #! [futcontract]
         contract = Contract()
-        contract.symbol = "GBL"
+        contract.symbol = "ES"
         contract.secType = "FUT"
-        contract.exchange = "EUREX"
-        contract.currency = "EUR"
-        contract.lastTradeDateOrContractMonth = "202303"
+        contract.exchange = "CME"
+        contract.currency = "USD"
+        contract.lastTradeDateOrContractMonth = "202503"
         #! [futcontract]
         return contract
 
@@ -712,6 +712,17 @@ class ContractSamples:
         contract = Contract()
         contract.issuerId = "e1453318"
         # ! [ByIssuerId]
+        return contract
+
+    @staticmethod
+    def FundContract():
+        # ! [fundcontract]
+        contract = Contract()
+        contract.symbol = "I406801954"
+        contract.secType = "FUND"
+        contract.exchange = "ALLFUNDS"
+        contract.currency = "USD"
+        # ! [fundcontract]
         return contract
 
 def Test():

@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
@@ -8,12 +8,14 @@
 #include "OrderState.h"
 #include "Execution.h"
 #include "FamilyCode.h"
-#include "CommissionReport.h"
+#include "CommissionAndFeesReport.h"
 #include "TwsSocketClientErrors.h"
 #include "EDecoder.h"
 #include "EClientMsgSink.h"
 #include "PriceIncrement.h"
 #include "EOrderDecoder.h"
+#include "Utils.h"
+#include "IneligibilityReason.h"
 
 #include <string.h>
 #include <cstdlib>
@@ -258,7 +260,7 @@ const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr)
 	Decimal filled;
 	Decimal remaining;
 	double avgFillPrice;
-	int permId;
+	long long permId;
 	int parentId;
 	double lastFillPrice;
 	int clientId;
@@ -296,12 +298,16 @@ const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr)
 
 const char* EDecoder::processErrMsgMsg(const char* ptr, const char* endPtr) {
 	int version;
-	int id; // ver 2 field
-	int errorCode; // ver 2 field
+	int id;
+	time_t errorTime = 0;
+	int errorCode;
 	std::string errorMsg;
 	std::string advancedOrderRejectJson;
 
-	DECODE_FIELD( version);
+	if (m_serverVersion < MIN_SERVER_VER_ERROR_TIME) {
+		DECODE_FIELD( version);
+	}	
+
 	DECODE_FIELD( id);
 	DECODE_FIELD( errorCode);
 	DECODE_FIELD( errorMsg);
@@ -311,7 +317,11 @@ const char* EDecoder::processErrMsgMsg(const char* ptr, const char* endPtr) {
 		DECODE_FIELD( advancedOrderRejectJson);
 	}
 
-	m_pEWrapper->error( id, errorCode, errorMsg, advancedOrderRejectJson);
+	if (m_serverVersion >= MIN_SERVER_VER_ERROR_TIME) {
+		DECODE_FIELD_TIME(errorTime);
+	}
+
+	m_pEWrapper->error( id, errorTime, errorCode, errorMsg, advancedOrderRejectJson);
 
 	return ptr;
 }
@@ -394,7 +404,7 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
           && eOrderDecoder.decodeDeltaNeutral(ptr, endPtr)
           && eOrderDecoder.decodeAlgoParams(ptr, endPtr)
           && eOrderDecoder.decodeSolicited(ptr, endPtr)
-          && eOrderDecoder.decodeWhatIfInfoAndCommission(ptr, endPtr)
+          && eOrderDecoder.decodeWhatIfInfoAndCommissionAndFees(ptr, endPtr)
           && eOrderDecoder.decodeVolRandomizeFlags(ptr, endPtr)
           && eOrderDecoder.decodePegBenchParams(ptr, endPtr)
           && eOrderDecoder.decodeConditions(ptr, endPtr)
@@ -408,7 +418,12 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
           && eOrderDecoder.decodeDuration(ptr, endPtr)
           && eOrderDecoder.decodePostToAts(ptr, endPtr)
           && eOrderDecoder.decodeAutoCancelParent(ptr, endPtr, MIN_SERVER_VER_AUTO_CANCEL_PARENT)
-          && eOrderDecoder.decodePegBestPegMidOrderAttributes(ptr, endPtr);
+          && eOrderDecoder.decodePegBestPegMidOrderAttributes(ptr, endPtr)
+          && eOrderDecoder.decodeCustomerAccount(ptr, endPtr)
+          && eOrderDecoder.decodeProfessionalCustomer(ptr, endPtr)
+          && eOrderDecoder.decodeBondAccruedInterest(ptr, endPtr)
+          && eOrderDecoder.decodeIncludeOvernight(ptr, endPtr)
+          && eOrderDecoder.decodeCMETaggingFields(ptr, endPtr);
 
         if (!success) {
           return nullptr;
@@ -528,6 +543,9 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
 	DECODE_FIELD( contract.contract.symbol);
 	DECODE_FIELD( contract.contract.secType);
 	ptr = decodeLastTradeDate(ptr, endPtr, contract, false);
+	if (m_serverVersion >= MIN_SERVER_VER_LAST_TRADE_DATE) {
+		DECODE_FIELD( contract.contract.lastTradeDate);
+	}
 	DECODE_FIELD( contract.contract.strike);
 	DECODE_FIELD( contract.contract.right);
 	DECODE_FIELD( contract.contract.exchange);
@@ -605,6 +623,45 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
 		DECODE_FIELD(contract.sizeIncrement);
 		DECODE_FIELD(contract.suggestedSizeIncrement);
 	}
+	if (m_serverVersion >= MIN_SERVER_VER_FUND_DATA_FIELDS && contract.contract.secType == "FUND")	{
+		DECODE_FIELD(contract.fundName);
+		DECODE_FIELD(contract.fundFamily);
+		DECODE_FIELD(contract.fundType);
+		DECODE_FIELD(contract.fundFrontLoad);
+		DECODE_FIELD(contract.fundBackLoad);
+		DECODE_FIELD(contract.fundBackLoadTimeInterval);
+		DECODE_FIELD(contract.fundManagementFee);
+		DECODE_FIELD(contract.fundClosed);
+		DECODE_FIELD(contract.fundClosedForNewInvestors);
+		DECODE_FIELD(contract.fundClosedForNewMoney);
+		DECODE_FIELD(contract.fundNotifyAmount);
+		DECODE_FIELD(contract.fundMinimumInitialPurchase);
+		DECODE_FIELD(contract.fundSubsequentMinimumPurchase);
+		DECODE_FIELD(contract.fundBlueSkyStates);
+		DECODE_FIELD(contract.fundBlueSkyTerritories);
+		std::string fundDistributionPolicyIndicator;
+		DECODE_FIELD(fundDistributionPolicyIndicator);
+		contract.fundDistributionPolicyIndicator = Utils::getFundDistributionPolicyIndicator(fundDistributionPolicyIndicator);
+		std::string fundAssetType;
+		DECODE_FIELD(fundAssetType);
+		contract.fundAssetType = Utils::getFundAssetType(fundAssetType);
+	}
+
+	if (m_serverVersion >= MIN_SERVER_VER_INELIGIBILITY_REASONS) {
+		int ineligibilityReasonCount = 0;
+		DECODE_FIELD(ineligibilityReasonCount);
+		if (ineligibilityReasonCount > 0) {
+			IneligibilityReasonListSPtr ineligibilityReasonList(new IneligibilityReasonList);
+			ineligibilityReasonList->reserve(ineligibilityReasonCount);
+			for (int i = 0; i < ineligibilityReasonCount; ++i) {
+				IneligibilityReasonSPtr ineligibilityReason(new IneligibilityReason());
+				DECODE_FIELD(ineligibilityReason->id);
+				DECODE_FIELD(ineligibilityReason->description);
+				ineligibilityReasonList->push_back(ineligibilityReason);
+			}
+			contract.ineligibilityReasonList = ineligibilityReasonList;
+		}
+	}
 
 	m_pEWrapper->contractDetails( reqId, contract);
 
@@ -654,6 +711,11 @@ const char* EDecoder::processBondContractDataMsg(const char* ptr, const char* en
 	DECODE_FIELD( contract.notes); // ver 2 field
 	if( version >= 4) {
 		DECODE_FIELD( contract.longName);
+	}
+	if (m_serverVersion >= MIN_SERVER_VER_BOND_TRADING_HOURS) {
+		DECODE_FIELD(contract.timeZoneId);
+		DECODE_FIELD(contract.tradingHours);
+		DECODE_FIELD(contract.liquidHours);
 	}
 	if( version >= 6) {
 		DECODE_FIELD( contract.evRule);
@@ -757,6 +819,10 @@ const char* EDecoder::processExecutionDetailsMsg(const char* ptr, const char* en
 
     if (m_serverVersion >= MIN_SERVER_VER_LAST_LIQUIDITY) {
         DECODE_FIELD(exec.lastLiquidity);
+    }
+
+    if (m_serverVersion >= MIN_SERVER_VER_PENDING_PRICE_REVISION) {
+        DECODE_FIELD(exec.pendingPriceRevision);
     }
 
 	m_pEWrapper->execDetails( reqId, contract, exec);
@@ -1152,19 +1218,19 @@ const char* EDecoder::processMarketDataTypeMsg(const char* ptr, const char* endP
 	return ptr;
 }
 
-const char* EDecoder::processCommissionReportMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processCommissionAndFeesReportMsg(const char* ptr, const char* endPtr) {
 	int version;
 	DECODE_FIELD( version);
 
-	CommissionReport commissionReport;
-	DECODE_FIELD( commissionReport.execId);
-	DECODE_FIELD( commissionReport.commission);
-	DECODE_FIELD( commissionReport.currency);
-	DECODE_FIELD( commissionReport.realizedPNL);
-	DECODE_FIELD( commissionReport.yield);
-	DECODE_FIELD( commissionReport.yieldRedemptionDate);
+	CommissionAndFeesReport commissionAndFeesReport;
+	DECODE_FIELD( commissionAndFeesReport.execId);
+	DECODE_FIELD( commissionAndFeesReport.commissionAndFees);
+	DECODE_FIELD( commissionAndFeesReport.currency);
+	DECODE_FIELD( commissionAndFeesReport.realizedPNL);
+	DECODE_FIELD( commissionAndFeesReport.yield);
+	DECODE_FIELD( commissionAndFeesReport.yieldRedemptionDate);
 
-	m_pEWrapper->commissionReport( commissionReport);
+	m_pEWrapper->commissionAndFeesReport( commissionAndFeesReport);
 
 	return ptr;
 }
@@ -1219,16 +1285,16 @@ const char* EDecoder::processAccountSummaryMsg(const char* ptr, const char* endP
 	std::string account;
 	std::string tag;
 	std::string value;
-	std::string curency;
+	std::string currency;
 
 	DECODE_FIELD( version);
 	DECODE_FIELD( reqId);
 	DECODE_FIELD( account);
 	DECODE_FIELD( tag);
 	DECODE_FIELD( value);
-	DECODE_FIELD( curency);
+	DECODE_FIELD( currency);
 
-	m_pEWrapper->accountSummary( reqId, account, tag, value, curency);
+	m_pEWrapper->accountSummary( reqId, account, tag, value, currency);
 
 	return ptr;
 }
@@ -1741,7 +1807,7 @@ int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 		return processed;
 	}
 	catch(const std::exception& e) {
-		m_pEWrapper->error( NO_VALID_ID, SOCKET_EXCEPTION.code(), SOCKET_EXCEPTION.msg() + e.what(), "");
+		m_pEWrapper->error( NO_VALID_ID, Utils::currentTimeMillis(), SOCKET_EXCEPTION.code(), SOCKET_EXCEPTION.msg() + e.what(), "");
 	}
 
 	return 0;
@@ -2047,15 +2113,15 @@ const char* EDecoder::processTickByTickDataMsg(const char* ptr, const char* endP
 }
 
 const char* EDecoder::processOrderBoundMsg(const char* ptr, const char* endPtr) {
-	long long orderId;
-	int apiClientId;
-	int apiOrderId;
+	long long permId;
+	int clientId;
+	int orderId;
 
+	DECODE_FIELD( permId);
+	DECODE_FIELD( clientId);
 	DECODE_FIELD( orderId);
-	DECODE_FIELD( apiClientId);
-	DECODE_FIELD( apiOrderId);
 
-	m_pEWrapper->orderBound( orderId, apiClientId, apiOrderId);
+	m_pEWrapper->orderBound( permId, clientId, orderId);
 
 	return ptr;
 }
@@ -2134,7 +2200,9 @@ const char* EDecoder::processCompletedOrderMsg(const char* ptr, const char* endP
           && eOrderDecoder.decodeParentPermId(ptr, endPtr)
           && eOrderDecoder.decodeCompletedTime(ptr, endPtr)
           && eOrderDecoder.decodeCompletedStatus(ptr, endPtr)
-          && eOrderDecoder.decodePegBestPegMidOrderAttributes(ptr, endPtr);
+          && eOrderDecoder.decodePegBestPegMidOrderAttributes(ptr, endPtr)
+          && eOrderDecoder.decodeCustomerAccount(ptr, endPtr)
+          && eOrderDecoder.decodeProfessionalCustomer(ptr, endPtr);
 
         if (!success) {
           return nullptr;
@@ -2378,8 +2446,8 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 			ptr = processMarketDataTypeMsg(ptr, endPtr);
 			break;
 
-		case COMMISSION_REPORT:
-			ptr = processCommissionReportMsg(ptr, endPtr);
+		case COMMISSION_AND_FEES_REPORT:
+			ptr = processCommissionAndFeesReportMsg(ptr, endPtr);
 			break;
 
 		case POSITION_DATA:
@@ -2572,7 +2640,7 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		default:
 			{
-				m_pEWrapper->error( msgId, UNKNOWN_ID.code(), UNKNOWN_ID.msg(), "");
+				m_pEWrapper->error( msgId, Utils::currentTimeMillis(), UNKNOWN_ID.code(), UNKNOWN_ID.msg(), "");
 				m_pEWrapper->connectionClosed();
 				break;
 			}
@@ -2586,7 +2654,7 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 		return processed;
 	}
 	catch(const std::exception& e) {
-		m_pEWrapper->error( NO_VALID_ID, SOCKET_EXCEPTION.code(), SOCKET_EXCEPTION.msg() + e.what(), "");
+		m_pEWrapper->error( NO_VALID_ID, Utils::currentTimeMillis(), SOCKET_EXCEPTION.code(), SOCKET_EXCEPTION.msg() + e.what(), "");
 	}
 	return 0;
 }
@@ -2713,7 +2781,7 @@ bool EDecoder::DecodeField(Decimal& decimalValue, const char*& ptr, const char* 
 	const char* fieldEnd = FindFieldEnd(fieldBeg, endPtr);
 	if (!fieldEnd)
 		return false;
-	decimalValue = stringToDecimal(fieldBeg);
+	decimalValue = DecimalFunctions::stringToDecimal(fieldBeg);
 	ptr = ++fieldEnd;
 	return true;
 }
@@ -2753,24 +2821,24 @@ const char* EDecoder::decodeLastTradeDate(const char* ptr, const char* endPtr, C
 		if (lastTradeDateOrContractMonth.find("-") != std::string::npos) {
 			split_with = '-';
 		}
-		std::vector<std::string> splitted;
+		std::vector<std::string> split;
 		std::istringstream buf(lastTradeDateOrContractMonth);
 		std::string s;
 		while (getline(buf, s, split_with)) {
-			splitted.push_back(s);
+			split.push_back(s);
 		}
-		if (splitted.size() > 0) {
+		if (split.size() > 0) {
 			if (isBond) {
-				contract.maturity = splitted[0];
+				contract.maturity = split[0];
 			} else {
-				contract.contract.lastTradeDateOrContractMonth = splitted[0];
+				contract.contract.lastTradeDateOrContractMonth = split[0];
 			}
 		}
-		if (splitted.size() > 1) {
-			contract.lastTradeTime = splitted[1];
+		if (split.size() > 1) {
+			contract.lastTradeTime = split[1];
 		}
-		if (isBond && splitted.size() > 2) {
-			contract.timeZoneId = splitted[2];
+		if (isBond && split.size() > 2) {
+			contract.timeZoneId = split[2];
 		}
 	}
 	return ptr;

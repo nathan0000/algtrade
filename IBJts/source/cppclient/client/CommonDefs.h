@@ -30,4 +30,24 @@ enum MarketDataType {
 
 const std::string INFINITY_STR = "Infinity";
 
+// FundAssetType
+enum class FundAssetType {
+    None,
+    Others,
+    MoneyMarket,
+    FixedIncome,
+    MultiAsset,
+    Equity,
+    Sector,
+    Guaranteed,
+    Alternative
+};
+
+// FundDistributionPolicyIndicator
+enum class FundDistributionPolicyIndicator {
+    None,
+    AccumulationFund,
+    IncomeFund
+};
+
 #endif /* common_defs_h_INCLUDED */

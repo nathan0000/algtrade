@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -20,10 +20,12 @@ class ConnectDlg extends JDialog {
     private JTextField 	m_ipAddress = new JTextField();
     private JTextField 	m_port = new JTextField( "7496");
     private JTextField 	m_clientId = new JTextField();
+    private JTextField  m_connectOptions = new JTextField( "+PACEAPI");
     private JTextField  m_optCapts = new JTextField();
     JButton 	m_ok = new JButton( "OK");
     JButton 	m_cancel = new JButton( "Cancel");
     String 	m_retIpAddress;
+    String  m_retConnectOptions;
     String  m_retOptCapts;
     int 	m_retPort;
     int 	m_retClientId;
@@ -51,6 +53,8 @@ class ConnectDlg extends JDialog {
         midPanel.add( new JLabel( "Client ID") );
         midPanel.add( m_clientId);
         m_clientId.setText( Integer.toString(LAST_CLIENT_ID) );
+        midPanel.add( new JLabel( "Connect options") );
+        midPanel.add( m_connectOptions );
         midPanel.add( new JLabel( "Optional capabilities") );
         midPanel.add( m_optCapts );
         JPanel defaultPortNumberPanel = new JPanel();
@@ -77,6 +81,7 @@ class ConnectDlg extends JDialog {
             m_retIpAddress = m_ipAddress.getText();
             m_retPort = Integer.parseInt( m_port.getText() );
             m_retClientId = Integer.parseInt( m_clientId.getText() );
+            m_retConnectOptions = m_connectOptions.getText();
             m_retOptCapts = m_optCapts.getText();
             LAST_CLIENT_ID = m_retClientId;
         }

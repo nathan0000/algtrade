@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import com.ib.client.Types.FundAssetType;
+import com.ib.client.Types.FundDistributionPolicyIndicator;
+import com.ib.client.Types.SecType;
 
 class EDecoder implements ObjectInput {
     // incoming msg id's
@@ -54,7 +58,7 @@ class EDecoder implements ObjectInput {
     private static final int DELTA_NEUTRAL_VALIDATION = 56;
     private static final int TICK_SNAPSHOT_END = 57;
     private static final int MARKET_DATA_TYPE = 58;
-    private static final int COMMISSION_REPORT = 59;
+    private static final int COMMISSION_AND_FEES_REPORT = 59;
     private static final int POSITION = 61;
     private static final int POSITION_END = 62;
     private static final int ACCOUNT_SUMMARY = 63;
@@ -326,8 +330,8 @@ class EDecoder implements ObjectInput {
                 processMarketDataTypeMsg();
                 break;
             
-            case COMMISSION_REPORT:
-                processCommissionReportMsg();
+            case COMMISSION_AND_FEES_REPORT:
+                processCommissionAndFeesReportMsg();
                 break;
             
             case VERIFY_MESSAGE_API:
@@ -503,7 +507,7 @@ class EDecoder implements ObjectInput {
                 break;
                 
             default: {
-                m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg(), null);
+                m_EWrapper.error( EClientErrors.NO_VALID_ID, Util.currentTimeMillis(), EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg(), null);
                 return 0;
             }
         }
@@ -908,18 +912,18 @@ class EDecoder implements ObjectInput {
 		m_EWrapper.verifyMessageAPI(apiData);
 	}
 
-	private void processCommissionReportMsg() throws IOException {
+	private void processCommissionAndFeesReportMsg() throws IOException {
 		/*int version =*/ readInt();
 
-		CommissionReport commissionReport = new CommissionReport();
-		commissionReport.execId(readStr());
-		commissionReport.commission(readDouble());
-		commissionReport.currency(readStr());
-		commissionReport.realizedPNL(readDouble());
-		commissionReport.yield(readDouble());
-		commissionReport.yieldRedemptionDate(readInt());
+		CommissionAndFeesReport commissionAndFeesReport = new CommissionAndFeesReport();
+		commissionAndFeesReport.execId(readStr());
+		commissionAndFeesReport.commissionAndFees(readDouble());
+		commissionAndFeesReport.currency(readStr());
+		commissionAndFeesReport.realizedPNL(readDouble());
+		commissionAndFeesReport.yield(readDouble());
+		commissionAndFeesReport.yieldRedemptionDate(readInt());
 
-		m_EWrapper.commissionReport( commissionReport);
+		m_EWrapper.commissionAndFeesReport( commissionAndFeesReport);
 	}
 
 	private void processMarketDataTypeMsg() throws IOException {
@@ -1145,7 +1149,7 @@ class EDecoder implements ObjectInput {
 		exec.shares(readDecimal());
 		exec.price(readDouble());
 		if ( version >= 2 ) {
-		    exec.permId(readInt());
+		    exec.permId(readLong());
 		}
 		if ( version >= 3) {
 		    exec.clientId(readInt());
@@ -1170,6 +1174,10 @@ class EDecoder implements ObjectInput {
 		
         if (m_serverVersion >= EClient.MIN_SERVER_VER_LAST_LIQUIDITY) {
             exec.lastLiquidity(readInt());
+        }
+        
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_PENDING_PRICE_REVISION) {
+        	exec.pendingPriceRevision(readBoolFromInt());
         }
 
 
@@ -1222,6 +1230,11 @@ class EDecoder implements ObjectInput {
 		if( version >= 4) {
 		   contract.longName(readStr());
 		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_BOND_TRADING_HOURS) {
+		    contract.timeZoneId(readStr());
+		    contract.tradingHours(readStr());
+		    contract.liquidHours(readStr());
+		}
 		if ( version >= 6) {
 		    contract.evRule(readStr());
 		    contract.evMultiplier(readDouble());
@@ -1268,6 +1281,9 @@ class EDecoder implements ObjectInput {
 		contract.contract().symbol(readStr());
 		contract.contract().secType(readStr());
 		readLastTradeDate(contract, false);
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_LAST_TRADE_DATE) {
+			contract.contract().lastTradeDate(readStr());
+		}
 		contract.contract().strike(readDouble());
 		contract.contract().right(readStr());
 		contract.contract().exchange(readStr());
@@ -1342,7 +1358,38 @@ class EDecoder implements ObjectInput {
 		    contract.sizeIncrement(readDecimal());
 		    contract.suggestedSizeIncrement(readDecimal());
 		}
-		
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_FUND_DATA_FIELDS && contract.contract().secType() == SecType.FUND) {
+            contract.fundName(readStr());
+            contract.fundFamily(readStr());
+            contract.fundType(readStr());
+            contract.fundFrontLoad(readStr());
+            contract.fundBackLoad(readStr());
+            contract.fundBackLoadTimeInterval(readStr());
+            contract.fundManagementFee(readStr());
+            contract.fundClosed(readBoolFromInt());
+            contract.fundClosedForNewInvestors(readBoolFromInt());
+            contract.fundClosedForNewMoney(readBoolFromInt());
+            contract.fundNotifyAmount(readStr());
+            contract.fundMinimumInitialPurchase(readStr());
+            contract.fundSubsequentMinimumPurchase(readStr());
+            contract.fundBlueSkyStates(readStr());
+            contract.fundBlueSkyTerritories(readStr());
+            contract.fundDistributionPolicyIndicator(FundDistributionPolicyIndicator.get(readStr()));
+            contract.fundAssetType(FundAssetType.get(readStr()));
+        }
+        
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_INELIGIBILITY_REASONS) {
+            int ineligibilityReasonCount = readInt();
+            List<IneligibilityReason> ineligibilityReasonList = new ArrayList<>();
+
+            for (int i = 0; i < ineligibilityReasonCount; i++) {
+                String id = readStr();
+                String description = readStr();
+                ineligibilityReasonList.add(new IneligibilityReason(id, description));
+            }
+            contract.ineligibilityReasonList(ineligibilityReasonList);
+        }
+
 		m_EWrapper.contractDetails( reqId, contract);
 	}
 
@@ -1455,7 +1502,7 @@ class EDecoder implements ObjectInput {
         eOrderDecoder.readDeltaNeutral();
         eOrderDecoder.readAlgoParams();
         eOrderDecoder.readSolicited();
-        eOrderDecoder.readWhatIfInfoAndCommission();
+        eOrderDecoder.readWhatIfInfoAndCommissionAndFees();
         eOrderDecoder.readVolRandomizeFlags();
         eOrderDecoder.readPegToBenchParams();
         eOrderDecoder.readConditions();
@@ -1470,26 +1517,32 @@ class EDecoder implements ObjectInput {
         eOrderDecoder.readPostToAts();
         eOrderDecoder.readAutoCancelParent(EClient.MIN_SERVER_VER_AUTO_CANCEL_PARENT);
         eOrderDecoder.readPegBestPegMidOrderAttributes();
+        eOrderDecoder.readCustomerAccount();
+        eOrderDecoder.readProfessionalCustomer();
+        eOrderDecoder.readBondAccruedInterest();
+        eOrderDecoder.readIncludeOvernight();
+        eOrderDecoder.readCMETaggingFields();
 
         m_EWrapper.openOrder(order.orderId(), contract, order, orderState);
     }
 
-	private void processErrMsgMsg() throws IOException {
-		int version = readInt();
-		if(version < 2) {
-		    String msg = readStr();
-		    m_EWrapper.error( msg);
-		} else {
-		    int id = readInt();
-		    int errorCode   = readInt();
-		    String errorMsg = m_serverVersion >= EClient.MIN_SERVER_VER_ENCODE_MSG_ASCII7 ? decodeUnicodeEscapedString(readStr()) : readStr();
-		    String advancedOrderRejectJson = null;
-		    if (m_serverVersion >= EClient.MIN_SERVER_VER_ADVANCED_ORDER_REJECT) {
-		        advancedOrderRejectJson = decodeUnicodeEscapedString(readStr());
-		    }
-	        m_EWrapper.error(id, errorCode, errorMsg, advancedOrderRejectJson);
-		}
-	}
+    private void processErrMsgMsg() throws IOException {
+        if (m_serverVersion < EClient.MIN_SERVER_VER_ERROR_TIME) {
+            /*int version =*/ readInt();
+        }
+        int id = readInt();
+        int errorCode   = readInt();
+        String errorMsg = m_serverVersion >= EClient.MIN_SERVER_VER_ENCODE_MSG_ASCII7 ? decodeUnicodeEscapedString(readStr()) : readStr();
+        String advancedOrderRejectJson = null;
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_ADVANCED_ORDER_REJECT) {
+            advancedOrderRejectJson = decodeUnicodeEscapedString(readStr());
+        }
+        long errorTime = 0;
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_ERROR_TIME) {
+            errorTime = readLong();
+        }
+        m_EWrapper.error(id, errorTime, errorCode, errorMsg, advancedOrderRejectJson);
+    }
 
 	private void processAcctUpdateTimeMsg() throws IOException {
 		/*int version =*/ readInt();
@@ -1565,9 +1618,9 @@ class EDecoder implements ObjectInput {
 		Decimal remaining = readDecimal();
 		double avgFillPrice = readDouble();
 
-		int permId = 0;
+		long permId = 0;
 		if( version >= 2) {
-		    permId = readInt();
+		    permId = readLong();
 		}
 
 		int parentId = 0;
@@ -1923,10 +1976,10 @@ class EDecoder implements ObjectInput {
     }
 
     private void processOrderBoundMsg() throws IOException {
-        long orderId = readLong();
-        int apiClientId = readInt();
-        int apiOrderId = readInt();
-        m_EWrapper.orderBound(orderId, apiClientId, apiOrderId);
+        long permId = readLong();
+        int clientId = readInt();
+        int orderId = readInt();
+        m_EWrapper.orderBound(permId, clientId, orderId);
     }
     
     private void processCompletedOrderMsg() throws IOException {
@@ -2001,6 +2054,8 @@ class EDecoder implements ObjectInput {
         eOrderDecoder.readCompletedTime();
         eOrderDecoder.readCompletedStatus();
         eOrderDecoder.readPegBestPegMidOrderAttributes();
+        eOrderDecoder.readCustomerAccount();
+        eOrderDecoder.readProfessionalCustomer();
 
         m_EWrapper.completedOrder(contract, order, orderState);
     }
@@ -2058,19 +2113,19 @@ class EDecoder implements ObjectInput {
     private void readLastTradeDate(ContractDetails contract, boolean isBond) throws IOException {
         String lastTradeDateOrContractMonth = readStr();
         if (lastTradeDateOrContractMonth != null) {
-            String[] splitted = lastTradeDateOrContractMonth.contains("-") ? lastTradeDateOrContractMonth.split("-") : lastTradeDateOrContractMonth.split("\\s+");
-            if (splitted.length > 0) {
+            String[] split = lastTradeDateOrContractMonth.contains("-") ? lastTradeDateOrContractMonth.split("-") : lastTradeDateOrContractMonth.split("\\s+");
+            if (split.length > 0) {
                 if (isBond) {
-                    contract.maturity(splitted[0]);
+                    contract.maturity(split[0]);
                 } else {
-                    contract.contract().lastTradeDateOrContractMonth(splitted[0]);
+                    contract.contract().lastTradeDateOrContractMonth(split[0]);
                 }
             }
-            if (splitted.length > 1) {
-                contract.lastTradeTime(splitted[1]);
+            if (split.length > 1) {
+                contract.lastTradeTime(split[1]);
             }
-            if (isBond && splitted.length > 2) {
-                contract.timeZoneId(splitted[2]);
+            if (isBond && split.length > 2) {
+                contract.timeZoneId(split[2]);
             }
         }
     }
@@ -2115,6 +2170,7 @@ class EDecoder implements ObjectInput {
         String str = readStr();
         return (str == null || str.isEmpty() || 
                 str.equals(String.valueOf(Long.MAX_VALUE)) ||
+                str.equals(String.valueOf(Long.MIN_VALUE)) ||
                 str.equals(String.valueOf(Integer.MAX_VALUE)) ||
                 str.equals(String.valueOf(Double.MAX_VALUE))) ? Decimal.INVALID : Decimal.parse(str);
     }

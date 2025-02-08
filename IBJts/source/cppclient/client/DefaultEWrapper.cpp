@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
@@ -13,7 +13,7 @@ void DefaultEWrapper::tickString(TickerId tickerId, TickType tickType, const std
 void DefaultEWrapper::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
 	   double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) { }
 void DefaultEWrapper::orderStatus( OrderId orderId, const std::string& status, Decimal filled,
-	   Decimal remaining, double avgFillPrice, int permId, int parentId,
+	   Decimal remaining, double avgFillPrice, long long permId, int parentId,
 	   double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice) { }
 void DefaultEWrapper::openOrder( OrderId orderId, const Contract&, const Order&, const OrderState&) { }
 void DefaultEWrapper::openOrderEnd() { }
@@ -32,7 +32,7 @@ void DefaultEWrapper::bondContractDetails( int reqId, const ContractDetails& con
 void DefaultEWrapper::contractDetailsEnd( int reqId) { }
 void DefaultEWrapper::execDetails( int reqId, const Contract& contract, const Execution& execution) { }
 void DefaultEWrapper::execDetailsEnd( int reqId) { }
-void DefaultEWrapper::error(int id, int errorCode, const std::string& errorString, const std::string& advancedOrderRejectJson) { }
+void DefaultEWrapper::error(int id, time_t errorTime, int errorCode, const std::string& errorString, const std::string& advancedOrderRejectJson) { }
 void DefaultEWrapper::updateMktDepth(TickerId id, int position, int operation, int side,
 	double price, Decimal size) { }
 void DefaultEWrapper::updateMktDepthL2(TickerId id, int position, const std::string& marketMaker, int operation,
@@ -54,10 +54,10 @@ void DefaultEWrapper::fundamentalData(TickerId reqId, const std::string& data) {
 void DefaultEWrapper::deltaNeutralValidation(int reqId, const DeltaNeutralContract& deltaNeutralContract) { }
 void DefaultEWrapper::tickSnapshotEnd( int reqId) { }
 void DefaultEWrapper::marketDataType( TickerId reqId, int marketDataType) { }
-void DefaultEWrapper::commissionReport( const CommissionReport& commissionReport) { }
+void DefaultEWrapper::commissionAndFeesReport( const CommissionAndFeesReport& commissionAndFeesReport) { }
 void DefaultEWrapper::position( const std::string& account, const Contract& contract, Decimal position, double avgCost) { }
 void DefaultEWrapper::positionEnd() { }
-void DefaultEWrapper::accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency) { }
+void DefaultEWrapper::accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& currency) { }
 void DefaultEWrapper::accountSummaryEnd( int reqId) { }
 void DefaultEWrapper::verifyMessageAPI( const std::string& apiData) { }
 void DefaultEWrapper::verifyCompleted( bool isSuccessful, const std::string& errorText) { }
@@ -98,7 +98,7 @@ void DefaultEWrapper::historicalTicksLast(int reqId, const std::vector<Historica
 void DefaultEWrapper::tickByTickAllLast(int reqId, int tickType, time_t time, double price, Decimal size, const TickAttribLast& tickAttribLast, const std::string& exchange, const std::string& specialConditions) { }
 void DefaultEWrapper::tickByTickBidAsk(int reqId, time_t time, double bidPrice, double askPrice, Decimal bidSize, Decimal askSize, const TickAttribBidAsk& tickAttribBidAsk) { }
 void DefaultEWrapper::tickByTickMidPoint(int reqId, time_t time, double midPoint) { }
-void DefaultEWrapper::orderBound(long long orderId, int apiClientId, int apiOrderId) { }
+void DefaultEWrapper::orderBound(long long permId, int clientId, int orderId) { }
 void DefaultEWrapper::completedOrder(const Contract& contract, const Order& order, const OrderState& orderState) { }
 void DefaultEWrapper::completedOrdersEnd() { }
 void DefaultEWrapper::replaceFAEnd(int reqId, const std::string& text) { }

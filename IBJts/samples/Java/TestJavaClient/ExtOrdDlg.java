@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -18,11 +18,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.ib.client.Order;
+import com.ib.client.OrderCancel;
 
 import apidemo.util.UpperField;
 
 public class ExtOrdDlg extends JDialog {
     public Order 		m_order = new Order();
+    public OrderCancel  m_orderCancel = new OrderCancel();
     public boolean 		m_rc;
 
     private JTextField 	m_tif = new JTextField( "DAY");
@@ -119,6 +121,11 @@ public class ExtOrdDlg extends JDialog {
     private JCheckBox   m_competeAgainstBestOffsetUpToMid = new JCheckBox("Compete Against Best Offset Up To Mid", false);
     private JTextField  m_midOffsetAtWhole = new JTextField();
     private JTextField  m_midOffsetAtHalf = new JTextField();
+    private JTextField  m_customerAccount = new JTextField();
+    private JCheckBox   m_professionalCustomer = new JCheckBox("Professional Customer", false);
+    private JCheckBox   m_includeOvernight = new JCheckBox("Include Overnight", false);
+    private JTextField  m_extOperator = new JTextField();
+    private UpperField  m_manualOrderIndicator = new UpperField();
 
     ExtOrdDlg( OrderDlg owner) {
         super( owner, true);
@@ -297,8 +304,8 @@ public class ExtOrdDlg extends JDialog {
         extOrderDetailsPanel.add(m_manualOrderTime);
         extOrderDetailsPanel.add(new JLabel("Manual Order Cancel Time"));
         extOrderDetailsPanel.add(m_manualOrderCancelTime);
-        extOrderDetailsPanel.add( new JLabel(""));
-        extOrderDetailsPanel.add( new JLabel(""));
+        extOrderDetailsPanel.add(new JLabel("Customer Account"));
+        extOrderDetailsPanel.add(m_customerAccount);
         extOrderDetailsPanel.add(new JLabel("Min Trade Qty"));
         extOrderDetailsPanel.add(m_minTradeQty);
         extOrderDetailsPanel.add(new JLabel("Min Compete Size"));
@@ -311,6 +318,14 @@ public class ExtOrdDlg extends JDialog {
         extOrderDetailsPanel.add(m_midOffsetAtWhole);
         extOrderDetailsPanel.add(new JLabel("Mid Offset At Half"));
         extOrderDetailsPanel.add(m_midOffsetAtHalf);
+        extOrderDetailsPanel.add(m_professionalCustomer);
+        extOrderDetailsPanel.add( new JLabel(""));
+        extOrderDetailsPanel.add(m_includeOvernight);
+        extOrderDetailsPanel.add( new JLabel(""));
+        extOrderDetailsPanel.add(new JLabel("Ext Operator"));
+        extOrderDetailsPanel.add(m_extOperator);
+        extOrderDetailsPanel.add(new JLabel("Manual Order Indicator"));
+        extOrderDetailsPanel.add(m_manualOrderIndicator);
         
         // add listeners
         m_competeAgainstBestOffsetUpToMid.addItemListener(new ItemListener() {
@@ -438,6 +453,15 @@ public class ExtOrdDlg extends JDialog {
                     Order.COMPETE_AGAINST_BEST_OFFSET_UP_TO_MID : parseMaxDouble(m_competeAgainstBestOffset)); 
             m_order.midOffsetAtWhole(parseMaxDouble(m_midOffsetAtWhole));
             m_order.midOffsetAtHalf(parseMaxDouble(m_midOffsetAtHalf));
+            m_order.customerAccount(m_customerAccount.getText());
+            m_order.professionalCustomer(m_professionalCustomer.isSelected());
+            m_order.includeOvernight(m_includeOvernight.isSelected());
+            m_order.extOperator(m_extOperator.getText());
+            m_order.manualOrderIndicator(parseMaxInt(m_manualOrderIndicator));
+
+            m_orderCancel.manualOrderCancelTime(m_manualOrderCancelTime.getText());
+            m_orderCancel.extOperator(m_extOperator.getText());
+            m_orderCancel.manualOrderIndicator(parseMaxInt(m_manualOrderIndicator));
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);
@@ -484,8 +508,16 @@ public class ExtOrdDlg extends JDialog {
         m_rc = false;
         setVisible( false);
     }
+
+    public String manualOrderTime() {
+        return m_manualOrderTime.getText();
+    }
     
-    public String manualOrderCancelTime() {
-        return m_manualOrderCancelTime.getText();
+    public String customerAccount() {
+        return m_customerAccount.getText();
+    }
+
+    public boolean professionalCustomer() {
+        return m_professionalCustomer.isSelected();
     }
 }

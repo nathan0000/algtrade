@@ -1,4 +1,4 @@
-/* Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -135,12 +135,30 @@ const int MIN_SERVER_VER_INSTRUMENT_TIMEZONE         = 174;
 const int MIN_SERVER_VER_HMDS_MARKET_DATA_IN_SHARES  = 175;
 const int MIN_SERVER_VER_BOND_ISSUERID               = 176;
 const int MIN_SERVER_VER_FA_PROFILE_DESUPPORT        = 177;
+const int MIN_SERVER_VER_PENDING_PRICE_REVISION      = 178;
+const int MIN_SERVER_VER_FUND_DATA_FIELDS            = 179;
+const int MIN_SERVER_VER_MANUAL_ORDER_TIME_EXERCISE_OPTIONS = 180;
+const int MIN_SERVER_VER_OPEN_ORDER_AD_STRATEGY      = 181;
+const int MIN_SERVER_VER_LAST_TRADE_DATE             = 182;
+const int MIN_SERVER_VER_CUSTOMER_ACCOUNT            = 183;
+const int MIN_SERVER_VER_PROFESSIONAL_CUSTOMER       = 184;
+const int MIN_SERVER_VER_BOND_ACCRUED_INTEREST       = 185;
+const int MIN_SERVER_VER_INELIGIBILITY_REASONS       = 186;
+const int MIN_SERVER_VER_RFQ_FIELDS                  = 187;
+const int MIN_SERVER_VER_BOND_TRADING_HOURS          = 188;
+const int MIN_SERVER_VER_INCLUDE_OVERNIGHT           = 189;
+const int MIN_SERVER_VER_UNDO_RFQ_FIELDS             = 190;
+const int MIN_SERVER_VER_PERM_ID_AS_LONG             = 191;
+const int MIN_SERVER_VER_CME_TAGGING_FIELDS          = 192;
+const int MIN_SERVER_VER_CME_TAGGING_FIELDS_IN_OPEN_ORDER = 193;
+const int MIN_SERVER_VER_ERROR_TIME                  = 194;
+const int MIN_SERVER_VER_FULL_ORDER_PREVIEW_FIELDS   = 195;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_FA_PROFILE_DESUPPORT;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_FULL_ORDER_PREVIEW_FIELDS;
 
 
 // incoming msg id's
@@ -178,7 +196,7 @@ const int EXECUTION_DATA_END                        = 55;
 const int DELTA_NEUTRAL_VALIDATION                  = 56;
 const int TICK_SNAPSHOT_END                         = 57;
 const int MARKET_DATA_TYPE                          = 58;
-const int COMMISSION_REPORT                         = 59;
+const int COMMISSION_AND_FEES_REPORT                = 59;
 const int POSITION_DATA                             = 61;
 const int POSITION_END                              = 62;
 const int ACCOUNT_SUMMARY                           = 63;
@@ -302,7 +320,7 @@ class TWSAPIDLLEXP EDecoder
     const char* processDeltaNeutralValidationMsg(const char* ptr, const char* endPtr);
     const char* processTickSnapshotEndMsg(const char* ptr, const char* endPtr);
     const char* processMarketDataTypeMsg(const char* ptr, const char* endPtr);
-    const char* processCommissionReportMsg(const char* ptr, const char* endPtr);
+    const char* processCommissionAndFeesReportMsg(const char* ptr, const char* endPtr);
     const char* processPositionDataMsg(const char* ptr, const char* endPtr);
     const char* processPositionEndMsg(const char* ptr, const char* endPtr);
     const char* processAccountSummaryMsg(const char* ptr, const char* endPtr);

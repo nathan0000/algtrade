@@ -273,7 +273,7 @@ def main():
     app.run()
     
     contract_event = threading.Event()
-"""
+
     for ticker in tickers:
 #        contract_event.clear()
         print(f"ticker: {ticker}")
@@ -283,7 +283,7 @@ def main():
 
     app.sleep(1)
     app.disconnect()
-"""
+
     
 if __name__ == "__main__":
     main()

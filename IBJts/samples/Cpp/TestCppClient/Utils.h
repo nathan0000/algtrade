@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 #pragma once
 #ifndef TWS_API_SAMPLES_TESTCPPCLIENT_UTILS_H
@@ -7,6 +7,7 @@
 #include <vector>
 #include <cstdint>
 #include <string>
+#include "CommonDefs.h"
 
 class Utils {
 
@@ -19,6 +20,9 @@ public:
     static std::string intMaxString(int value);
     static std::string longMaxString(long value);
     static std::string llongMaxString(long long value);
+
+    static std::string getFundDistributionPolicyIndicatorName(FundDistributionPolicyIndicator fundDistributionPolicyIndicator);
+    static std::string getFundAssetTypeName(FundAssetType fundAssetType);
 };
 
 #endif

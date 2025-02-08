@@ -1,4 +1,4 @@
-/* Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -345,7 +345,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     private void onCancelWshEventData() {
-        m_client.cancelWshMetaData(m_wshEventDlg.m_reqId);
+        m_client.cancelWshEventData(m_wshEventDlg.m_reqId);
     }
 
     private void onReqWshEventData() {
@@ -532,6 +532,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // connect to TWS
         m_disconnectInProgress = false;
         
+        m_client.setConnectOptions(dlg.m_retConnectOptions);
         m_client.optionalCapabilities(dlg.m_retOptCapts);
         m_client.eConnect( dlg.m_retIpAddress, dlg.m_retPort, dlg.m_retClientId);
         if (m_client.isConnected()) {
@@ -828,7 +829,8 @@ class SampleFrame extends JFrame implements EWrapper {
         // cancel order
         m_client.exerciseOptions( m_orderDlg.id(), m_orderDlg.contract(),
                                   m_orderDlg.m_exerciseAction, m_orderDlg.m_exerciseQuantity,
-                                  m_orderDlg.m_order.account(), m_orderDlg.m_override);
+                                  m_orderDlg.m_order.account(), m_orderDlg.m_override,
+                                  m_extOrdDlg.manualOrderTime(), m_extOrdDlg.customerAccount(), m_extOrdDlg.professionalCustomer());
     }
 
     private void onCancelOrder() {
@@ -840,7 +842,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         // cancel order
-        m_client.cancelOrder( m_orderDlg.id(), m_extOrdDlg.manualOrderCancelTime() );
+        m_client.cancelOrder( m_orderDlg.id(), m_orderDlg.m_orderCancel);
     }
 
     private void onExtendedOrder() {
@@ -852,6 +854,9 @@ class SampleFrame extends JFrame implements EWrapper {
 
         // Copy over the extended order details
         copyExtendedOrderDetails( m_orderDlg.m_order, m_extOrdDlg.m_order);
+        
+        // Copy over the extended order cancel details
+        copyExtendedOrderCancelDetails( m_orderDlg.m_orderCancel, m_extOrdDlg.m_orderCancel);
     }
 
     private void onReqAcctData() {
@@ -987,7 +992,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     private void onGlobalCancel() {
-        m_client.reqGlobalCancel();
+        m_client.reqGlobalCancel(m_orderDlg.m_orderCancel);
     }
 
     private void onReqMarketDataType() {
@@ -1198,7 +1203,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     public void orderStatus( int orderId, String status, Decimal filled, Decimal remaining,
-    						 double avgFillPrice, int permId, int parentId,
+    						 double avgFillPrice, long permId, int parentId,
     						 double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
         // received order status
     	String msg = EWrapperMsgGenerator.orderStatus( orderId, status, filled, remaining,
@@ -1326,7 +1331,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_errors.add( msg);
     }
 
-    public void error( int id, int errorCode, String errorMsg, String advancedOrderRejectJson) {
+    public void error( int id, long errorTime, int errorCode, String errorMsg, String advancedOrderRejectJson) {
         // received error
         final ContractDetailsCallback callback;
         synchronized (m_callbackMap) {
@@ -1345,7 +1350,7 @@ class SampleFrame extends JFrame implements EWrapper {
             }
     	}
     	
-    	String msg = EWrapperMsgGenerator.error(id, errorCode, errorMsg, advancedOrderRejectJson);
+    	String msg = EWrapperMsgGenerator.error(id, errorTime, errorCode, errorMsg, advancedOrderRejectJson);
         m_errors.add( msg);
         for (int faErrorCode : faErrorCodes) {
             faError |= (errorCode == faErrorCode);
@@ -1472,8 +1477,8 @@ class SampleFrame extends JFrame implements EWrapper {
         m_tickers.add(msg);
     }
 
-    public void commissionReport(CommissionReport commissionReport) {
-        String msg = EWrapperMsgGenerator.commissionReport(commissionReport);
+    public void commissionAndFeesReport(CommissionAndFeesReport commissionAndFeesReport) {
+        String msg = EWrapperMsgGenerator.commissionAndFeesReport(commissionAndFeesReport);
         m_TWS.add(msg);
     }
 
@@ -1567,6 +1572,17 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.competeAgainstBestOffset(srcOrder.competeAgainstBestOffset());
         destOrder.midOffsetAtWhole(srcOrder.midOffsetAtWhole());
         destOrder.midOffsetAtHalf(srcOrder.midOffsetAtHalf());
+        destOrder.customerAccount(srcOrder.customerAccount());
+        destOrder.professionalCustomer(srcOrder.professionalCustomer());
+        destOrder.extOperator(srcOrder.extOperator());
+        destOrder.includeOvernight(srcOrder.includeOvernight());
+        destOrder.manualOrderIndicator(srcOrder.manualOrderIndicator());
+    }
+
+    private static void copyExtendedOrderCancelDetails(OrderCancel destOrderCancel, OrderCancel srcOrderCancel) {
+        destOrderCancel.manualOrderCancelTime(srcOrderCancel.manualOrderCancelTime());
+        destOrderCancel.extOperator(srcOrderCancel.extOperator());
+        destOrderCancel.manualOrderIndicator(srcOrderCancel.manualOrderIndicator());
     }
 
     public void position(String account, Contract contract, Decimal pos, double avgCost) {
@@ -1636,6 +1652,8 @@ class SampleFrame extends JFrame implements EWrapper {
 
 	@Override
 	public void securityDefinitionOptionalParameterEnd(int reqId) {
+		String msg = EWrapperMsgGenerator.securityDefinitionOptionalParameterEnd(reqId);		
+		m_TWS.add(msg);
 	}
 
 	@Override
@@ -1836,8 +1854,8 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
 	@Override
-	public void orderBound(long orderId, int apiClientId, int apiOrderId) {
-        String msg = EWrapperMsgGenerator.orderBound(orderId, apiClientId, apiOrderId);
+	public void orderBound(long permId, int clientId, int orderId) {
+        String msg = EWrapperMsgGenerator.orderBound(permId, clientId, orderId);
 
         m_TWS.add(msg);
 	}

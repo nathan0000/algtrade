@@ -1,4 +1,9 @@
 baseUrl: https://localhost:5050/v1/api/
+paper_login: 'ya393ang'
 paper_account: 'DU3232524'
-live_short_account: ''
-live_long_account: ''
+live_short_account: 'U5246790'
+live_long_account: 'U7993843'
+twsapi_addr: '127.0.0.1'
+twsapi_liveport: 7496
+twsapi_paperport: 7497
+twsapi_clientId: 9901

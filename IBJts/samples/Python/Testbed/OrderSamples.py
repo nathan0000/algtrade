@@ -1,5 +1,5 @@
 """
-Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 """
 
@@ -9,6 +9,8 @@ from ibapi.common import * # @UnusedWildImport
 from ibapi.tag_value import TagValue
 from ibapi import order_condition
 from ibapi.order_condition import * # @UnusedWildImport
+from ibapi.order_cancel import OrderCancel
+from decimal import Decimal
 
 
 class OrderSamples:
@@ -997,7 +999,7 @@ class OrderSamples:
         order.adjustedOrderType = "TRAIL"
         #With a stop price of...
         order.adjustedStopPrice = adjustedStopPrice
-        #traling by and amount (0) or a percent (100)...
+        #trailing by and amount (0) or a percent (100)...
         order.adjustableTrailingUnit = trailUnit
         #of...
         order.adjustedTrailingAmount = adjustedTrailAmount
@@ -1185,6 +1187,57 @@ class OrderSamples:
         order.midOffsetAtHalf = midOffsetAtHalf
         # ! [peg_mid_order]
         return order
+
+    @staticmethod
+    def LimitOrderWithCustomerAccount(action:str, quantity:Decimal, limitPrice:float, customerAccount:str):
+
+        # ! [limit_order_with_customer_account]
+        order = OrderSamples.LimitOrder(action, quantity, limitPrice)
+        order.customerAccount = customerAccount
+        # ! [limit_order_with_customer_account]
+        return order
+
+    @staticmethod
+    def LimitOrderWithIncludeOvernight(action:str, quantity:Decimal, limitPrice:float):
+
+        # ! [limit_order_with_include_overnight]
+        order = OrderSamples.LimitOrder(action, quantity, limitPrice)
+        order.includeOvernight = True
+        # ! [limit_order_with_include_overnight]
+        return order
+
+    @staticmethod
+    def CancelOrderEmpty():
+        # ! [cancel_order_empty]
+        orderCancel = OrderCancel()
+        # ! [cancel_order_empty]
+        return orderCancel
+
+    @staticmethod
+    def CancelOrderWithManualTime(manualOrderCancelTime: str):
+        # ! [cancel_order_with_manual_time]
+        orderCancel = OrderCancel()
+        orderCancel.manualOrderCancelTime = manualOrderCancelTime
+        # ! [cancel_order_with_manual_time]
+        return orderCancel
+
+    @staticmethod
+    def LimitOrderWithCmeTaggingFields(action: str, quantity: Decimal, limitPrice: float, extOperator: str, manualOrderIndicator: int):
+        # ! [limit_order_with_cme_tagging_fields]
+        order = OrderSamples.LimitOrder(action, quantity, limitPrice)
+        order.extOperator = extOperator
+        order.manualOrderIndicator = manualOrderIndicator
+        # ! [limit_order_with_cme_tagging_fields]
+        return order
+
+    @staticmethod
+    def OrderCancelWithCmeTaggingFields(extOperator: str, manualOrderIndicator: int):
+        # ! [order_cancel_with_cme_tagging_fields]
+        orderCancel = OrderCancel()
+        orderCancel.extOperator = extOperator
+        orderCancel.manualOrderIndicator = manualOrderIndicator
+        # ! [order_cancel_with_cme_tagging_fields]
+        return orderCancel
 
 def Test():
     os = OrderSamples() # @UnusedVariable

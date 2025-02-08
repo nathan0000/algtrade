@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -14,12 +14,13 @@
 #include "TagValue.h"
 #include "Contract.h"
 #include "WshEventData.h"
+#include "OrderCancel.h"
 
 namespace ibapi {
 namespace client_constants {
 
 /////////////////////////////////////////////////////////////////////////////////
-// SOCKET CLIENT VERSION CHANGE LOG : Incremented when the format of incomming
+// SOCKET CLIENT VERSION CHANGE LOG : Incremented when the format of incoming
 //                                    server responses change
 /////////////////////////////////////////////////////////////////////////////////
 // constants
@@ -61,7 +62,7 @@ namespace client_constants {
 // 35 = can receive contId field for Contract objects
 // 36 = can receive outsideRth field for Order objects
 // 37 = can receive clearingAccount and clearingIntent for Order objects
-// 38 = can receive multipier and primaryExchange in portfolio updates
+// 38 = can receive multiplier and primaryExchange in portfolio updates
 //    ; can receive cumQty and avgPrice in execution
 //    ; can receive fundamental data
 //    ; can receive deltaNeutralContract for Contract objects
@@ -91,7 +92,7 @@ namespace client_constants {
 //      InitPosition, InitFillQty and RandomPercent) in openOrder
 // 55 = can receive orderComboLegs (price) in openOrder
 // 56 = can receive trailingPercent in openOrder
-// 57 = can receive commissionReport message
+// 57 = can receive commissionAndFeesReport message
 // 58 = can receive CUSIP/ISIN/etc. in contractDescription/bondContractDescription
 // 59 = can receive evRule, evMultiplier in contractDescription/bondContractDescription/executionDetails
 //      can receive multiplier in executionDetails
@@ -193,8 +194,8 @@ const int REQ_USER_INFO                 = 104;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
-const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
-const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
+const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifying that an exchange is available for trading
+const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifying that an exchange is unavailable for trading
 
 } // namespace client_constants
 } // namespace ibapi
@@ -252,6 +253,7 @@ public:
 
 	const std::string& host() const { return m_host; }
 	int port() const { return m_port; }
+	void validateInvalidSymbols(const std::string& host);
 
 public:
 
@@ -274,7 +276,7 @@ public:
 		const std::string& genericTicks, bool snapshot, bool regulatorySnaphsot, const TagValueListSPtr& mktDataOptions);
 	void cancelMktData(TickerId id);
 	void placeOrder(OrderId id, const Contract& contract, const Order& order);
-	void cancelOrder(OrderId id, const std::string& manualOrderCancelTime);
+	void cancelOrder(OrderId id, const OrderCancel& orderCancel);
 	void reqOpenOrders();
 	void reqAccountUpdates(bool subscribe, const std::string& acctCode);
 	void reqExecutions(int reqId, const ExecutionFilter& filter);
@@ -296,7 +298,7 @@ public:
 		int useRTH, int formatDate, bool keepUpToDate, const TagValueListSPtr& chartOptions);
 	void exerciseOptions(TickerId tickerId, const Contract& contract,
 		int exerciseAction, int exerciseQuantity,
-		const std::string& account, int override);
+		const std::string& account, int override, const std::string& manualOrderTime, const std::string& customerAccount, bool professionalCustomer);
 	void cancelHistoricalData(TickerId tickerId );
 	void reqRealTimeBars(TickerId id, const Contract& contract, int barSize,
 		const std::string& whatToShow, bool useRTH, const TagValueListSPtr& realTimeBarsOptions);
@@ -317,7 +319,7 @@ public:
         const TagValueListSPtr& miscOptions);
 	void cancelCalculateImpliedVolatility(TickerId reqId);
 	void cancelCalculateOptionPrice(TickerId reqId);
-	void reqGlobalCancel();
+	void reqGlobalCancel(const OrderCancel& orderCancel);
 	void reqMarketDataType(int marketDataType);
 	void reqPositions();
 	void cancelPositions();

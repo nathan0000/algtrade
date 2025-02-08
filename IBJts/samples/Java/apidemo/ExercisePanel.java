@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -9,6 +9,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import com.ib.client.Types.ExerciseType;
@@ -63,6 +64,9 @@ public class ExercisePanel extends HorzPanel implements INewTab, IAccountHandler
 		TCombo<ExerciseType> m_combo = new TCombo<>( ExerciseType.values() );
 		UpperField m_qty = new UpperField( "1");
 		JCheckBox m_override = new JCheckBox();
+        JTextField m_manualOrderTime = new JTextField();
+        JTextField m_customerAccount = new JTextField();
+        JCheckBox m_professionalCustomer = new JCheckBox();
 		
 		ExPanel() {
 			HtmlButton but = new HtmlButton( "Go") {
@@ -76,6 +80,9 @@ public class ExercisePanel extends HorzPanel implements INewTab, IAccountHandler
 			add( "Action", m_combo);
 			add( "Quantity", m_qty);
 			add( "Override", m_override);
+			add( "Manual Order Time", m_manualOrderTime);
+			add( "Customer Account", m_customerAccount);
+			add( "Professional Customer", m_professionalCustomer);
 			add( but);
 		}
 
@@ -84,7 +91,10 @@ public class ExercisePanel extends HorzPanel implements INewTab, IAccountHandler
 			int i = m_portTable.getSelectedRow();
 			if (i != -1 && account != null) {
 				Position position = m_portfolioModel.getPosition( i);
-				ApiDemo.INSTANCE.controller().exerciseOption(account, position.contract(), m_combo.getSelectedItem(), m_qty.getInt(), m_override.isSelected() );
+				String manualOrderTime = m_manualOrderTime.getText();
+				String customerAccount = m_customerAccount.getText();
+				boolean professionalCustomer = m_professionalCustomer.isSelected();
+				ApiDemo.INSTANCE.controller().exerciseOption(account, position.contract(), m_combo.getSelectedItem(), m_qty.getInt(), m_override.isSelected(), manualOrderTime, customerAccount, professionalCustomer);
 			}
 		}
 	}

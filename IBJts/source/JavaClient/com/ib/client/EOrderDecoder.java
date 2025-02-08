@@ -1,4 +1,4 @@
-/* Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -113,7 +113,7 @@ public class EOrderDecoder {
 
     public void readPermId() throws IOException {
         if( m_version >= 4 ) {
-            m_order.permId(m_eDecoder.readInt());
+            m_order.permId(m_eDecoder.readLong());
         }
     }
 
@@ -503,7 +503,7 @@ public class EOrderDecoder {
         }
     }
 
-    public void readWhatIfInfoAndCommission() throws IOException {
+    public void readWhatIfInfoAndCommissionAndFees() throws IOException {
         if (m_version >= 16) {
             m_order.whatIf(m_eDecoder.readBoolFromInt());
 
@@ -521,10 +521,40 @@ public class EOrderDecoder {
             m_orderState.initMarginAfter(m_eDecoder.readStr());
             m_orderState.maintMarginAfter(m_eDecoder.readStr());
             m_orderState.equityWithLoanAfter(m_eDecoder.readStr());
-            m_orderState.commission(m_eDecoder.readDoubleMax());
-            m_orderState.minCommission(m_eDecoder.readDoubleMax());
-            m_orderState.maxCommission(m_eDecoder.readDoubleMax());
-            m_orderState.commissionCurrency(m_eDecoder.readStr());
+            m_orderState.commissionAndFees(m_eDecoder.readDoubleMax());
+            m_orderState.minCommissionAndFees(m_eDecoder.readDoubleMax());
+            m_orderState.maxCommissionAndFees(m_eDecoder.readDoubleMax());
+            m_orderState.commissionAndFeesCurrency(m_eDecoder.readStr());
+
+            if (m_serverVersion >= EClient.MIN_SERVER_VER_FULL_ORDER_PREVIEW_FIELDS) {
+                m_orderState.marginCurrency(m_eDecoder.readStr());
+                m_orderState.initMarginBeforeOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.maintMarginBeforeOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.equityWithLoanBeforeOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.initMarginChangeOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.maintMarginChangeOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.equityWithLoanChangeOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.initMarginAfterOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.maintMarginAfterOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.equityWithLoanAfterOutsideRTH(m_eDecoder.readDouble());
+                m_orderState.suggestedSize(m_eDecoder.readDecimal());
+                m_orderState.rejectReason(m_eDecoder.readStr());
+
+                int accountsCount = m_eDecoder.readInt();
+                if (accountsCount > 0) {
+                    for (int i = 0; i < accountsCount; ++i) {
+                        OrderAllocation orderAllocation = new OrderAllocation();
+                        orderAllocation.account(m_eDecoder.readStr());
+                        orderAllocation.position(m_eDecoder.readDecimal());
+                        orderAllocation.positionDesired(m_eDecoder.readDecimal());
+                        orderAllocation.positionAfter(m_eDecoder.readDecimal());
+                        orderAllocation.desiredAllocQty(m_eDecoder.readDecimal());
+                        orderAllocation.allowedAllocQty(m_eDecoder.readDecimal());
+                        orderAllocation.isMonetary(m_eDecoder.readBoolean());
+                        m_orderState.orderAllocations().add(orderAllocation);
+                    }
+                }
+            }
             m_orderState.warningText(m_eDecoder.readStr());
         }
     }
@@ -690,6 +720,37 @@ public class EOrderDecoder {
             m_order.competeAgainstBestOffset(m_eDecoder.readDoubleMax());
             m_order.midOffsetAtWhole(m_eDecoder.readDoubleMax());
             m_order.midOffsetAtHalf(m_eDecoder.readDoubleMax());
+        }
+    }
+
+    public void readCustomerAccount() throws IOException {
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_CUSTOMER_ACCOUNT) {
+            m_order.customerAccount(m_eDecoder.readStr());
+        }
+    }
+
+    public void readProfessionalCustomer() throws IOException {
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_PROFESSIONAL_CUSTOMER) {
+            m_order.professionalCustomer(m_eDecoder.readBoolFromInt());
+        }
+    }
+
+    public void readBondAccruedInterest() throws IOException {
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_BOND_ACCRUED_INTEREST) {
+            m_order.bondAccruedInterest(m_eDecoder.readStr());
+        }
+    }
+
+    public void readIncludeOvernight() throws IOException {
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_INCLUDE_OVERNIGHT) {
+            m_order.includeOvernight(m_eDecoder.readBoolFromInt());
+        }
+    }
+
+    public void readCMETaggingFields() throws IOException {
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_CME_TAGGING_FIELDS_IN_OPEN_ORDER) {
+            m_order.extOperator(m_eDecoder.readStr());
+            m_order.manualOrderIndicator(m_eDecoder.readIntMax());
         }
     }
 }

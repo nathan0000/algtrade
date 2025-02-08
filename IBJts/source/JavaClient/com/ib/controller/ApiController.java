@@ -1,4 +1,4 @@
-/* Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.controller;
@@ -88,7 +88,7 @@ public class ApiController implements EWrapper {
 		void disconnected();
 		void accountList(List<String> list);
 		void error(Exception e);
-		void message(int id, int errorCode, String errorMsg, String advancedOrderRejectJson);
+		void message(int id, long errorTime, int errorCode, String errorMsg, String advancedOrderRejectJson);
 		void show(String string);
 	}
 
@@ -121,8 +121,9 @@ public class ApiController implements EWrapper {
         }).start();
 	}
 
-	public void connect( String host, int port, int clientId, String connectionOpts ) {
+	public void connect( String host, int port, int clientId, String connectOptions ) {
 		if(!m_client.isConnected()){
+			m_client.setConnectOptions(connectOptions);
 			m_client.eConnect(host, port, clientId);
 			startMsgProcessingThread();
 	        sendEOM();
@@ -162,7 +163,7 @@ public class ApiController implements EWrapper {
 		m_connectionHandler.error( e);
 	}
 
-	@Override public void error(int id, int errorCode, String errorMsg, String advancedOrderRejectJson) {
+	@Override public void error(int id, long errorTime, int errorCode, String errorMsg, String advancedOrderRejectJson) {
 		IOrderHandler handler = m_orderHandlers.get( id);
 		if (handler != null) {
 			handler.handle( errorCode, errorMsg);
@@ -177,15 +178,12 @@ public class ApiController implements EWrapper {
 			liveHandler.handle( id, errorCode, errorMsg);
 		}
 
-		// "no sec def found" response?
-		if (errorCode == 200) {
-			IInternalHandler hand = m_contractDetailsMap.remove( id);
-			if (hand != null) {
-				hand.contractDetailsEnd();
-			}
+		IInternalHandler hand = m_contractDetailsMap.remove( id);
+		if (hand != null) {
+			hand.contractDetailsEnd();
 		}
 
-		m_connectionHandler.message( id, errorCode, errorMsg, advancedOrderRejectJson);
+		m_connectionHandler.message( id, errorTime, errorCode, errorMsg, advancedOrderRejectJson);
 		recEOM();
 	}
 
@@ -409,27 +407,12 @@ public class ApiController implements EWrapper {
 		void contractDetailsEnd();
 	}
 
-	private void internalReqContractDetails( Contract contract, final IInternalHandler processor) {
+	private int internalReqContractDetails( Contract contract, final IInternalHandler processor) {
 		int reqId = m_reqId++;
 		m_contractDetailsMap.put( reqId, processor);
-		m_orderHandlers.put(reqId, new IOrderHandler() { public void handle(int errorCode, String errorMsg) { processor.contractDetailsEnd();}
-
-		@Override
-		public void orderState(OrderState orderState) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void orderStatus(OrderStatus status, Decimal filled,
-				Decimal remaining, double avgFillPrice, int permId,
-				int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
-			// TODO Auto-generated method stub
-			
-		} });
-		
 		m_client.reqContractDetails(reqId, contract);
 		sendEOM();
+		return reqId;
 	}
 
 	@Override public void contractDetails(int reqId, ContractDetails contractDetails) {
@@ -727,7 +710,7 @@ public class ApiController implements EWrapper {
 	public interface ITradeReportHandler {
 		void tradeReport(String tradeKey, Contract contract, Execution execution);
 		void tradeReportEnd();
-		void commissionReport(String tradeKey, CommissionReport commissionReport);
+		void commissionAndFeesReport(String tradeKey, CommissionAndFeesReport commissionAndFeesReport);
 	}
 
     public void reqExecutions( ExecutionFilter filter, ITradeReportHandler handler) {
@@ -755,11 +738,11 @@ public class ApiController implements EWrapper {
 		recEOM();
 	}
 
-	@Override public void commissionReport(CommissionReport commissionReport) {
+	@Override public void commissionAndFeesReport(CommissionAndFeesReport commissionAndFeesReport) {
 		if (m_tradeReportHandler != null) {
-			int i = commissionReport.execId().lastIndexOf( '.');
-			String tradeKey = commissionReport.execId().substring( 0, i);
-			m_tradeReportHandler.commissionReport( tradeKey, commissionReport);
+			int i = commissionAndFeesReport.execId().lastIndexOf( '.');
+			String tradeKey = commissionAndFeesReport.execId().substring( 0, i);
+			m_tradeReportHandler.commissionAndFeesReport( tradeKey, commissionAndFeesReport);
 		}
 		recEOM();
 	}
@@ -829,8 +812,8 @@ public class ApiController implements EWrapper {
 	/** This interface is for receiving events for a specific order placed from the API.
 	 *  Compare to ILiveOrderHandler. */
 	public interface IOrderHandler {
-		void orderState(OrderState orderState);
-		void orderStatus(OrderStatus status, Decimal filled, Decimal remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice);
+		void orderState(OrderState orderState, Order order);
+		void orderStatus(OrderStatus status, Decimal filled, Decimal remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice);
 		void handle(int errorCode, String errorMsg);
 	}
 
@@ -846,16 +829,16 @@ public class ApiController implements EWrapper {
 		// when placing new order, assign new order id
 		if (order.orderId() == 0) {
 			order.orderId( m_orderId++);
-			if (handler != null) {
-				m_orderHandlers.put( order.orderId(), handler);
-			}
+		}
+		if (handler != null) {
+			m_orderHandlers.put( order.orderId(), handler);
 		}
 
 		m_client.placeOrder( contract, order);
 		sendEOM();
 	}
 
-    public void cancelOrder(int orderId, String manualOrderCancelTime, final IOrderCancelHandler orderCancelHandler) {
+    public void cancelOrder(int orderId, OrderCancel orderCancel, final IOrderCancelHandler orderCancelHandler) {
 		if (!checkConnection())
 			return;
 
@@ -863,23 +846,23 @@ public class ApiController implements EWrapper {
             m_orderCancelHandlers.put( orderId, orderCancelHandler);
         }
 
-        m_client.cancelOrder( orderId, manualOrderCancelTime);
+        m_client.cancelOrder( orderId, orderCancel);
 		sendEOM();
 	}
 
-	public void cancelAllOrders() {
+	public void cancelAllOrders(OrderCancel orderCancel) {
 		if (!checkConnection())
 			return;
 		
-		m_client.reqGlobalCancel();
+		m_client.reqGlobalCancel(orderCancel);
 		sendEOM();
 	}
 
-	public void exerciseOption( String account, Contract contract, ExerciseType type, int quantity, boolean override) {
+	public void exerciseOption( String account, Contract contract, ExerciseType type, int quantity, boolean override, String manualOrderTime, String customerAccount, boolean professionalCustomer) {
 		if (!checkConnection())
 			return;
 
-		m_client.exerciseOptions( m_reqId++, contract, type.ordinal(), quantity, account, override ? 1 : 0);
+		m_client.exerciseOptions( m_reqId++, contract, type.ordinal(), quantity, account, override ? 1 : 0, manualOrderTime, customerAccount, professionalCustomer);
 		sendEOM();
 	}
 
@@ -897,7 +880,7 @@ public class ApiController implements EWrapper {
 	public interface ILiveOrderHandler {
 		void openOrder(Contract contract, Order order, OrderState orderState);
 		void openOrderEnd();
-		void orderStatus(int orderId, OrderStatus status, Decimal filled, Decimal remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice);
+		void orderStatus(int orderId, OrderStatus status, Decimal filled, Decimal remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice);
 		void handle(int orderId, int errorCode, String errorMsg);  // add permId?
 	}
 
@@ -935,7 +918,7 @@ public class ApiController implements EWrapper {
 	@Override public void openOrder(int orderId, Contract contract, Order order, OrderState orderState) {
 		IOrderHandler handler = m_orderHandlers.get( orderId);
 		if (handler != null) {
-			handler.orderState(orderState);
+			handler.orderState(orderState, order);
 		}
 
 		if (!order.whatIf() ) {
@@ -953,7 +936,7 @@ public class ApiController implements EWrapper {
 		recEOM();
 	}
 
-	@Override public void orderStatus(int orderId, String status, Decimal filled, Decimal remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
+	@Override public void orderStatus(int orderId, String status, Decimal filled, Decimal remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
 		IOrderHandler handler = m_orderHandlers.get( orderId);
 		if (handler != null) {
 			handler.orderStatus( OrderStatus.valueOf( status), filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
@@ -1152,7 +1135,7 @@ public class ApiController implements EWrapper {
 
 	protected boolean checkConnection() {
 		if (!isConnected()) {
-			error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED.code(), EClientErrors.NOT_CONNECTED.msg(), null);
+			error(EClientErrors.NO_VALID_ID, Util.currentTimeMillis(), EClientErrors.NOT_CONNECTED.code(), EClientErrors.NOT_CONNECTED.msg(), null);
 			return false;
 		}
 		
@@ -1926,8 +1909,8 @@ public class ApiController implements EWrapper {
     }
 
     @Override
-    public void orderBound(long orderId, int apiClientId, int apiOrderId) {
-        show( "Order bound. OrderId: " + orderId + ", apiClientId: " + apiClientId + ", apiOrderId: " + apiOrderId);
+    public void orderBound(long permId, int clientId, int orderId) {
+        show( "Order bound. PermId: " + permId + ", clientId: " + clientId + ", orderId: " + orderId);
     }
 
     // ---------------------------------------- Completed orders ----------------------------------------

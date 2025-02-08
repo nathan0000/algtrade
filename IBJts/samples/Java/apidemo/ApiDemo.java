@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import com.ib.controller.ApiConnection.ILogger;
+import com.ib.client.Util;
 import com.ib.controller.ApiController;
 import com.ib.controller.ApiController.IConnectionHandler;
 import com.ib.controller.Formats;
@@ -113,8 +114,9 @@ public class ApiDemo implements IConnectionHandler {
         m_frame.setVisible( true);
         m_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
-        // make initial connection to local host, port 7496, client id 0, no connection options
-		controller().connect( "127.0.0.1", 7496, 0, m_connectionConfiguration.getDefaultConnectOptions() != null ? "" : null );
+        // make initial connection to local host, port 7496, client id 0
+        controller().connect( "127.0.0.1", 7496, 0, 
+                m_connectionConfiguration.getDefaultConnectOptions() != null ? m_connectionConfiguration.getDefaultConnectOptions() : null);
     }
 	
 	@Override public void connected() {
@@ -155,8 +157,9 @@ public class ApiDemo implements IConnectionHandler {
 		show( e.toString() );
 	}
 	
-	@Override public void message(int id, int errorCode, String errorMsg, String advancedOrderRejectJson) {
-		String error = id + " " + errorCode + " " + errorMsg;
+	@Override public void message(int id, long errorTime, int errorCode, String errorMsg, String advancedOrderRejectJson) {
+		String errorTimeStr = errorTime != 0 ? Util.UnixMillisecondsToString(errorTime, "yyyyMMdd-HH:mm:ss") + " " : ""; 
+		String error = id + " " + errorTimeStr + errorCode + " " + errorMsg;
 		if (advancedOrderRejectJson != null) {
 			error += (" " + advancedOrderRejectJson);
 		}
@@ -244,7 +247,7 @@ public class ApiDemo implements IConnectionHandler {
 // more dn work, e.g. deltaNeutralValidation
 // add a "newAPI" signature
 // probably should not send F..A position updates to listeners, at least not to API; also probably not send FX positions; or maybe we should support that?; filter out models or include it 
-// finish or remove strat panel
+// finish or remove start panel
 // check all ps
 // must allow normal summary and ledger at the same time
 // you could create an enum for normal account events and pass segment as a separate field

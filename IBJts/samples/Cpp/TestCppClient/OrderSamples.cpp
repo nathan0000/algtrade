@@ -1,8 +1,9 @@
-﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 #include "StdAfx.h"
 
 #include "Order.h"
+#include "OrderCancel.h"
 #include "OrderSamples.h"
 #include "PriceCondition.h"
 #include "executioncondition.h"
@@ -894,7 +895,7 @@ Order OrderSamples::AttachAdjustableToTrail(Order parent, double attachedOrderSt
 	order.adjustedOrderType = "TRAIL";
 	//With a stop price of...
 	order.adjustedStopPrice = adjustStopPrice;
-	//traling by and amount (0) or a percent (100)...
+	//trailing by and amount (0) or a percent (100)...
 	order.adjustableTrailingUnit = trailUnit;
 	//of...
 	order.adjustedTrailingAmount = adjustedTrailAmount;
@@ -1070,3 +1071,51 @@ Order OrderSamples::PegMidOrder(std::string action, Decimal quantity, double lim
 	return order;
 }
 
+Order OrderSamples::LimitOrderWithCustomerAccount(std::string action, Decimal quantity, double limitPrice, std::string customerAccount) {
+	// ! [limit_order_with_customer_account]
+	Order order = OrderSamples::LimitOrder(action, quantity, limitPrice);
+	order.customerAccount = customerAccount;
+	// ! [limit_order_with_customer_account]
+	return order;
+}
+
+Order OrderSamples::LimitOrderWithIncludeOvernight(std::string action, Decimal quantity, double limitPrice) {
+	// ! [limit_order_with_include_overnight]
+	Order order = OrderSamples::LimitOrder(action, quantity, limitPrice);
+	order.includeOvernight = true;
+	// ! [limit_order_with_include_overnight]
+	return order;
+}
+
+OrderCancel OrderSamples::OrderCancelEmpty() {
+	// ! [order_cancel_empty]
+	OrderCancel orderCancel;
+	// ! [order_cancel_empty]
+	return orderCancel;
+}
+
+OrderCancel OrderSamples::OrderCancelWithManualTime(std::string manualOrderCancelTime) {
+	// ! [order_cancel_with_manual_time]
+	OrderCancel orderCancel;
+	orderCancel.manualOrderCancelTime = manualOrderCancelTime;
+	// ! [order_cancel_with_manual_time]
+	return orderCancel;
+}
+
+Order OrderSamples::LimitOrderWithCmeTaggingFields(std::string action, Decimal quantity, double limitPrice, std::string extOperator, int manualOrderIndicator) {
+	// ! [limit_order_with_cme_tagging_fields]
+	Order order = OrderSamples::LimitOrder(action, quantity, limitPrice);
+	order.extOperator = extOperator;
+	order.manualOrderIndicator = manualOrderIndicator;
+	// ! [limit_order_with_cme_tagging_fields]
+	return order;
+}
+
+OrderCancel OrderSamples::OrderCancelWithCmeTaggingFields(std::string extOperator, int manualOrderIndicator) {
+	// ! [order_cancel_with_cme_tagging_fields]
+	OrderCancel orderCancel;
+	orderCancel.extOperator = extOperator;
+	orderCancel.manualOrderIndicator = manualOrderIndicator;
+	// ! [order_cancel_with_cme_tagging_fields]
+	return orderCancel;
+}

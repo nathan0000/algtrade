@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -8,6 +8,7 @@
 #include <vector>
 
 struct Order;
+struct OrderCancel;
 class OrderCondition;
 
 class OrderSamples {
@@ -68,6 +69,12 @@ public:
 	static Order PegBestUpToMidOrder(std::string action, Decimal quantity, double limitPrice, int minTradeQty, int minCompeteSize, double midOffsetAtWhole, double midOffsetAtHalf);
 	static Order PegBestOrder(std::string action, Decimal quantity, double limitPrice, int minTradeQty, int minCompeteSize, double competeAgainstBestOffset);
 	static Order PegMidOrder(std::string action, Decimal quantity, double limitPrice, int minTradeQty, double midOffsetAtWhole, double midOffsetAtHalf);
+	static Order LimitOrderWithCustomerAccount(std::string action, Decimal quantity, double limitPrice, std::string customerAccount);
+	static OrderCancel OrderCancelEmpty();
+	static OrderCancel OrderCancelWithManualTime(std::string manualOrderCancelTime);
+	static Order LimitOrderWithIncludeOvernight(std::string action, Decimal quantity, double limitPrice);
+	static Order LimitOrderWithCmeTaggingFields(std::string action, Decimal quantity, double limitPrice, std::string extOperator, int manualOrderIndicator);
+	static OrderCancel OrderCancelWithCmeTaggingFields(std::string extOperator, int manualOrderIndicator);
 };
 
 #endif

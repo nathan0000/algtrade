@@ -321,7 +321,7 @@ public class ComboPanel extends JPanel implements INewTab {
                         m_dnText.setText( String.format( "Delta-neutral: %s Delta: %s  Price: %s", c.textDescription(), m_delta.getText(), m_price.getText() ) );
                     }
                     else {
-                        ApiDemo.INSTANCE.show( "DN description does not define a uniqe contract");
+                        ApiDemo.INSTANCE.show( "DN description does not define a unique contract");
                         m_dnContract = null;
                         m_dnText.setText( null);
                     }

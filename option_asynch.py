@@ -43,7 +43,6 @@ class OptionApp(EWrapper, EClient):
         super().contractDetailsEnd(reqId)
         logging.Debug("ContractDetailsEnd. ReqId: {}".format(reqId))
         self.df_data[tickers[reqId]] = pd.DataFrame(self.data[reqId])
-        contract_event.set() 
 
     def reqHistoricalData(self, reqId: TickerId, contract: Contract, endDateTime: str, durationStr: str, barSizeSetting: str, whatToShow: str, useRTH: int, formatDate: int, keepUpToDate: bool, chartOptions: TagValueList):
         super().reqHistoricalData(reqId, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate, keepUpToDate, chartOptions)
@@ -71,8 +70,8 @@ class OptionApp(EWrapper, EClient):
         contract.currency = "USD"
 
         # Request real-time market data for SPY
-        self.client.reqMarketDataType(1) # Set market data type to delayed
-        self.client.reqMktData(self.nextOrderId, contract, "", False, False, [])
+        self.reqMarketDataType(1) # Set market data type to delayed
+        self.reqMktData(self.nextOrderId, contract, "", False, False, [])
 
     def tickPrice(self, reqId, tickType, price, attrib):
         if tickType == 4: # 4 correspnds to last trade price

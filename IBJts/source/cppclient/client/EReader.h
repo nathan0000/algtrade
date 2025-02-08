@@ -58,6 +58,7 @@ public:
     void processMsgs(void);
 	bool putMessageToQueue();
 	void start();
+  void stop();
 };
 
 #endif

@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package samples.testbed.orders;
@@ -14,6 +14,7 @@ import com.ib.client.Decimal;
 import com.ib.client.ExecutionCondition;
 import com.ib.client.PriceCondition;
 import com.ib.client.Order;
+import com.ib.client.OrderCancel;
 import com.ib.client.OrderComboLeg;
 import com.ib.client.OrderCondition;
 import com.ib.client.OrderConditionType;
@@ -278,7 +279,7 @@ public class OrderSamples {
 		Order order = new Order();
 		order.action(action);
 		order.tif("OPG");
-		order.orderType("LOC");
+		order.orderType("LMT");
 		order.totalQuantity(quantity);
 		order.lmtPrice(limitPrice);
 		// ! [limitonopen]
@@ -796,5 +797,53 @@ public class OrderSamples {
         // ! [peg_mid_order]
         return order;
     }
-	
+
+    public static Order LimitOrderWithCustomerAccount(String action, Decimal quantity, double limitPrice, String customerAccount) {
+        // ! [limitorderwithcustomeraccount]
+        Order order = OrderSamples.LimitOrder(action, quantity, limitPrice);
+        order.customerAccount(customerAccount);
+        // ! [limitorderwithcustomeraccount]
+        return order;
+    }
+
+    public static Order LimitOrderWithIncludeOvernight(String action, Decimal quantity, double limitPrice) {
+        // ! [limitorderwithincludeovernight]
+        Order order = OrderSamples.LimitOrder(action, quantity, limitPrice);
+        order.includeOvernight(true);
+        // ! [limitorderwithincludeovernight]
+        return order;
+    }
+
+    public static OrderCancel OrderCancelEmpty() {
+        // ! [ordercancelempty]
+        OrderCancel orderCancel = new OrderCancel();
+        // ! [ordercancelempty]
+        return orderCancel;
+    }
+
+    public static OrderCancel OrderCancelWithManualTime(String manualOrderCancelTime) {
+        // ! [ordercancelwithmanualtime]
+        OrderCancel orderCancel = new OrderCancel();
+        orderCancel.manualOrderCancelTime(manualOrderCancelTime);
+        // ! [ordercancelwithmanualtime]
+        return orderCancel;
+    }
+
+    public static Order LimitOrderWithCmeTaggingFields(String action, Decimal quantity, double limitPrice, String extOperator, int manualOrderIndicator) {
+        // ! [limit_order_with_cme_tagging_fields]
+        Order order = OrderSamples.LimitOrder(action, quantity, limitPrice);
+        order.extOperator(extOperator);
+        order.manualOrderIndicator(manualOrderIndicator);
+        // ! [limit_order_with_cme_tagging_fields]
+        return order;
+    }
+
+    public static OrderCancel OrderCancelWithCmeTaggingFields(String extOperator, int manualOrderIndicator) {
+        // ! [order_cancel_with_cme_tagging_fields]
+        OrderCancel orderCancel = new OrderCancel();
+        orderCancel.extOperator(extOperator);
+        orderCancel.manualOrderIndicator(manualOrderIndicator);
+        // ! [order_cancel_with_cme_tagging_fields]
+        return orderCancel;
+    }
 }

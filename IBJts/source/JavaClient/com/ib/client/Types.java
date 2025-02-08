@@ -380,6 +380,72 @@ public class Types {
 	    }
 	}
 
+    public enum FundDistributionPolicyIndicator implements IApiEnum {
+        None ("None", "None"),
+        AccumulationFund("N", "Accumulation Fund"), 
+        IncomeFund ("Y", "Income Fund");
+
+        String m_value;
+        String m_name;
+
+        public String getValue() { return m_value; }
+        public String getName() { return m_name; }
+
+        FundDistributionPolicyIndicator(String value, String name) {
+            m_value = value;
+            m_name = name;
+        }
+
+        public static FundDistributionPolicyIndicator get(String value) {
+            for (FundDistributionPolicyIndicator v : values() ) {
+                if (v.m_value == value) {
+                    return v;
+                }
+            }
+            return None;
+        }
+
+        @Override public String getApiString() {
+            return m_value;
+        }
+    }
+
+    public enum FundAssetType implements IApiEnum {
+        None ("None", "None"),
+        Others("000", "Others"), 
+        MoneyMarket ("001", "Money Market"),
+        FixedIncome ("002", "Fixed Income"),
+        MultiAsset ("003", "Multi-asset"),
+        Equity ("004", "Equity"),
+        Sector ("005", "Sector"),
+        Guaranteed ("006", "Guaranteed"),
+        Alternative ("007", "Alternative");
+
+        String m_value;
+        String m_name;
+
+        public String getValue() { return m_value; }
+        public String getName() { return m_name; }
+
+        FundAssetType(String value, String name) {
+            m_value = value;
+            m_name = name;
+        }
+
+        public static FundAssetType get(String value) {
+            for (FundAssetType v : values() ) {
+                if (v.m_value == value) {
+                    return v;
+                }
+            }
+            return None;
+        }
+
+        @Override public String getApiString() {
+            return m_value;
+        }
+    }
+    
 	public static <T extends Enum<?> & IApiEnum> T getValueOf( String v, T[] values, T defaultValue ) {
         for( T currentEnum : values ) {
             if( currentEnum.getApiString().equals(v) ) {

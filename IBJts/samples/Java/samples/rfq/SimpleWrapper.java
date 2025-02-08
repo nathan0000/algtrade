@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package samples.rfq;
@@ -86,8 +86,9 @@ public class SimpleWrapper implements EWrapper {
 		m_output.println(str);
 	}
 
-	public void error(int id, int errorCode, String errorMsg, String advancedOrderRejectJson) {
-		String str = "Error id=" + id + " code=" + errorCode + " msg=" + errorMsg;
+	public void error(int id, long errorTime, int errorCode, String errorMsg, String advancedOrderRejectJson) {
+		String errorTimeStr = errorTime != 0 ? " time=" + Util.UnixMillisecondsToString(errorTime, "yyyyMMdd-HH:mm:ss") : ""; 
+		String str = "Error id=" + id + errorTimeStr + " code=" + errorCode + " msg=" + errorMsg;
 		if (advancedOrderRejectJson != null) {
 			str += (" advancedOrderRejectJson=" + advancedOrderRejectJson);
 		}
@@ -135,7 +136,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	public void orderStatus(int orderId, String status, Decimal filled, Decimal remaining,
-			double avgFillPrice, int permId, int parentId, double lastFillPrice,
+			double avgFillPrice, long permId, int parentId, double lastFillPrice,
 			int clientId, String whyHeld, double mktCapPrice) {
 		logIn("orderStatus");    	
 	}
@@ -248,8 +249,8 @@ public class SimpleWrapper implements EWrapper {
 		logIn("marketDataType");
 	}
 
-	public void commissionReport(CommissionReport commissionReport) {
-		logIn("commissionReport");
+	public void commissionAndFeesReport(CommissionAndFeesReport commissionAndFeesReport) {
+		logIn("commissionAndFeesReport");
 	}
 
 	
@@ -539,7 +540,7 @@ public class SimpleWrapper implements EWrapper {
     }
 
     @Override
-    public void orderBound(long orderId, int apiClientId, int apiOrderId) {
+    public void orderBound(long permId, int clientId, int orderId) {
         // TODO Auto-generated method stub
     }
 

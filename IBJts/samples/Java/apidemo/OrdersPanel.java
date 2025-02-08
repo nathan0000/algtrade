@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -20,6 +20,7 @@ import javax.swing.table.AbstractTableModel;
 import com.ib.client.Contract;
 import com.ib.client.Decimal;
 import com.ib.client.Order;
+import com.ib.client.OrderCancel;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
 import com.ib.client.OrderType;
@@ -126,15 +127,22 @@ public class OrdersPanel extends JPanel {
 
     protected void onCancelOrder() {
         OrderRow order = getSelectedOrder();
+        OrderCancel orderCancel = new OrderCancel();
+
         if (order != null) {
-            TicketDlg dlg = new TicketDlg( order.m_contract, order.m_order, true);
+            TicketDlg dlg = new TicketDlg( order.m_contract, order.m_order, orderCancel, false);
             dlg.setVisible( true);
         }
     }
 
-	protected void onCancelAll() {
-		ApiDemo.INSTANCE.controller().cancelAllOrders();
-	}
+    protected void onCancelAll() {
+        OrderCancel orderCancel = new OrderCancel();
+
+        if (orderCancel != null) {
+            TicketDlg dlg = new TicketDlg( null, null, orderCancel, true);
+            dlg.setVisible( true);
+        }
+    }
 
 	private OrderRow getSelectedOrder() {
 		int i = m_table.getSelectedRow();
@@ -174,7 +182,7 @@ public class OrdersPanel extends JPanel {
 	}
 	
 	static class OrdersModel extends AbstractTableModel implements ILiveOrderHandler {
-		private Map<Integer,OrderRow> m_map = new HashMap<>();
+		private Map<Long,OrderRow> m_map = new HashMap<>();
 		private List<OrderRow> m_orders = new ArrayList<>();
 
 		@Override public int getRowCount() {
@@ -217,7 +225,7 @@ public class OrdersPanel extends JPanel {
 		@Override public void openOrderEnd() {
 		}
 		
-		@Override public void orderStatus(int orderId, OrderStatus status, Decimal filled, Decimal remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
+		@Override public void orderStatus(int orderId, OrderStatus status, Decimal filled, Decimal remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
 			OrderRow full = m_map.get( permId);
 			if (full != null) {
 				full.m_state.status( status);
@@ -226,7 +234,7 @@ public class OrdersPanel extends JPanel {
 		}
 		
 		@Override public int getColumnCount() {
-			return 10;
+			return 15;
 		}
 		
 		@Override public String getColumnName(int col) {
@@ -240,7 +248,12 @@ public class OrdersPanel extends JPanel {
 				case 6: return "Quantity";
 				case 7: return "Cash Qty";
 				case 8: return "Contract";
-				case 9: return "Status";
+				case 9: return "Cust Acct";
+				case 10: return "Prof Cust";
+				case 11: return "Incl Overnight";
+				case 12: return "Status";
+				case 13: return "Ext Oper";
+				case 14: return "Manual Ind";
 				default: return null;
 			}
 		}
@@ -249,7 +262,7 @@ public class OrdersPanel extends JPanel {
 			OrderRow fullOrder = m_orders.get( row);
 			Order order = fullOrder.m_order;
 			switch( col) {
-				case 0: return Util.IntMaxString(order.permId());
+				case 0: return Util.LongMaxString(order.permId());
 				case 1: return Util.IntMaxString(order.clientId());
 				case 2: return Util.IntMaxString(order.orderId());
 				case 3: return order.account();
@@ -258,7 +271,12 @@ public class OrdersPanel extends JPanel {
 				case 6: return order.totalQuantity();
 				case 7: return Util.DoubleMaxString(order.cashQty());
 				case 8: return fullOrder.m_contract.textDescription();
-				case 9: return fullOrder.m_state.status();
+				case 9: return order.customerAccount();
+				case 10: return order.professionalCustomer();
+				case 11: return order.includeOvernight();
+				case 12: return fullOrder.m_state.status();
+				case 13: return order.extOperator();
+				case 14: return Util.IntMaxString(order.manualOrderIndicator());
 				default: return null;
 			}
 		}

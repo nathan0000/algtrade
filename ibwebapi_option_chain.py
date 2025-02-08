@@ -4,7 +4,7 @@ import yaml
 import pandas as pd
 import json, logging, logging.config
 from logging.handlers import RotatingFileHandler
-import csv, json
+import csv, json, time
 
 # Ignore insecure error messages
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -167,10 +167,19 @@ def secdefSearch(symbol, listingExchange):
 
   return underConid,months
 
+def idxdefPrice(idxConid):
+  url = f'{baseUrl}/iserver/marketdata/snapshot?conids={idxConid}&fields=31,84,86,7295,7296'
+  requests.get(url=url, verify=False)
+  snapshot = requests.get(url=url, verify=False)
+  logger.debug('index marketdata status code: {}'.format(snapshot.status_code))
+  logger.debug('index market price: {}'.format(snapshot.json()[0]))
+  return snapshot.json()[0]["31"]
+
 def secdefStrikes(underConid,month):
 
   snapshot = float(snapshotData(underConid))
-#  snapshot = snapshotData(underConid)
+#  snapshot = float(idxdefPrice(underConid))
+  logger.debug(f'market snapshot price: {snapshot}')
 
   itmStrikes = []
 
@@ -182,13 +191,13 @@ def secdefStrikes(underConid,month):
 
   strikes = strike_request.json()["put"]
   for strike in strikes:
-    if strike>snapshot-10 and strike<snapshot+10:
+    if strike>snapshot-5 and strike<snapshot+5:
       itmStrikes.append(strike)
   return itmStrikes
 
-def secdefInfo(conid, month, strike, right='P'):
+def secdefInfo(conid, month, strike):
 
-  url = f'{baseUrl}/iserver/secdef/info?conid={conid}&month={month}&strike={strike}&secType=OPT&right=P'
+  url = f'{baseUrl}/iserver/secdef/info?conid={conid}&month={month}&strike={strike}&secType=OPT'
 
   info_request = requests.get(url=url, verify=False)
   logger.debug('info_request status code: {}'.format(info_request.status_code))
@@ -202,6 +211,7 @@ def secdefInfo(conid, month, strike, right='P'):
 
     contractDetails = {"conid": contract["conid"], 
                        "symbol": contract["symbol"],
+                       "right": contract["right"],
                        "strike": contract["strike"],
                        "prices": optionPrice_string,
                        "maturityDate": contract["maturityDate"]
@@ -210,23 +220,68 @@ def secdefInfo(conid, month, strike, right='P'):
   logger.debug(f"contract details: {contracts}")
   return contracts
 
+def regulatorySnapshotData(underConid):
+  url = f'{baseUrl}/md/regsnapshot?conid={underConid}'
+  requests.get(url=url, verify=False)
+  snapshot = requests.get(url=url, verify=False)
+  logger.debug('regulatory_snapshot_request status code: {}'.format(snapshot.status_code))
+  logger.debug('regulatory snapshotData price: {}'.format(snapshot.json()))
+  if snapshot.json()[0]["31"] is None:
+    logger.debug(f'snapshot price is None')
+  else:
+    price = snapshot.json()[0]["31"]
+  return price
+
 def snapshotData(underConid):
   url = f'{baseUrl}/iserver/marketdata/snapshot?conids={underConid}&fields=31'
   requests.get(url=url, verify=False)
+  url = f'{baseUrl}/iserver/marketdata/snapshot?conids={underConid}'
   snapshot = requests.get(url=url, verify=False)
   logger.debug('snapshot_request status code: {}'.format(snapshot.status_code))
-  logger.debug('snapshotData price: {}'.format(snapshot.json()[0]))
-  return snapshot.json()[0]["31"]
+  logger.debug('snapshotData price: {}'.format(snapshot.json()))
+  if "31" not in snapshot.json()[0]:
+    logger.debug(f'snapshot price is None')
+    price = 0
+  else:
+    price = snapshot.json()[0]["31"]
+  return price
 
 def snapshotOption(optionConid):
-  url = f'{baseUrl}/iserver/marketdata/snapshot?conids={optionConid}&fields=84,88,86,85'
+  url = f'{baseUrl}/iserver/marketdata/snapshot?conids={optionConid}&fields=31,84,86,88,85'
   optionPrices = {}
   requests.get(url=url, verify=False)
+  url = f'{baseUrl}/iserver/marketdata/snapshot?conids={optionConid}'
   optionSnapshot = requests.get(url=url, verify=False)
   logger.debug('options snapshot_request status code: {}'.format(optionSnapshot.status_code))
-  logger.debug('option snapshot data: {}'.format(optionSnapshot.json()[0]))
-  optionPrices = {"bid": optionSnapshot.json()[0]["84"],"bidSize": optionSnapshot.json()[0]["88"], \
-                      "ask": optionSnapshot.json()[0]["86"],"askSize": optionSnapshot.json()[0]["85"]}
+  logger.debug('option snapshot data: {}'.format(optionSnapshot.json()))
+  last_price, ask_price, bid_price, ask_size, bid_size = 0, 0, 0, 0, 0
+  if "31" not in optionSnapshot.json()[0]:
+    logger.debug(f'option last price is NOne')
+    last_price = 0
+  else:
+    last_price = optionSnapshot.json()[0]["31"]
+  if "84" not in optionSnapshot.json()[0]:
+    logger.debug(f'option bid price is NOne')
+    ask_price = 0
+  else:
+    ask_price = optionSnapshot.json()[0]["84"]
+  if "86" not in optionSnapshot.json()[0]:
+    logger.debug(f'option ask price is NOne')
+  else:
+    bid_price = optionSnapshot.json()[0]["86"]
+  if "88" not in optionSnapshot.json()[0]:
+    logger.debug(f'option bid size NOne')
+    ask_size = 0
+  else:
+    ask_size = optionSnapshot.json()[0]["88"]
+  if "85" not in optionSnapshot.json()[0]:
+    logger.debug(f'option ask size is NOne')
+    biz_size = 0
+  else:
+    bid_size = optionSnapshot.json()[0]["85"]
+
+  optionPrices = {"lastPrice": last_price, "bidPrice": bid_price,"bidSize": bid_size, \
+                      "ask": ask_price,"askSize": ask_size}
   logger.debug(f"contract: {optionConid} option prices: {optionPrices}")
   return optionPrices
 
@@ -293,7 +348,7 @@ if __name__ == "__main__":
   #  logger.debug(f'order confirmed: {order_reply}')
 
   # I'm looking for the U.S. Apple Incorporated company listed on NASDAQ
-  underConid,months = secdefSearch("AAPL", "NASDAQ")
+  underConid,months = secdefSearch("TSLA", "NASDAQ")
   logger.debug(f'security def search: {underConid, months}')
   # I only want the front month. 
   # Users could always grab all months, or pull out a specific value, but sending the 0 value always gives me the first available contract.

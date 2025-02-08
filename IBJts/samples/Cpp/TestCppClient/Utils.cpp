@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2023 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 #include "StdAfx.h"
 
@@ -94,4 +94,36 @@ std::string Utils::llongMaxString(long long value) {
 
 std::string Utils::doubleMaxString(double d) {
     return doubleMaxString(d, "");
+}
+
+std::string Utils::getFundDistributionPolicyIndicatorName(FundDistributionPolicyIndicator fundDistributionPolicyIndicator) {
+    switch (fundDistributionPolicyIndicator) {
+    case FundDistributionPolicyIndicator::AccumulationFund:
+        return "Accumulation Fund";
+    case FundDistributionPolicyIndicator::IncomeFund:
+        return "Income Fund";
+    }
+    return "None";
+}
+
+std::string Utils::getFundAssetTypeName(FundAssetType fundAssetType) {
+    switch (fundAssetType) {
+    case FundAssetType::Others:
+        return "Others";
+    case FundAssetType::MoneyMarket:
+        return "Money Market";
+    case FundAssetType::FixedIncome:
+        return "Fixed Income";
+    case FundAssetType::MultiAsset:
+        return "Multi-asset";
+    case FundAssetType::Equity:
+        return "Equity";
+    case FundAssetType::Sector:
+        return "Sector";
+    case FundAssetType::Guaranteed:
+        return "Guaranteed";
+    case FundAssetType::Alternative:
+        return "Alternative";
+    }
+    return "None";
 }

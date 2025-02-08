@@ -11,6 +11,7 @@ class IBApp(EWrapper, EClient):
     def __init__(self):
         EClient.__init__(self, self)
         self.nextValidOrderId = None
+        self.reqMarketDataType(3)
         self.spx_price = None
 
     def nextValidId(self, orderId: int):
@@ -27,7 +28,7 @@ class IBApp(EWrapper, EClient):
         contract.currency = "USD"
      
         # Request real-time market data for SPY
-        self.reqMarketDataType(4) # Set market data type to delayed
+        self.reqMarketDataType(3) # Set market data type to delayed
         self.reqMktData(self.nextOrderId, contract, "", False, False, [])
 
     def error(self, reqId, errorCode, errorString, advancedOrderRejectJson = ""):
@@ -42,8 +43,7 @@ class IBApp(EWrapper, EClient):
 
     def tickPrice(self, reqId, tickType, price, attrib):
         # Handle real-time price updates
-        if tickType == 68:  # delayed Last trade price
-            self.spx_price = price
+        self.spx_price = price
         print(f"tickPrice, reqId: {reqId}, tickType: {TickTypeEnum.to_str(tickType)}, price: {price}, attrib: {attrib}")
 
     def start_strategy(self):

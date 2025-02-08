@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -61,10 +61,12 @@ public class EReader extends Thread {
         catch ( Exception ex ) {
         	//if (parent().isConnected()) {
         		if( ex instanceof EOFException ) {
-            		eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
+            		eWrapper().error(EClientErrors.NO_VALID_ID, Util.currentTimeMillis(), EClientErrors.BAD_LENGTH.code(),
             				EClientErrors.BAD_LENGTH.msg() + " " + ex.getMessage(), null);
-        		}
-        		else {
+                } else if (ex instanceof EClientException) {
+                    EClientException eClientException = (EClientException)ex;
+                    eWrapper().error(EClientErrors.NO_VALID_ID, Util.currentTimeMillis(), eClientException.error().code(), eClientException.error().msg(), null);
+                } else {
         			eWrapper().error( ex);
         		}
         		

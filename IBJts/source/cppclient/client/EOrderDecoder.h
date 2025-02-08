@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -71,7 +71,7 @@ public:
 	bool decodeDeltaNeutral(const char*& ptr, const char* endPtr);
 	bool decodeAlgoParams(const char*& ptr, const char* endPtr);
 	bool decodeSolicited(const char*& ptr, const char* endPtr);
-	bool decodeWhatIfInfoAndCommission(const char*& ptr, const char* endPtr);
+	bool decodeWhatIfInfoAndCommissionAndFees(const char*& ptr, const char* endPtr);
 	bool decodeOrderStatus(const char*& ptr, const char* endPtr);
 	bool decodeVolRandomizeFlags(const char*& ptr, const char* endPtr);
 	bool decodePegBenchParams(const char*& ptr, const char* endPtr);
@@ -98,6 +98,11 @@ public:
 	bool decodeDuration(const char*& ptr, const char* endPtr);
 	bool decodePostToAts(const char*& ptr, const char* endPtr);
 	bool decodePegBestPegMidOrderAttributes(const char*& ptr, const char* endPtr);
+	bool decodeCustomerAccount(const char*& ptr, const char* endPtr);
+	bool decodeProfessionalCustomer(const char*& ptr, const char* endPtr);
+	bool decodeBondAccruedInterest(const char*& ptr, const char* endPtr);
+	bool decodeIncludeOvernight(const char*& ptr, const char* endPtr);
+	bool decodeCMETaggingFields(const char*& ptr, const char* endPtr);
 
 private:
 	Contract* m_contract;

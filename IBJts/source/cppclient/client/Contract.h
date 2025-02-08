@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -7,6 +7,10 @@
 
 #include "TagValue.h"
 #include "Decimal.h"
+#include "CommonDefs.h"
+#include "IneligibilityReason.h"
+
+#define UNSET_INTEGER INT_MAX
 
 /*
 	SAME_POS    = open/close leg value is same as combo
@@ -82,6 +86,7 @@ struct Contract
 	std::string	symbol;
 	std::string	secType;
 	std::string	lastTradeDateOrContractMonth;
+	std::string lastTradeDate;
 	double		strike;
 	std::string	right;
 	std::string	multiplier;
@@ -121,6 +126,7 @@ struct ContractDetails
 		, priceMagnifier(0)
 		, underConId(0)
 		, evMultiplier(0)
+		, aggGroup(UNSET_INTEGER)
 		, minSize(UNSET_DECIMAL)
 		, sizeIncrement(UNSET_DECIMAL)
 		, suggestedSizeIncrement(UNSET_DECIMAL)
@@ -129,6 +135,12 @@ struct ContractDetails
 		, coupon(0)
 		, convertible(false)
 		, nextOptionPartial(false)
+		, fundClosed(false)
+		, fundClosedForNewInvestors(false)
+		, fundClosedForNewMoney(false)
+		, fundDistributionPolicyIndicator(FundDistributionPolicyIndicator::None)
+		, fundAssetType(FundAssetType::None)
+		, ineligibilityReasonList(NULL)
 	{
 	}
 
@@ -178,6 +190,28 @@ struct ContractDetails
 	std::string	nextOptionType;
 	bool		nextOptionPartial;
 	std::string	notes;
+
+	// FUND values
+	std::string fundName;
+	std::string fundFamily;
+	std::string fundType;
+	std::string fundFrontLoad;
+	std::string fundBackLoad;
+	std::string fundBackLoadTimeInterval;
+	std::string fundManagementFee;
+	bool		fundClosed;
+	bool		fundClosedForNewInvestors;
+	bool		fundClosedForNewMoney;
+	std::string fundNotifyAmount;
+	std::string fundMinimumInitialPurchase;
+	std::string fundSubsequentMinimumPurchase;
+	std::string fundBlueSkyStates;
+	std::string fundBlueSkyTerritories;
+	FundDistributionPolicyIndicator fundDistributionPolicyIndicator;
+	FundAssetType fundAssetType;
+
+	// ineligibility reason list
+	IneligibilityReasonListSPtr ineligibilityReasonList;
 };
 
 struct ContractDescription

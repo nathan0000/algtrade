@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2024 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -21,6 +21,7 @@ struct Execution
 		avgPrice = 0;
 		evMultiplier = 0;
         lastLiquidity = 0;
+        pendingPriceRevision = false;
 	}
 
 	std::string	execId;
@@ -30,7 +31,7 @@ struct Execution
 	std::string	side;
 	Decimal 	shares;
 	double		price;
-	int			permId;
+	long long	permId;
 	long		clientId;
 	long		orderId;
 	int			liquidation;
@@ -41,6 +42,7 @@ struct Execution
 	double		evMultiplier;
 	std::string modelCode;
     int         lastLiquidity;
+    bool        pendingPriceRevision;
 };
 
 struct ExecutionFilter

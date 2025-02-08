@@ -11,6 +11,7 @@
 #include "ESocket.h"
 
 class EWrapper;
+class EReader;
 struct EReaderSignal;
 
 class TWSAPIDLLEXP EClientSocket : public EClient, public EClientMsgSink
@@ -72,6 +73,13 @@ private:
 public:
     void serverVersion(int version, const char *time);
     void redirect(const char *host, int port);    
+
+		// Register EReader for safe thread shutdown.
+public:
+	void registerEReader(EReader* reader);
+
+private:
+	EReader* m_pEReader{ nullptr };
 };
 
 #endif
