@@ -1,0 +1,6 @@
+#!/bin/zsh
+#
+cd /Users/nathanwang/algtrade/
+source ~/.zshrc
+conda activate algtrade
+python ipapi_option_marketdata.py

@@ -63,10 +63,10 @@ mycontract = Contract()
 
 # Future
 mycontract.symbol = "ES"
-mycontract.secType = "FUT"
+mycontract.secType = "FOP"
 mycontract.currency = "USD"
 mycontract.exchange = "CME"
-mycontract.lastTradeDateOrContractMonth = 202503
+mycontract.lastTradeDateOrContractMonth = 20250213
 
 # Option
 #mycontract.symbol = "IBM"

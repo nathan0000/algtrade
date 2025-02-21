@@ -1,11 +1,14 @@
 from ibapi.client import *
 from ibapi.wrapper import *
 import time
+import pandas as pd
 import threading
 
 class TestApp(EClient, EWrapper):
   def __init__(self):
     EClient.__init__(self, self)
+    self.orderId = 0
+    self.contractDetails_df = pd.DataFrame(columns=["reqId", "symbol", "secType",  "conId", "exchange", "currency"])  
   
   def nextValidId(self, orderId):
     self.orderId = orderId
@@ -20,10 +23,12 @@ class TestApp(EClient, EWrapper):
   def contractDetails(self, reqId, contractDetails):
     attrs = vars(contractDetails)
     print("\n".join(f"{name}: {value}" for name,value in attrs.items()))
-    #print(contractDetails.contract)
+    self.contractDetails_df.loc[len(self.contractDetails_df)] = [reqId, contractDetails.contract.symbol, contractDetails.contract.secType, contractDetails.contract.conId, contractDetails.contract.exchange, contractDetails.contract.currency]  
+    print(contractDetails.contract)
 
   def contractDetailsEnd(self, reqId):
     print("End of contract details")
+    print(self.contractDetails_df)
     self.disconnect()
   
   def symbolSamples(self, reqId: int, contractDescriptions: ListOfContractDescription):
@@ -74,9 +79,12 @@ mycontract.secType = "OPT"
 underConId = 8314
 mycontract.currency = "USD"
 mycontract.exchange = "SMART"
-mycontract.lastTradeDateOrContractMonth = 202502
+mycontract.lastTradeDateOrContractMonth = 20250221
 #mycontract.right = "P"
 #mycontract.tradingClass = "SPXW"
 #mycontract.strike = 6100
 
 app.reqContractDetails(app.nextId(), mycontract)
+#print(f"Contract details: {app.contractDetails_df}")
+
+#app.disconnect()

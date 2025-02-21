@@ -1,223 +1,203 @@
-from ibapi.client import *
-from ibapi.wrapper import *
-from ibapi.tag_value import *
-from ibapi.contract import *
-from ibapi.ticktype import TickTypeEnum
+# %load ibkr-api/account_summary.py
+from threading import Thread, Event
+import time, yaml
+import json, logging, logging.config
+from logging.handlers import RotatingFileHandler
+from typing import Any
+from ibapi.wrapper import EWrapper
+from ibapi.client import EClient
+from ibapi.utils import iswrapper
+from ibapi.common import *
+from ibapi.scanner import ScannerSubscription
+from ibapi.tag_value import TagValue
+from ibapi.account_summary_tags import AccountSummaryTags
+from ibapi.contract import Contract
+import pandas as pd
 
-import threading
-from time import sleep
-from datetime import *
 
-port = 7497
-
-global globalDict, clientId
-globalDict = {}
-clientId = 10001
-
-class ibThreading(EClient, EWrapper):
+class ibapp(EClient, EWrapper):
     def __init__(self):
         EClient.__init__(self, self)
+        self.orderId = None
+        self.count = 0
+        self.combined_bar_df = pd.DataFrame(columns=['conid', 'date', 'open', 'high', 'low', 'close', 'volume'])
+        self.bar_df = pd.DataFrame(columns=['conid', 'date', 'open', 'high', 'low', 'close', 'volume'])
+        self.screen_df = pd.DataFrame(columns=['conid', 'symbol', 'rank'])
+        self.done = Event()  # use threading.Event to signal between threads
+        self.connection_ready = Event()  # to signal the connection has been established
 
-    def error(self, reqId: TickerId, errorCode: int, errorString: str, advancedOrderRejectJson=""):
-        pass
-        print(reqId, errorCode, errorString, advancedOrderRejectJson)
+    # override Ewrapper.error
+    @iswrapper
+    def error(
+        self, reqId: TickerId, errorCode: int, errorString: str, contract: Any = None
+    ):
+        print("Error: ", reqId, " ", errorCode, " ", errorString)
+        if errorCode == 502:  # not connected
+            # set self.done (a threading.Event) to True
+            self.done.set()
 
-    def nextValidId(self, orderId: int):
-        self.nextOrderId = orderId
-
-    def scannerData(self,reqId: int,rank: int,contractDetails: ContractDetails,distance: str,benchmark: str,projection: str,legsStr: str,):
-        global globalDict
-        globalDict[rank] = [contractDetails.contract, "BID", "ASK", "LAST", "Today", "Yesterday", "today_CHANGE%", "prior_CHANGE%", "today_CHANGE", "prior_CHANGE"]
-
-    def scannerDataEnd(self, reqId: int):
-        # Cancel lingering market scanner
-        self.cancelScannerSubscription(reqId)
-        # Request market data for all of our scanner values.
-        for rank in globalDict:
-            self.reqMarketDataType(4)
-            x = threading.Thread(target=self.reqMktData(reqId=rank,contract=globalDict[rank][0],genericTickList="",snapshot=True,regulatorySnapshot=False,mktDataOptions=[]))
-            x.start()
-
-    # Returned market data
-    def tickPrice(self, reqId: TickerId, tickType: TickType, price: float, attrib: TickAttrib):
-        global globalDict
-        for ind,value in enumerate(globalDict[reqId]):
-            if TickTypeEnum.to_str(tickType) == value:
-                globalDict[reqId][ind] = price
-
-    def tickSnapshotEnd(self, reqId: int):
-        if reqId == 49:
-            # After my last request, disconnect from socket.
-            self.disconnect()
-
-    # Returned Hisotircal Data
-    def historicalData(self, reqId: int, bar: BarData):
-        global globalDict
-        barDate = bar.date.split()[0]
-        requestedDate = startInvesting.dateCleanUp()
-        
-        # Save Todays Bar
-        if barDate == requestedDate:
-            globalDict[reqId][4] = bar
-        # Save the prior bar
-        else:
-            globalDict[reqId][5] = bar
-
-    # End of All Hisotrical Data
-    def historicalDataEnd(self, reqId: int, start: str, end: str):
-        global clientId
-        if reqId  == 4:
-            clientId = self.nextOrderId
-            self.disconnect()
-
-    # Show order placed
-    def openOrder(self, orderId: OrderId, contract: Contract, order: Order, orderState: OrderState):
-        print(orderId, contract, order, orderState)
-
-    def stop(self):
-        self.done = True
-        self.disconnect()
-        
-def run_loop(app_obj: ibThreading):
-    print("Run_Loop")
-    app_obj.run()
-
-class startInvesting():
-    # Normalize Date Values
-    def dateCleanUp():
-        badDate = date.today().__str__().split('-')
-        goodDate = badDate[0] + badDate[1] + badDate[2]
-        return goodDate
-    
-    # Create the market scanner
-    def buildScanner():
-        global clientId
-        app = ibThreading()
-        app.connect("127.0.0.1", port, clientId)
-        sub = ScannerSubscription()
-        sub.instrument = "STK"
-        sub.locationCode = "STK.US.MAJOR"
-        sub.scanCode = "TOP_PERC_GAIN"
-        # Both are lists of TagValue objects: TagValue(tag, value)
-        scan_options = []
-        filter_options = [
-            TagValue("volumeAbove", "10000"),
-            TagValue("marketCapBelow1e6", "1000"),
-            TagValue("priceAbove", "1"),
-        ]
-        sleep(3)
-
-        # Request my Market Scanner
-        app.reqScannerSubscription(
-            reqId=clientId,
-            subscription=sub,
-            scannerSubscriptionOptions=scan_options,
-            scannerSubscriptionFilterOptions=filter_options,
+    # override Ewrapper.accountSummary - method for receiving account summary
+    @iswrapper
+    def accountSummary(
+        self, reqId: int, account: str, tag: str, value: str, currency: str
+    ):
+        # just print the account information to screen
+        print(
+            "AccountSummary. ReqId:",
+            reqId,
+            "Account:",
+            account,
+            "Tag: ",
+            tag,
+            "Value:",
+            value,
+            "Currency:",
+            currency,
         )
+
+    # override Ewrapper.accountSummaryEnd - notifies when account summary information has been received
+    @iswrapper
+    def accountSummaryEnd(self, reqId: int):
+        # print to screen
+        print("AccountSummaryEnd. ReqId:", reqId)
+        # set self.done (a threading.Event) to True
+        self.done.set()
+
+    # override Ewrapper.nextValidID - used to signal that the connection between application and TWS is complete
+    # returns the next valid orderID (for any future transactions)
+    # if we send messages before the connection has been established, they can be lost
+    # so wait for this method to be called
+    def nextValidId(self, orderId: int):
+        print(f"Connection ready, next valid order ID: {orderId}")
+        self.orderId = orderId
+        self.connection_ready.set()  # signal that the connection is ready
+
+    @iswrapper
+    def scannerData(self, reqId, rank, details, distance, benchmark, projection, legsStr):
+        # Print the symbols in the returned results
+        print('{}: {} : {}'.format(rank, details.contract.symbol, details.contract.secType))
+        self.count += 1
+        self.screen_df.loc[len(self.screen_df)] = [details.contract.conId, details.contract.symbol, rank]
         
-        app.run()
-        return
+    @iswrapper
+    def scannerDataEnd(self, reqId):
+        # Print the number of results
+        print('Number of results: {}'.format(self.count))
+        self.cancelScannerSubscription(reqId)
+        self.done.set()
+
+    @iswrapper
+    def historicalData(self, reqId, bar):
+#        print(f"\nOpen: {bar.open}, High: {bar.high}, Low: {bar.low}, Close: {bar.close}")
+        self.bar_df.loc[len(self.bar_df)] = [reqId, bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume]
+
+    @iswrapper
+    def historicalDataEnd(self, reqId, start, end):
+        print(f"Historical Data Ended for {reqId}. Started at {start}, ending at {end}")
+        self.commissionReport = pd.concat([self.combined_bar_df, self.bar_df], axis=0)
+        self.cancelHistoricalData(reqId)
+        self.done.set()
     
-    # create all historical data requests
-    def buildHistorical():
-        global globalDict
-        app = ibThreading()
-        app.connect("127.0.0.1", port, clientId)
-        sleep(3)
-        for i in range(0,5):
-            # threading.Thread(target=app.reqHistoricalData(i, globalDict[i][0], "", "2 D", "1 day", "TRADES", 1, 1, 0, [])).start()
-            app.reqHistoricalData(i, globalDict[i][0], "", "2 D", "1 day", "TRADES", 1, 1, 0, [])
-        app.run()
-        
-    # Create values for change values
-    def calcChange():
-        global globalDict
-        for i in range(0,5):
-            yesterday = globalDict[i][5]
-            today = globalDict[i][4]
-            now = globalDict[i][3]
-            globalDict[i][6] = float((now / today.open)*100)
-            globalDict[i][7] = float((now / yesterday.open)*100)
-            globalDict[i][8] = float(now - today.open)
-            globalDict[i][9] = float(now - yesterday.open)
-        return
+def loggerSetup():
+  logger = logging.getLogger(__name__)
+  logger.setLevel(logging.DEBUG)
+
+  ch = RotatingFileHandler('trading_api.log', maxBytes=10000000, backupCount=5, encoding='utf-8')
+  ch.setLevel(logging.DEBUG)
+
+  formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
+  ch.setFormatter(formatter)
+
+  logger.addHandler(ch)
+  return logger
+
+# define our event loop - this will run in its own thread
+def run_loop(app):
+    app.run()
+
+def client_thread(addr, port, clientId):
+    # instantiate an ibapp
+    client = ibapp()
+
+    # connect
+    client.connect(addr, port, clientId)  # clientID identifies our application
+
+    # start the application's event loop in a thread
+    api_thread = Thread(target=run_loop, args=(client,), daemon=True)
+    api_thread.start()
+
+    # wait until the Ewrapper.nextValidId callback is triggered, indicating a successful connection
+    client.connection_ready.wait()
+    return client
+
+def accsum(client):
+    # request account summary
+    print("Requesting account summary")
+    client.reqAccountSummary(0, "All", AccountSummaryTags.AllTags)
+
+    # wait for the account summary to finish (ie block until app.done - a threading.Event - becomes true)
+    client.done.wait()
+    print(f"order id: {client.orderId}")
+
+def scanner(client):
+    sub = ScannerSubscription()
+    sub.instrument = "STK"
+    sub.locationCode = "STK.US.MAJOR"
+    sub.scanCode = "MOST_ACTIVE"
+
+    scan_options = []
+    filter_options = [
+        TagValue("priceAbove", '30'),
+        TagValue("hasOptionsIs", "True"),
+        TagValue("priceBelow", "500")
+    ]
+  
+    #request the scanner subscription
+    client.reqScannerSubscription(700, sub, scan_options, filter_options)
+    client.done.wait()
     
-    # Place an order for the best buys
-    def bestBuys():
-        bestVal = globalDict[0]
-        bestPerc = globalDict[0]
-        # global globalDict
-        for i in range(0,5):
-            
-            if globalDict[i][8] > bestVal[8]:
-                bestVal = globalDict[i]
-            if globalDict[i][6] > bestPerc[6]:
-                print(globalDict[i][6], ">", bestPerc[6])
-                bestPerc = globalDict[i]
-        print(f"The largest increase by integer: {bestVal[0].symbol} by {bestVal[8]:.4f} ")
-        print(f"The largest increase by percentage: {bestPerc[0].symbol} by {bestPerc[6]:.4f}")
-        buyIt = input("\nWould you like to buy these? Y/N: ")
-        if buyIt == "Y" or buyIt == "y":
-            startInvesting.buyBest([bestVal, bestPerc])
-        else:
-            return
-        
-    # Buy the best percentage and value contracts from the bestBuys()
-    def buyBest(steals):
-        global clientId
-        app = ibThreading()
-        app.connect("127.0.0.1", port, clientId)
-        sleep(3)
-        for i in (0, 1):
-            order = Order()
-            clientId+=1
-            order.orderId = clientId
-            order.action = "BUY"
-            order.orderType = "MKT"
-            order.totalQuantity = 100
-            order.tif = "GTC"
-            app.placeOrder(order.orderId, steals[i][0], order)
-        threading.Timer(10, app.stop).start()
-        app.run()
-        
-    # Print Scanner Results
-    def printScanner():
-        for i in globalDict:
-            contract = globalDict[i][0]
-            bidPrice = globalDict[i][1]
-            askPrice = globalDict[i][2]
-            lastPrice = globalDict[i][3]
-            print(f"Rank: {i}; Symbol: {contract.symbol}; BID: {bidPrice}; ASK: {askPrice}; LAST: {lastPrice}")
-        return
-    
-    # print top change
-    def printTopDif():
-        global globalDict
-        print("\nThe top 5 Orders, Compared to this morning's opening:")
-        for i in range(0,5):
-            symbol = globalDict[i][0].symbol
-            yesterday = globalDict[i][5]
-            today = globalDict[i][4]
-            now = globalDict[i][3]
-            
-            print(f"Symbol: {symbol}; Current Price: {now} ")
-            print(f"Today's bar: Open: {today.open}, High: {today.high}, Low: {today.low}, Close: {today.close};")
-            print(f"{yesterday.date}'s bar: Open: {yesterday.open}, High: {yesterday.high}, Low: {yesterday.low}, Close: {yesterday.close}; ")
-            print(f"Change from this morning: {globalDict[i][8]:.4f} OR {globalDict[i][6]:.4f}%.")
-            print(f"Change from last trade day: {globalDict[i][9]:.4f} OR {globalDict[i][7]:.4f}%. \n")
-        return
-    
+def historical_data(client):
+    mycontract = Contract()
+    for index, row in client.screen_df.iterrows():
+        client.done.clear()
+        mycontract.symbol = row['symbol']
+        mycontract.secType = "STK"
+        mycontract.exchange = "SMART"
+        mycontract.currency = "USD"
+        int_conid = int(row['conid'])
+
+        client.reqHistoricalData(int_conid, mycontract, "20250205 16:00:00 US/Eastern", "3 D", "15 mins", "TRADES", 1, 1, False, [])
+        client.done.wait()
+
+def client_stop(client):
+    # disconnect
+    client.disconnect()
+
 def main():
-    
-    startInvesting.buildScanner()
-    startInvesting.printScanner()
-    
-    startInvesting.buildHistorical()
-    
-    startInvesting.calcChange()
-    
-    startInvesting.printTopDif()
-    startInvesting.bestBuys()
+    logger = loggerSetup()
+
+    with open('config.yml', 'r') as c:
+        config = yaml.safe_load(c)
+        baseUrl = config['baseUrl']
+        paper_account = config['paper_account']
+        live_short_account = config['live_short_account']
+        live_long_account = config['live_long_account']
+        addr = config["twsapi_addr"]
+        port = config["twsapi_paperport"]
+        clientId = config["twsapi_clientId"]
+
+    client = client_thread(addr, port, clientId)
+    accsum(client)
+  
+    client.done.clear()
+    scanner(client)
+
+    client.done.clear()
+    historical_data(client)
+    client.screen_df.to_csv('screen.csv', index=False)
+    client.bar_df.to_csv('bar.csv', index=False)
+
+    client_stop(client)
 
 if __name__ == "__main__":
     main()
