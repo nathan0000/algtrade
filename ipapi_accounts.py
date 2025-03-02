@@ -3,9 +3,12 @@ from ibapi.wrapper import EWrapper
 from ibapi.contract import Contract
 from threading import Timer
 
-class TestApp(EWrapper, EClient):
+#position_ref = {}
+
+class AccountApp(EWrapper, EClient):
     def __init__(self):
         EClient.__init__(self, self)
+        self.position_ref = {}
 
     def error(self, reqId, errorCode: int, errorString: str, advancedOrderRejectJson=""):
         pass
@@ -29,18 +32,24 @@ class TestApp(EWrapper, EClient):
     def accountDownloadEnd(self, accountName: str):
         print("AccountDownloadEnd. Account:", accountName)
 
+    def position(self, account, contract, position, avgCost):
+        self.position_ref[contract.symbol] = {account, contract, position, avgCost}
+
     def start(self):
         # Account number can be omitted when using reqAccountUpdates with single account structure
-        self.reqAccountUpdates(True, "")
+        self.reqAccountUpdates(True, "U5246790")
+        self.reqAccountUpdates(True, "U7993843")
+        self.reqPositions()
 
     def stop(self):
         self.reqAccountUpdates(False, "")
+        print(f"Position: {self.position_ref}")
         self.done = True
         self.disconnect()
 
 def main():
-    app = TestApp()
-    app.connect("127.0.0.1", 7497, 0)
+    app = AccountApp()
+    app.connect("127.0.0.1", 7497, 227)
 
     Timer(5, app.stop).start()
     app.run()

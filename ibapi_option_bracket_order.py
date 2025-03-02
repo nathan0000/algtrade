@@ -5,6 +5,7 @@ from ibapi.order import Order
 from ibapi.tag_value import TagValue
 import threading, time
 import pandas as pd
+from trading_dates import *
 from techAnalysis.taobjects import Indicators
 
 class OptionOrderApp(EClient, EWrapper):
@@ -15,11 +16,11 @@ class OptionOrderApp(EClient, EWrapper):
         
   def nextValidId(self, orderId: OrderId):
     self.nextOrderId = orderId
-    print("I have nextValidId", orderId)  
+    print("I have nextValidId", self.nextOrderId)  
 
   def contractDetails(self, reqId, contractDetails):
     attrs = vars(contractDetails)
-#        print("\n".join(f"{name}: {value}" for name,value in attrs.items()))
+    print("\n".join(f"{name}: {value}" for name,value in attrs.items()))
     print(contractDetails.contract)
     if contractDetails.contract.secType == "FOP":
       self.optContractDetails.loc[len(self.optContractDetails)] = [contractDetails.contract.conId,
@@ -45,15 +46,15 @@ class OptionOrderApp(EClient, EWrapper):
   def execDetails(self, reqId: int, contract: Contract, execution: Execution):
     print(f"reqId: {reqId}, contract: {contract}, execution: {execution}")
 
-def optionContractDetails(client, symbol="ES"):
+def optionContractDetails(client, closePrice: int, nextTradingDay, symbol="ES"):
   optContract = Contract()
   optContract.symbol = symbol
   optContract.secType = "FOP"
   optContract.currency = "USD"
   optContract.primaryExchange = "CME"
   optContract.exchange = "SMART"
-  optContract.lastTradeDateOrContractMonth = "20250218"
-  for strike in range(6000, 6300, 5):
+  optContract.lastTradeDateOrContractMonth = nextTradingDay
+  for strike in range(closePrice-50, closePrice+50, 5):
     optContract.strike = strike
     client.job_done.clear()
     client.reqContractDetails(client.nextOrderId, optContract)
@@ -61,18 +62,18 @@ def optionContractDetails(client, symbol="ES"):
   print(f'optContractDetails: {client.optContractDetails}')
   client.optContractDetails.to_csv("optContractDetails.csv")
 
-def optionStrategy(client, symbol="ES", strategy="ironCondor", quantity=1, sellAction="SELL", orderType="LMT", buyAction="BUY", price=0.0):
+def optionStrategy(client, nextTradingDay, symbol="ES", strategy="ironCondor", quantity=1, sellAction="SELL", orderType="LMT", buyAction="BUY", price=0.0):
   
   shortPutContract = Contract()
   shortPutContract.symbol = symbol
   shortPutContract.secType = "FOP"
   shortPutContract.currency = "USD"
-  shortPutContract.primaryExchange = "CME"
-  shortPutContract.exchange = "SMART"
-  shortPutContract.lastTradeDateOrContractMonth = "20250221"
-  shortPutContract.strike = 6090
+  shortPutContract.exchange = "CME"
+  #shortPutContract.exchange = "SMART"
+  shortPutContract.lastTradeDateOrContractMonth = nextTradingDay
+  shortPutContract.strike = 5825
   shortPutContract.right = "P"
-  app.reqContractDetails(client.nextOrderId, shortPutContract)
+  client.reqContractDetails(client.nextOrderId, shortPutContract)
   time.sleep(1)
 
   shortCallContract = Contract()
@@ -81,10 +82,10 @@ def optionStrategy(client, symbol="ES", strategy="ironCondor", quantity=1, sellA
   shortCallContract.currency = "USD"
   shortCallContract.primaryExchange = "CME"
   shortCallContract.exchange = "SMART"
-  shortCallContract.lastTradeDateOrContractMonth = "20250221"
-  shortCallContract.strike = 6190
+  shortCallContract.lastTradeDateOrContractMonth = nextTradingDay
+  shortCallContract.strike = 5925
   shortCallContract.right = "C"
-  app.reqContractDetails(client.nextOrderId, shortCallContract)
+  client.reqContractDetails(client.nextOrderId, shortCallContract)
   time.sleep(1)
 
   longPutContract = Contract()
@@ -93,10 +94,10 @@ def optionStrategy(client, symbol="ES", strategy="ironCondor", quantity=1, sellA
   longPutContract.currency = "USD"
   longPutContract.primaryExchange = "CME"
   longPutContract.exchange = "SMART"
-  longPutContract.lastTradeDateOrContractMonth = "20250221"
-  longPutContract.strike = 6040
+  longPutContract.lastTradeDateOrContractMonth = nextTradingDay
+  longPutContract.strike = 5775
   longPutContract.right = "P"
-  app.reqContractDetails(client.nextOrderId, longPutContract)
+  client.reqContractDetails(client.nextOrderId, longPutContract)
   time.sleep(1)
 
   longCallContract = Contract()
@@ -105,10 +106,10 @@ def optionStrategy(client, symbol="ES", strategy="ironCondor", quantity=1, sellA
   longCallContract.currency = "USD"
   longCallContract.primaryExchange = "CME"
   longCallContract.exchange = "SMART"
-  longCallContract.lastTradeDateOrContractMonth = "20250221"
-  longCallContract.strike = 6240
+  longCallContract.lastTradeDateOrContractMonth = nextTradingDay
+  longCallContract.strike = 5975
   longCallContract.right = "C"
-  app.reqContractDetails(client.nextOrderId, longCallContract)
+  client.reqContractDetails(client.nextOrderId, longCallContract)
   time.sleep(1)
   print(f'optcontractDetails: {client.optContractDetails}')
 
@@ -121,31 +122,31 @@ def optionStrategy(client, symbol="ES", strategy="ironCondor", quantity=1, sellA
     optContract.exchange = "SMART"
 
     leg1 = ComboLeg()
-    leg1.conId = client.optContractDetails.loc[client.optContractDetails["strike"] == 6090]["conId"].item()
+    leg1.conId = client.optContractDetails.loc[client.optContractDetails["strike"] == 5825]["conId"].item()
     leg1.ratio = 1
     leg1.action = "SELL"
-    leg1.exchange = client.optContractDetails.loc[client.optContractDetails["strike"] == 6090]["exchange"].item()
+    leg1.exchange = client.optContractDetails.loc[client.optContractDetails["strike"] == 5825]["exchange"].item()
     print(f'leg1 conId: {leg1.conId}')
 
     leg3 = ComboLeg()
-    leg3.conId = client.optContractDetails.loc[client.optContractDetails["strike"] == 6190]["conId"].item()
+    leg3.conId = client.optContractDetails.loc[client.optContractDetails["strike"] == 5975]["conId"].item()
     leg3.ratio = 1
     leg3.action = "SELL"
-    leg3.exchange = client.optContractDetails.loc[client.optContractDetails["strike"] == 6190]["exchange"].item()
+    leg3.exchange = client.optContractDetails.loc[client.optContractDetails["strike"] == 5975]["exchange"].item()
     print(f'leg3 conId: {leg3.conId}')
 
     leg2 = ComboLeg()
-    leg2.conId = client.optContractDetails.loc[client.optContractDetails["strike"] == 6040]["conId"].item()
+    leg2.conId = client.optContractDetails.loc[client.optContractDetails["strike"] == 5775]["conId"].item()
     leg2.ratio = 1
     leg2.action = "BUY"
-    leg2.exchange = client.optContractDetails.loc[client.optContractDetails["strike"] == 6040]["exchange"].item()
+    leg2.exchange = client.optContractDetails.loc[client.optContractDetails["strike"] == 5775]["exchange"].item()
     print(f'leg2 conId: {leg2.conId}')
 
     leg4 = ComboLeg()
-    leg4.conId = client.optContractDetails.loc[client.optContractDetails["strike"] == 6240]["conId"].item()
+    leg4.conId = client.optContractDetails.loc[client.optContractDetails["strike"] == 5975]["conId"].item()
     leg4.ratio = 1
     leg4.action = "BUY"
-    leg4.exchange = client.optContractDetails.loc[client.optContractDetails["strike"] == 6240]["exchange"].item()
+    leg4.exchange = client.optContractDetails.loc[client.optContractDetails["strike"] == 5975]["exchange"].item()
     print(f'leg4 conId: {leg4.conId}')
 
     optContract.comboLegs = []
@@ -161,13 +162,39 @@ def optionStrategy(client, symbol="ES", strategy="ironCondor", quantity=1, sellA
   optOrder.totalQuantity = quantity
   optOrder.orderType = orderType
   optOrder.lmtPrice = price
-  optOrder.tif = "GTC"
+  optOrder.tif = "DAY"
+  optOrder.transmit = False
 #  optOrder.smartComboRoutingParams = []
 #  optOrder.smartComboRoutingParams.append(TagValue('NonGuaranteed', '1'))
   print(f'optOrder: {optOrder}')
 
+  takeProfit = price * 0.5
+  takeProfitOrder = Order()
+  takeProfitOrder.orderId = client.nextOrderId + 1
+  takeProfitOrder.parentId = optOrder.orderId
+  takeProfitOrder.action = buyAction
+  takeProfitOrder.totalQuantity = quantity
+  takeProfitOrder.orderType = orderType
+  takeProfitOrder.lmtPrice = takeProfit
+  takeProfitOrder.tif = "GTC"
+  takeProfitOrder.transmit = False
+  print(f'takeProfitOrder: {takeProfitOrder}')  
+
+  stopLoss = price * 1.3
+  stopLossOrder = Order()
+  stopLossOrder.orderId = client.nextOrderId + 2
+  stopLossOrder.parentId = optOrder.orderId
+  stopLossOrder.action = buyAction
+  stopLossOrder.totalQuantity = quantity
+  stopLossOrder.orderType = orderType
+  stopLossOrder.lmtPrice = stopLoss
+  stopLossOrder.tif = "GTC"
+  stopLossOrder.transmit = True
+  print(f'stopLossOrder: {stopLossOrder}')
 
   client.placeOrder(optOrder.orderId, optContract, optOrder)
+  client.placeOrder(takeProfitOrder.orderId, optContract, takeProfitOrder)
+  client.placeOrder(stopLossOrder.orderId, optContract, stopLossOrder)
 
 def websocket_con():
     app.run()
@@ -184,7 +211,10 @@ time.sleep(1)
 
 #time.sleep(5)
 
-optionStrategy(app)
+today, todaytime, nextTradingDay = getDate()
+print(f'Today: {today}, Next Business Day: {nextTradingDay}')
+
+optionStrategy(app, nextTradingDay)
 
 time.sleep(5)
 
