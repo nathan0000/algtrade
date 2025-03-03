@@ -150,7 +150,7 @@ for index, row in app.optContractDetails.iterrows():
     mycontract.tradingClass = row['tradingClass']
     int_conid = int(row['conId'])
 
-    app.reqMarketDataType(2)
+    app.reqMarketDataType(3)
     app.reqMktData(int_conid, mycontract, "", True, False, [])
     print(app.optPriceGreeks)
     time.sleep(6)
