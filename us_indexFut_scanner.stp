@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScannerTemplate autoRefresh="true">
+	<ScannerContent varName="content" version="0" watermarkWhenEmpty="false" tabIndex="0" restoredFromLayoutLibrary="false" groupBy="NULL" scannerName="us_indexFut_scanner" pageId="1740874124" transferableParameter="true" locationText="FUT.CME,FUT.CBOT" statsExchText="ALL" maxItems="-1" snapshot="-1" paused="false" scannerSent="true" chartDividerLocation="0" isFirstInvocation="false" isFilterOpened="false" sortingColId="-1" sortAscending="true" continuousMode="false" readOnly="false" ccpId="100" ccpHash="1739003747346">
+		<ExtendedConfigurationMap varName="extendedConfiguration">
+			<String>FXAccount Portfolio Table_Sorting</String>
+			<SortableTableConfiguration column="1" ascending="false"/>
+			<String>FXAccount Portfolio Table</String>
+			<TableConfiguration>
+				<ColumnWidthsMap varName="columnWidths"/>
+				<ColumnOrdinalsMap varName="columnOrdinals"/>
+			</TableConfiguration>
+			<String>TabIndex</String>
+			<SliderConfiguration sliderLocation="0"/>
+		</ExtendedConfigurationMap>
+		<PortfolioFilterState varName="filterState" includeZero="true" includeCash="false"/>
+		<Instrument varName="instrument" name="US Futures" m_type="FUT.US" secType="FUT" filters="PRICE,PRICE_USD,VOLUME,VOLUME_USD,PRODCAT,LEADFUT,CHANGEPERC,CHANGEOPENPERC,OPENGAPPERC,OPTOI,OPTVOLUME,OPTVOLUMEPCRATIO,PRICERANGE,TRADECOUNT,TRADERATE,STVOLUME_3MIN,STVOLUME_5MIN,STVOLUME_10MIN" group="FUT.GLOBAL" shortName="US" cloudScanNotSupported="false"/>
+		<ScanType varName="parameter" displayName="Most Active" scanCode="MOST_ACTIVE" instruments="STK,STOCK.NA,STOCK.EU,STOCK.ME,STOCK.HK,ETF.EQ.US,ETF.FI.US,FUT.US,FUT.NA,FUT.EU,FUT.HK,SSF.US,SSF.NA,SSF.EU,SSF.HK,BOND,SLB.US,OPT.US" absoluteColumns="false" supportsSorting="true" respSizeLimit="#" snapshotSizeLimit="1000" delayedAvail="yes" searchName="Volume (High-Low)" searchDefault="false" access="allowed">
+			<Columns varName="columns">
+				<Column colId="22" name="Volume" display="false" section="m">
+					<displayType>DATA</displayType>
+				</Column>
+				<ColumnSetRef colId="0" name="BA" display="false">
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column colId="48" name="Time in Scan" display="true">
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+		</ScanType>
+		<SettingValueList varName="settingList"/>
+		<AdvancedFilter varName="filter">
+			<priceAbove>2000</priceAbove>
+		</AdvancedFilter>
+	</ScannerContent>
+	<ArString varName="fullySelectedNodesList"/>
+	<Columns varName="tickerColumns" type="jcolumn.TickerColumns">
+		<ContractSingleDescColumn colId="99" width="110" alignment="2" fg="-16777216" bg="-1052974" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false"/>
+		<VolumeColumn colId="22" width="60" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false"/>
+		<LastPriceColumn colId="7" width="101" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false" prohibitDynamicColors="false"/>
+		<PriceVsEma20Column colId="924" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>PRICE_VS_EMA_20</marketDataUnit>
+			<formatter>PERCENTAGE</formatter>
+		</PriceVsEma20Column>
+		<MacdSignalColumn colId="934" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>MACD_SIGNAL</marketDataUnit>
+			<formatter>PRICE_WITH_SIGN</formatter>
+		</MacdSignalColumn>
+		<Ema100Column colId="922" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>EMA_100</marketDataUnit>
+			<formatter>PRICE</formatter>
+		</Ema100Column>
+		<Ema200Column colId="923" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>EMA_200</marketDataUnit>
+			<formatter>PRICE</formatter>
+		</Ema200Column>
+		<Ema50Column colId="921" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>EMA_50</marketDataUnit>
+			<formatter>PRICE</formatter>
+		</Ema50Column>
+		<Ema20Column colId="920" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>EMA_20</marketDataUnit>
+			<formatter>PRICE</formatter>
+		</Ema20Column>
+		<PriceVsEma50Column colId="925" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>PRICE_VS_EMA_50</marketDataUnit>
+			<formatter>PERCENTAGE</formatter>
+		</PriceVsEma50Column>
+		<PriceVsEma200Column colId="927" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>PRICE_VS_EMA_200</marketDataUnit>
+			<formatter>PERCENTAGE</formatter>
+		</PriceVsEma200Column>
+		<PriceVsEma100Column colId="926" width="60" alignment="2" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false">
+			<marketDataUnit>PRICE_VS_EMA_100</marketDataUnit>
+			<formatter>PERCENTAGE</formatter>
+		</PriceVsEma100Column>
+		<BidPriceColumn colId="4" width="67" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false" prohibitDynamicColors="false"/>
+		<PutCallVolumeColumn colId="384" width="60" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false"/>
+		<TweetVolumeScoreColumn colId="44002" width="60" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false" prohibitDynamicColors="false"/>
+		<SocialSentimentScoreColumn colId="44000" width="60" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false" prohibitDynamicColors="false"/>
+		<HVPercentile52Column colId="6329" width="60" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false" columnTitle="52 Week HV Percentile" columnTitleAbbrev="52HVP"/>
+		<VolatilityChangeColumn colId="382" width="60" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false"/>
+		<ChangeColumn colId="16" width="64" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false" showPercent="true" prohibitDynamicColors="false"/>
+		<ChangeSinceOpenColumn colId="55" width="60" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false" showPercent="false"/>
+		<AskPriceColumn colId="5" width="67" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false" prohibitDynamicColors="false"/>
+		<InScanTimeColumn colId="48" width="40" alignment="4" uniqueId="0" maxSymbolWidth="0" overrideBg="false" overrideFg="false"/>
+	</Columns>
+</ScannerTemplate>

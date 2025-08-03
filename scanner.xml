@@ -690,7 +690,6 @@
 					<locationCode>FUT.IPE</locationCode>
 					<instruments>FUT.US</instruments>
 					<routeExchange>IPE</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=617</access>
 				</Location>
 				<Location>
@@ -698,7 +697,6 @@
 					<locationCode>FUT.ENDEX</locationCode>
 					<instruments>FUT.US</instruments>
 					<routeExchange>ENDEX</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=627</access>
 				</Location>
 				<Location>
@@ -706,7 +704,6 @@
 					<locationCode>FUT.NYBOT</locationCode>
 					<instruments>FUT.US</instruments>
 					<routeExchange>NYBOT</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted</access>
 				</Location>
 				<Location>
@@ -714,7 +711,6 @@
 					<locationCode>FUT.NYSELIFFE</locationCode>
 					<instruments>FUT.US</instruments>
 					<routeExchange>NYSELIFFE</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=616</access>
 				</Location>
 				<Location>
@@ -722,7 +718,6 @@
 					<locationCode>FUT.CFE</locationCode>
 					<instruments>FUT.US</instruments>
 					<routeExchange>CFE</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=651;s=652;s=668;s=669</access>
 				</Location>
 				<Location>
@@ -730,7 +725,6 @@
 					<locationCode>FUT.ICECRYPTO</locationCode>
 					<instruments>FUT.US</instruments>
 					<routeExchange>ICECRYPTO</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=616;s=912</access>
 				</Location>
 			</LocationTree>
@@ -767,7 +761,7 @@
 					<locationCode>BOND.EU.EBS</locationCode>
 					<instruments>BOND</instruments>
 					<routeExchange>EBS</routeExchange>
-					<access>restricted;s=471;s=472;s=473;s=474</access>
+					<access>restricted;s=471;s=472;s=473;s=474;s=6666</access>
 				</Location>
 			</LocationTree>
 		</Location>
@@ -820,7 +814,7 @@
 					<locationCode>BOND.GOVT.EU.EBS</locationCode>
 					<instruments>BOND.GOVT.NON-US</instruments>
 					<routeExchange>EBS</routeExchange>
-					<access>restricted;s=471;s=472;s=473;s=474</access>
+					<access>restricted;s=471;s=472;s=473;s=474;s=6666</access>
 				</Location>
 				<Location>
 					<displayName>SEHK Bonds</displayName>
@@ -874,7 +868,6 @@
 							<locationCode>STK.NA.TSE</locationCode>
 							<instruments>STOCK.NA</instruments>
 							<routeExchange>TSE</routeExchange>
-							<delayedOnly>yes</delayedOnly>
 							<access>restricted;s=1082;s=275;s=444;s=445;s=920</access>
 						</Location>
 						<Location>
@@ -882,7 +875,6 @@
 							<locationCode>STK.NA.VENTURE</locationCode>
 							<instruments>STOCK.NA</instruments>
 							<routeExchange>VENTURE</routeExchange>
-							<delayedOnly>yes</delayedOnly>
 							<access>restricted;s=1082;s=274;s=444;s=446;s=920</access>
 						</Location>
 					</LocationTree>
@@ -907,7 +899,6 @@
 					<locationCode>FUT.NA.CDE</locationCode>
 					<instruments>FUT.NA</instruments>
 					<routeExchange>CDE</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=1082;s=178;s=179;s=276;s=277;s=278;s=279;s=921;s=922</access>
 				</Location>
 				<Location>
@@ -915,7 +906,6 @@
 					<locationCode>FUT.NA.MEXDER</locationCode>
 					<instruments>FUT.NA</instruments>
 					<routeExchange>MEXDER</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=459;s=487</access>
 				</Location>
 			</LocationTree>
@@ -931,7 +921,6 @@
 					<locationCode>SSF.NA.MEXDER</locationCode>
 					<instruments>SSF.NA</instruments>
 					<routeExchange>MEXDER</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=459;s=487</access>
 				</Location>
 			</LocationTree>
@@ -954,7 +943,6 @@
 					<locationCode>STK.EU.SBF</locationCode>
 					<instruments>STOCK.EU</instruments>
 					<routeExchange>SBF</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=106;s=107;s=1153;s=1345;s=267;s=268;s=712</access>
 				</Location>
 				<Location>
@@ -968,7 +956,6 @@
 							<locationCode>STK.EU.IBIS-XETRA</locationCode>
 							<instruments>STOCK.EU</instruments>
 							<routeExchange>IBIS</routeExchange>
-							<delayedOnly>yes</delayedOnly>
 							<access>restricted;s=1312;s=1313;s=1314;s=1315;s=147;s=148;s=247;s=248</access>
 						</Location>
 						<Location>
@@ -976,7 +963,6 @@
 							<locationCode>STK.EU.IBIS-EUSTARS</locationCode>
 							<instruments>STOCK.EU</instruments>
 							<routeExchange>IBIS</routeExchange>
-							<delayedOnly>yes</delayedOnly>
 							<access>restricted;s=1312;s=1313;s=1314;s=1315;s=147;s=148;s=247;s=248</access>
 						</Location>
 						<Location>
@@ -984,7 +970,6 @@
 							<locationCode>STK.EU.IBIS-USSTARS</locationCode>
 							<instruments>STOCK.EU</instruments>
 							<routeExchange>IBIS</routeExchange>
-							<delayedOnly>yes</delayedOnly>
 							<access>restricted;s=1312;s=1313;s=1314;s=1315;s=147;s=148;s=247;s=248</access>
 						</Location>
 						<Location>
@@ -993,7 +978,6 @@
 							<locationCode>STK.EU.IBIS-ETF</locationCode>
 							<instruments>STOCK.EU</instruments>
 							<routeExchange>IBIS</routeExchange>
-							<delayedOnly>yes</delayedOnly>
 							<access>restricted;s=1295;s=1296;s=2418;s=2419</access>
 						</Location>
 						<Location>
@@ -1002,7 +986,6 @@
 							<locationCode>STK.EU.IBIS-NEWX</locationCode>
 							<instruments>STOCK.EU</instruments>
 							<routeExchange>IBIS</routeExchange>
-							<delayedOnly>yes</delayedOnly>
 							<access>restricted;s=1312;s=1313;s=1314;s=1315;s=147;s=148;s=247;s=248</access>
 						</Location>
 					</LocationTree>
@@ -1019,7 +1002,6 @@
 					<locationCode>STK.EU.AEB</locationCode>
 					<instruments>STOCK.EU</instruments>
 					<routeExchange>AEB</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=106;s=107;s=1153;s=1345;s=267;s=268;s=712</access>
 				</Location>
 				<Location>
@@ -1027,7 +1009,6 @@
 					<locationCode>STK.EU.BM</locationCode>
 					<instruments>STOCK.EU</instruments>
 					<routeExchange>BM</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=462;s=463;s=464;s=465</access>
 				</Location>
 				<Location>
@@ -1042,15 +1023,13 @@
 					<locationCode>STK.EU.EBS</locationCode>
 					<instruments>STOCK.EU</instruments>
 					<routeExchange>EBS</routeExchange>
-					<delayedOnly>yes</delayedOnly>
-					<access>restricted;s=149;s=249;s=250</access>
+					<access>restricted;s=119;s=149;s=249;s=250</access>
 				</Location>
 				<Location>
 					<displayName>United Kingdom (LSE)</displayName>
 					<locationCode>STK.EU.LSE</locationCode>
 					<instruments>STOCK.EU</instruments>
 					<routeExchange>LSE</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=1321;s=180;s=181;s=183;s=184;s=185</access>
 				</Location>
 				<Location>
@@ -1101,6 +1080,13 @@
 							<routeExchange>MOEX</routeExchange>
 							<access>restricted;s=1025;s=1026</access>
 						</Location>
+						<Location>
+							<displayName>Slovenia (LJSE)</displayName>
+							<locationCode>STK.EU.LJSE</locationCode>
+							<instruments>STOCK.EU</instruments>
+							<routeExchange>LJSE</routeExchange>
+							<access>restricted;s=1204;s=1208</access>
+						</Location>
 					</LocationTree>
 				</Location>
 			</LocationTree>
@@ -1116,7 +1102,6 @@
 					<locationCode>FUT.EU.BELFOX</locationCode>
 					<instruments>FUT.EU</instruments>
 					<routeExchange>BELFOX</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted</access>
 				</Location>
 				<Location>
@@ -1124,7 +1109,6 @@
 					<locationCode>FUT.EU.EUREX</locationCode>
 					<instruments>FUT.EU</instruments>
 					<routeExchange>EUREX</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=1307;s=1308;s=1309;s=145;s=146;s=20145;s=245;s=246</access>
 				</Location>
 				<Location>
@@ -1132,7 +1116,6 @@
 					<locationCode>FUT.EU.FTA</locationCode>
 					<instruments>FUT.EU</instruments>
 					<routeExchange>FTA</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted</access>
 				</Location>
 				<Location>
@@ -1153,7 +1136,6 @@
 							<locationCode>FUT.EU.ICEEU</locationCode>
 							<instruments>FUT.EU</instruments>
 							<routeExchange>ICEEU</routeExchange>
-							<delayedOnly>yes</delayedOnly>
 							<access>restricted;s=707</access>
 						</Location>
 						<Location>
@@ -1177,7 +1159,6 @@
 					<locationCode>FUT.EU.MONEP</locationCode>
 					<instruments>FUT.EU</instruments>
 					<routeExchange>MONEP</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted</access>
 				</Location>
 				<Location>
@@ -1207,7 +1188,6 @@
 					<locationCode>IND.EU.BELFOX</locationCode>
 					<instruments>IND.EU</instruments>
 					<routeExchange>BELFOX</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=106;s=107;s=1153;s=1335;s=1345;s=711;s=712</access>
 				</Location>
 				<Location>
@@ -1215,7 +1195,6 @@
 					<locationCode>IND.EU.EUREX</locationCode>
 					<instruments>IND.EU</instruments>
 					<routeExchange>EUREX</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted</access>
 				</Location>
 				<Location>
@@ -1223,7 +1202,6 @@
 					<locationCode>IND.EU.FTA</locationCode>
 					<instruments>IND.EU</instruments>
 					<routeExchange>FTA</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=106;s=107;s=1153;s=1335;s=1345;s=711;s=712</access>
 				</Location>
 				<Location>
@@ -1231,7 +1209,6 @@
 					<locationCode>IND.EU.ICEEU</locationCode>
 					<instruments>IND.EU</instruments>
 					<routeExchange>ICEEU</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=707</access>
 				</Location>
 				<Location>
@@ -1239,7 +1216,6 @@
 					<locationCode>IND.EU.MONEP</locationCode>
 					<instruments>IND.EU</instruments>
 					<routeExchange>MONEP</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted</access>
 				</Location>
 			</LocationTree>
@@ -1255,7 +1231,6 @@
 					<locationCode>SSF.EU.EUREX</locationCode>
 					<instruments>SSF.EU</instruments>
 					<routeExchange>EUREX</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=1307;s=1308;s=1309;s=145;s=146;s=20145;s=245;s=246</access>
 				</Location>
 				<Location>
@@ -1270,7 +1245,6 @@
 					<locationCode>SSF.EU.ICEEU</locationCode>
 					<instruments>SSF.EU</instruments>
 					<routeExchange>ICEEU</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=707</access>
 				</Location>
 				<Location>
@@ -1307,7 +1281,6 @@
 					<locationCode>STK.ME.TADAWUL</locationCode>
 					<instruments>STOCK.ME</instruments>
 					<routeExchange>TADAWUL</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=294;s=295</access>
 				</Location>
 			</LocationTree>
@@ -1357,7 +1330,6 @@
 					<locationCode>STK.HK.ASX</locationCode>
 					<instruments>STOCK.HK</instruments>
 					<routeExchange>ASX</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=442;s=443</access>
 				</Location>
 				<Location>
@@ -1407,7 +1379,7 @@
 					<locationCode>FUT.HK.KSE</locationCode>
 					<instruments>FUT.HK</instruments>
 					<routeExchange>KSE</routeExchange>
-					<access>restricted;s=312;s=313</access>
+					<access>restricted;s=312;s=313;s=6666</access>
 				</Location>
 				<Location>
 					<displayName>India (NSE)</displayName>
@@ -1421,7 +1393,6 @@
 					<locationCode>FUT.HK.OSE_JPN</locationCode>
 					<instruments>FUT.HK</instruments>
 					<routeExchange>OSE.JPN</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=398;s=431;s=432;s=827;s=828</access>
 				</Location>
 				<Location>
@@ -1429,7 +1400,7 @@
 					<locationCode>FUT.HK.SGX</locationCode>
 					<instruments>FUT.HK</instruments>
 					<routeExchange>SGX</routeExchange>
-					<access>restricted;s=139;s=140;s=20139</access>
+					<access>restricted</access>
 				</Location>
 				<Location>
 					<displayName>Australia (SNFE)</displayName>
@@ -1443,7 +1414,6 @@
 					<locationCode>FUT.HK.BURSAMY</locationCode>
 					<instruments>FUT.HK</instruments>
 					<routeExchange>BURSAMY</routeExchange>
-					<delayedOnly>yes</delayedOnly>
 					<access>restricted;s=243;s=244</access>
 				</Location>
 			</LocationTree>
@@ -1515,7 +1485,7 @@
 					<locationCode>SSF.HK.KSE</locationCode>
 					<instruments>SSF.HK</instruments>
 					<routeExchange>KSE</routeExchange>
-					<access>restricted;s=312;s=313</access>
+					<access>restricted;s=312;s=313;s=6666</access>
 				</Location>
 				<Location>
 					<displayName>India (NSE)</displayName>
@@ -1529,7 +1499,7 @@
 					<locationCode>SSF.HK.SGX</locationCode>
 					<instruments>SSF.HK</instruments>
 					<routeExchange>SGX</routeExchange>
-					<access>restricted;s=139;s=140;s=20139</access>
+					<access>restricted</access>
 				</Location>
 			</LocationTree>
 		</Location>
@@ -5129,6 +5099,734 @@
 			<access>unrestricted</access>
 		</ScanType>
 		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Book Value Per Share (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYBVPerShare_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6083</colId>
+					<name>Next Year Book Value Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Book Value Per Share (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYBVPerShare_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6083</colId>
+					<name>Next Year Book Value Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Dividend Yield (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYDividendYield_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6119</colId>
+					<name>Next Year Dividend Yield</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Dividend Yield (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYDividendYield_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6119</colId>
+					<name>Next Year Dividend Yield</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Dividends Per Share (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYDPS_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6086</colId>
+					<name>Next Year Dividends Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Dividends Per Share (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYDPS_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6086</colId>
+					<name>Next Year Dividends Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Earnings Per Share (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYEPS_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6089</colId>
+					<name>Next Year Earnings Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Earnings Per Share (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYEPS_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6089</colId>
+					<name>Next Year Earnings Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Earnings Per Share Growth (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYEPSGrowth_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6122</colId>
+					<name>Next Year Earnings Per Share Growth</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Earnings Per Share Growth (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYEPSGrowth_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6122</colId>
+					<name>Next Year Earnings Per Share Growth</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Net Margins Per Share (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYNetMargin_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6092</colId>
+					<name>Next Year Net Margins Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Net Margins Per Share (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYNetMargin_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6092</colId>
+					<name>Next Year Net Margins Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Book Value Ratio (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToBookValue_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6095</colId>
+					<name>Next Year Price/Book Value Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Book Value Ratio (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToBookValue_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6095</colId>
+					<name>Next Year Price/Book Value Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Cash Flow Ratio (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToCashFlow_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6098</colId>
+					<name>Next Year Price/Cash Flow Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Cash Flow Ratio (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToCashFlow_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6098</colId>
+					<name>Next Year Price/Cash Flow Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Earnings Ratio (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToEarnings_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6101</colId>
+					<name>Next Year Price/Earnings Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Earnings Ratio (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToEarnings_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6101</colId>
+					<name>Next Year Price/Earnings Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Growth Ratio (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToGrowth_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6104</colId>
+					<name>Next Year Price/Growth Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Growth Ratio (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToGrowth_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6104</colId>
+					<name>Next Year Price/Growth Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Sales Ratio (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToSales_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6107</colId>
+					<name>Next Year Price/Sales Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Price/Sales Ratio (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYPriceToSales_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6107</colId>
+					<name>Next Year Price/Sales Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Return on Equity (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYRoE_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6110</colId>
+					<name>Next Year Return on Equity</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Return on Equity (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYRoE_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6110</colId>
+					<name>Next Year Return on Equity</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Sales Per Share (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYSPS_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6116</colId>
+					<name>Next Year Sales Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Sales Per Share (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYSPS_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6116</colId>
+					<name>Next Year Sales Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Sales Per Share Growth (AltaVista) Desc</displayName>
+			<scanCode>SCAN_nextYrETFFYSPSGrowth_DESC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6113</colId>
+					<name>Next Year Sales Per Share Growth</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
+			<vendor>ALV</vendor>
+			<displayName>Next Year Sales Per Share Growth (AltaVista) Asc</displayName>
+			<scanCode>SCAN_nextYrETFFYSPSGrowth_ASC</scanCode>
+			<instruments>ETF.EQ.US</instruments>
+			<absoluteColumns>false</absoluteColumns>
+			<Columns varName="columns">
+				<ColumnSetRef>
+					<colId>0</colId>
+					<name>PctPerf</name>
+					<display>false</display>
+					<displayType>DATA</displayType>
+				</ColumnSetRef>
+				<Column>
+					<colId>6113</colId>
+					<name>Next Year Sales Per Share Growth</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<supportsSorting>true</supportsSorting>
+			<respSizeLimit>2147483647</respSizeLimit>
+			<snapshotSizeLimit>2147483647</snapshotSizeLimit>
+			<searchDefault>false</searchDefault>
+			<access>unrestricted</access>
+		</ScanType>
+		<ScanType>
 			<scanCode>FAR_MATURITY_DATE</scanCode>
 			<instruments>BOND,BOND.CD,BOND.AGNCY,BOND.GOVT,BOND.MUNI,BOND.GOVT.NON-US</instruments>
 			<absoluteColumns>false</absoluteColumns>
@@ -6572,7 +7270,7 @@
 		<ScanType>
 			<displayName>Most Active By Opt Open Interest</displayName>
 			<scanCode>OPT_OPEN_INTEREST_MOST_ACTIVE</scanCode>
-			<instruments>STK,ETF.EQ.US,ETF.FI.US,IND.US,STOCK.HK,FUT.US</instruments>
+			<instruments>STK,ETF.EQ.US,ETF.FI.US,IND.US,STOCK.HK,FUT.US,IND.FCASTX</instruments>
 			<absoluteColumns>false</absoluteColumns>
 			<Columns varName="columns">
 				<Column>
@@ -6598,7 +7296,7 @@
 			<settings>annualVolatility</settings>
 			<supportsSorting>true</supportsSorting>
 			<locationFilter>STOCK.HK:STK.HK.ASX</locationFilter>
-			<respSizeLimit>2147483647</respSizeLimit>
+			<respSizeLimit>250</respSizeLimit>
 			<snapshotSizeLimit>500</snapshotSizeLimit>
 			<delayedAvail>yes</delayedAvail>
 			<searchDefault>false</searchDefault>
@@ -27976,6 +28674,538 @@
 			</AbstractField>
 			<skipValidation>false</skipValidation>
 		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTBVPS</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYBVPerShare</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6083</colId>
+					<name>Next Year Book Value Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYBVPerShareAbove</code>
+				<displayName>Next Year Book Value Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYBVPerShareBelow</code>
+				<displayName>Next Year Book Value Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTDY</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYDividendYield</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6119</colId>
+					<name>Next Year Dividend Yield</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYDividendYieldAbove</code>
+				<displayName>Next Year Dividend Yield (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYDividendYieldBelow</code>
+				<displayName>Next Year Dividend Yield (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTDPG</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYDPS</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6086</colId>
+					<name>Next Year Dividends Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYDPSAbove</code>
+				<displayName>Next Year Dividends Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYDPSBelow</code>
+				<displayName>Next Year Dividends Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTEPS</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYEPS</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6089</colId>
+					<name>Next Year Earnings Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYEPSAbove</code>
+				<displayName>Next Year Earnings Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYEPSBelow</code>
+				<displayName>Next Year Earnings Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTYOY</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYEPSGrowth</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6122</colId>
+					<name>Next Year Earnings Per Share Growth</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYEPSGrowthAbove</code>
+				<displayName>Next Year Earnings Per Share Growth (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYEPSGrowthBelow</code>
+				<displayName>Next Year Earnings Per Share Growth (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTNET</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYNetMargin</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6092</colId>
+					<name>Next Year Net Margins Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYNetMarginAbove</code>
+				<displayName>Next Year Net Margins Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYNetMarginBelow</code>
+				<displayName>Next Year Net Margins Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPBV</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToBookValue</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6095</colId>
+					<name>Next Year Price/Book Value Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToBookValueAbove</code>
+				<displayName>Next Year Price/Book Value Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToBookValueBelow</code>
+				<displayName>Next Year Price/Book Value Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPCF</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToCashFlow</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6098</colId>
+					<name>Next Year Price/Cash Flow Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToCashFlowAbove</code>
+				<displayName>Next Year Price/Cash Flow Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToCashFlowBelow</code>
+				<displayName>Next Year Price/Cash Flow Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPE</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToEarnings</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6101</colId>
+					<name>Next Year Price/Earnings Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToEarningsAbove</code>
+				<displayName>Next Year Price/Earnings Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToEarningsBelow</code>
+				<displayName>Next Year Price/Earnings Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPEG</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToGrowth</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6104</colId>
+					<name>Next Year Price/Growth Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToGrowthAbove</code>
+				<displayName>Next Year Price/Growth Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToGrowthBelow</code>
+				<displayName>Next Year Price/Growth Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPS</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToSales</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6107</colId>
+					<name>Next Year Price/Sales Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToSalesAbove</code>
+				<displayName>Next Year Price/Sales Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToSalesBelow</code>
+				<displayName>Next Year Price/Sales Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTROE</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYRoE</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6110</colId>
+					<name>Next Year Return on Equity</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYRoEAbove</code>
+				<displayName>Next Year Return on Equity (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYRoEBelow</code>
+				<displayName>Next Year Return on Equity (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTSPS</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYSPS</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6116</colId>
+					<name>Next Year Sales Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYSPSAbove</code>
+				<displayName>Next Year Sales Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYSPSBelow</code>
+				<displayName>Next Year Sales Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTSALYOY</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYSPSGrowth</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6113</colId>
+					<name>Next Year Sales Per Share Growth</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYSPSGrowthAbove</code>
+				<displayName>Next Year Sales Per Share Growth (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYSPSGrowthBelow</code>
+				<displayName>Next Year Sales Per Share Growth (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
 		<SimpleFilter>
 			<id>RCGLTCLASS</id>
 			<category>Recognia</category>
@@ -41485,6 +42715,94 @@
 				<leftChartDividerLocation>0</leftChartDividerLocation>
 				<rightChartDividerLocation>0</rightChartDividerLocation>
 			</SidecarScannerTemplate>
+			<SidecarScannerTemplate>
+				<id>93</id>
+				<name>Liquid Shorts</name>
+				<description>Displays US stocks with high Utilization (a measure of shorting demand; see IBKR guide) and average volume, sorted from highest to lowest fee rate.</description>
+				<AdvancedFilter varName="filter">
+					<stkTypes>exc:ETF,ETN</stkTypes>
+					<utilizationAbove>70.00</utilizationAbove>
+					<avgVolumeAbove>5000000</avgVolumeAbove>
+					<sharesAvailableManyAbove>5000</sharesAvailableManyAbove>
+					<feeRateAbove>1.00</feeRateAbove>
+					<usdMarketCapAbove>300000000</usdMarketCapAbove>
+					<usdPriceAbove>5.00</usdPriceAbove>
+				</AdvancedFilter>
+				<product>STK</product>
+				<ArString varName="regions">
+					<String>STK</String>
+				</ArString>
+				<ArString varName="exchanges">
+					<String>STK.NYSE</String>
+					<String>STK.AMEX</String>
+					<String>STK.ARCA</String>
+					<String>STK.NASDAQ.NMS</String>
+					<String>STK.NASDAQ.SCM</String>
+				</ArString>
+				<Columns varName="columns">
+					<Column>
+						<colId>99</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+					</Column>
+					<Column>
+						<colId>63</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+					</Column>
+					<Column>
+						<colId>452</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+					</Column>
+					<Column>
+						<colId>16</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+					</Column>
+					<Column>
+						<colId>440</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+						<ScannerSortList varName="sortList">
+							<ScannerSort>
+								<colId>440</colId>
+								<direction>desc</direction>
+								<scanCode>SCAN_feeRate_DESC</scanCode>
+							</ScannerSort>
+						</ScannerSortList>
+					</Column>
+					<Column>
+						<colId>439</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+					</Column>
+					<Column>
+						<colId>442</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+					</Column>
+					<Column>
+						<colId>370</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+					</Column>
+					<Column>
+						<colId>4120</colId>
+						<display>true</display>
+						<displayType>DATA</displayType>
+					</Column>
+					<Column>
+						<colId>400</colId>
+						<display>true</display>
+						<displayType>DISABLED</displayType>
+					</Column>
+				</Columns>
+				<predefined>true</predefined>
+				<sortReversed>false</sortReversed>
+				<leftChartDividerLocation>0</leftChartDividerLocation>
+				<rightChartDividerLocation>0</rightChartDividerLocation>
+			</SidecarScannerTemplate>
 		</SidecarScannerTemplateList>
 		<ScannerProductTypeList varName="scannerProductTypeList">
 			<ScannerProductType>
@@ -50476,6 +51794,538 @@
 			<AbstractField type="scanner.filter.DoubleField" varName="max">
 				<code>currYrETFFYSPSGrowthBelow</code>
 				<displayName>Curr Year Sales Per Share Growth (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTBVPS</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYBVPerShare</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6083</colId>
+					<name>Next Year Book Value Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYBVPerShareAbove</code>
+				<displayName>Next Year Book Value Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYBVPerShareBelow</code>
+				<displayName>Next Year Book Value Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTDY</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYDividendYield</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6119</colId>
+					<name>Next Year Dividend Yield</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYDividendYieldAbove</code>
+				<displayName>Next Year Dividend Yield (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYDividendYieldBelow</code>
+				<displayName>Next Year Dividend Yield (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTDPG</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYDPS</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6086</colId>
+					<name>Next Year Dividends Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYDPSAbove</code>
+				<displayName>Next Year Dividends Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYDPSBelow</code>
+				<displayName>Next Year Dividends Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTEPS</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYEPS</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6089</colId>
+					<name>Next Year Earnings Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYEPSAbove</code>
+				<displayName>Next Year Earnings Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYEPSBelow</code>
+				<displayName>Next Year Earnings Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTYOY</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYEPSGrowth</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6122</colId>
+					<name>Next Year Earnings Per Share Growth</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYEPSGrowthAbove</code>
+				<displayName>Next Year Earnings Per Share Growth (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYEPSGrowthBelow</code>
+				<displayName>Next Year Earnings Per Share Growth (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTNET</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYNetMargin</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6092</colId>
+					<name>Next Year Net Margins Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYNetMarginAbove</code>
+				<displayName>Next Year Net Margins Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYNetMarginBelow</code>
+				<displayName>Next Year Net Margins Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPBV</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToBookValue</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6095</colId>
+					<name>Next Year Price/Book Value Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToBookValueAbove</code>
+				<displayName>Next Year Price/Book Value Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToBookValueBelow</code>
+				<displayName>Next Year Price/Book Value Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPCF</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToCashFlow</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6098</colId>
+					<name>Next Year Price/Cash Flow Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToCashFlowAbove</code>
+				<displayName>Next Year Price/Cash Flow Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToCashFlowBelow</code>
+				<displayName>Next Year Price/Cash Flow Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPE</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToEarnings</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6101</colId>
+					<name>Next Year Price/Earnings Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToEarningsAbove</code>
+				<displayName>Next Year Price/Earnings Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToEarningsBelow</code>
+				<displayName>Next Year Price/Earnings Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPEG</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToGrowth</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6104</colId>
+					<name>Next Year Price/Growth Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToGrowthAbove</code>
+				<displayName>Next Year Price/Growth Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToGrowthBelow</code>
+				<displayName>Next Year Price/Growth Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTPS</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYPriceToSales</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6107</colId>
+					<name>Next Year Price/Sales Ratio</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYPriceToSalesAbove</code>
+				<displayName>Next Year Price/Sales Ratio (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYPriceToSalesBelow</code>
+				<displayName>Next Year Price/Sales Ratio (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTROE</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYRoE</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6110</colId>
+					<name>Next Year Return on Equity</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYRoEAbove</code>
+				<displayName>Next Year Return on Equity (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYRoEBelow</code>
+				<displayName>Next Year Return on Equity (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTSPS</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYSPS</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6116</colId>
+					<name>Next Year Sales Per Share</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYSPSAbove</code>
+				<displayName>Next Year Sales Per Share (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYSPSBelow</code>
+				<displayName>Next Year Sales Per Share (AltaVista) Below</displayName>
+				<varName>max</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<skipValidation>false</skipValidation>
+		</RangeFilter>
+		<RangeFilter>
+			<id>AVFYNXTSALYOY</id>
+			<category>Alta Vista</category>
+			<histogram>nextYrETFFYSPSGrowth</histogram>
+			<vendor>ALV</vendor>
+			<access>unrestricted</access>
+			<Columns varName="columns">
+				<Column>
+					<colId>6113</colId>
+					<name>Next Year Sales Per Share Growth</name>
+					<display>true</display>
+					<displayType>DATA</displayType>
+				</Column>
+			</Columns>
+			<AbstractField type="scanner.filter.DoubleField" varName="min">
+				<code>nextYrETFFYSPSGrowthAbove</code>
+				<displayName>Next Year Sales Per Share Growth (AltaVista) Above</displayName>
+				<varName>min</varName>
+				<dontAllowClearAll>false</dontAllowClearAll>
+				<acceptNegatives>false</acceptNegatives>
+				<dontAllowNegative>false</dontAllowNegative>
+				<skipNotEditableField>false</skipNotEditableField>
+				<precision>-1</precision>
+				<fraction>false</fraction>
+			</AbstractField>
+			<AbstractField type="scanner.filter.DoubleField" varName="max">
+				<code>nextYrETFFYSPSGrowthBelow</code>
+				<displayName>Next Year Sales Per Share Growth (AltaVista) Below</displayName>
 				<varName>max</varName>
 				<dontAllowClearAll>false</dontAllowClearAll>
 				<acceptNegatives>false</acceptNegatives>

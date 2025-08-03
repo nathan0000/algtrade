@@ -67,19 +67,19 @@ mycontract = Contract()
 # mycontract.primaryExchange = "NASDAQ"
 
 # Future
-#mycontract.symbol = "ES"
-#mycontract.secType = "FUT"
-#mycontract.currency = "USD"
-#mycontract.exchange = "CME"
-#mycontract.lastTradeDateOrContractMonth = 202503
+mycontract.symbol = "10Y"
+mycontract.secType = "FUT"
+mycontract.currency = "USD"
+mycontract.exchange = "CBOT"
+mycontract.lastTradeDateOrContractMonth = 20250331
 
 # Option
-mycontract.symbol = "IBM"
-mycontract.secType = "OPT"
-underConId = 8314
-mycontract.currency = "USD"
-mycontract.exchange = "SMART"
-mycontract.lastTradeDateOrContractMonth = 20250221
+#mycontract.symbol = "IBM"
+#mycontract.secType = "OPT"
+#underConId = 8314
+#mycontract.currency = "USD"
+#mycontract.exchange = "SMART"
+#mycontract.lastTradeDateOrContractMonth = 20250221
 #mycontract.right = "P"
 #mycontract.tradingClass = "SPXW"
 #mycontract.strike = 6100

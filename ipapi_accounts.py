@@ -10,10 +10,6 @@ class AccountApp(EWrapper, EClient):
         EClient.__init__(self, self)
         self.position_ref = {}
 
-    def error(self, reqId, errorCode: int, errorString: str, advancedOrderRejectJson=""):
-        pass
-        print(reqId, errorCode, errorString, advancedOrderRejectJson)
-
     def nextValidId(self, orderId):
         self.start()
 

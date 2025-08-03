@@ -6,7 +6,7 @@ from trading_dates import *
 import time
 import pandas as pd
 
-class TradeApp(EWrapper, EClient): 
+class MarketDataApp(EWrapper, EClient): 
     def __init__(self): 
         EClient.__init__(self, self)
         self.closePrice: int = -1
@@ -80,10 +80,83 @@ class TradeApp(EWrapper, EClient):
         print("TickOptionComputation. TickerId:", reqId, "TickType:", tickType, "TickAttrib:", intMaxString(tickAttrib), "ImpliedVolatility:", floatMaxString(impliedVol), "Delta:", floatMaxString(delta), "OptionPrice:", floatMaxString(optPrice), "pvDividend:", floatMaxString(pvDividend), "Gamma: ", floatMaxString(gamma), "Vega:", floatMaxString(vega), "Theta:", floatMaxString(theta), "UnderlyingPrice:", floatMaxString(undPrice))
         self.optPriceGreeks.loc[len(self.optPriceGreeks)] = [int(reqId), tickType, impliedVol, delta, optPrice, pvDividend, gamma, vega, theta, undPrice]  
 
+def optionMarketdata(app, symbol="ES"):
+    today, todaytime, nextTradingDay = getDate()
+    print(f"Today: {today}, Next Business Day: {nextTradingDay}")
+
+    contract = Contract()
+    tickerSymbol = symbol
+    tickerSecType = "FUT"
+    tickerExchange = "CME"
+    tickerCurrency = "USD"
+    contract.symbol = tickerSymbol
+    contract.secType = tickerSecType
+    contract.exchange = tickerExchange
+    contract.currency = tickerCurrency
+    contract.lastTradeDateOrContractMonth = 202509
+
+    while (app.lastPrice == -1) and (app.closePrice == -1):
+        app.reqMarketDataType(3)
+        app.reqMktData(app.nextId(), contract, "", True, False, [])
+        time.sleep(2)
+
+    optContract = Contract()
+    optContract.symbol = symbol
+    optContract.secType = "FOP"
+    optContract.exchange = "CME"
+    optContract.currency = tickerCurrency
+    optContract.lastTradeDateOrContractMonth = nextTradingDay
+    #optContract.right = "C"
+    #optContract.multiplier = 50
+    print(f'last price: {app.lastPrice}, close price: {app.closePrice}')
+
+    if app.lastPrice != -1:
+        last_price = app.lastPrice
+    else:
+        last_price = app.closePrice
+
+    last_price = int(last_price - last_price % 5)
+    strikes = [x for x in range(last_price - 120, last_price + 120, 5)]
+    print(f'strikes: {strikes}')
+
+    for strike in strikes:
+        app.job_done.clear()
+        optContract.strike = strike
+        app.reqContractDetails(app.nextId(), optContract)
+        app.job_done.wait()
+    print(app.optContractDetails)
+
+    app.job_done.clear()
+    mycontract = Contract()
+    for index, row in app.optContractDetails.iterrows():
+    #    if row['secType'] == "FOP":
+        mycontract.symbol = row['symbol']
+        mycontract.secType = row['secType']
+        mycontract.lastTradeDateOrContractMonth = row['expiration']
+        mycontract.strike = row['strike']
+        mycontract.right = row['right']
+        mycontract.exchange = row['exchange']
+        mycontract.currency = row['currency']
+        mycontract.tradingClass = row['tradingClass']
+        int_conid = int(row['conId'])
+
+        app.reqMarketDataType(3)
+        app.reqMktData(int_conid, mycontract, "", True, False, [])
+        print(app.optPriceGreeks)
+        time.sleep(6)
+
+    optMarketData = app.optContractDetails.merge(app.optPriceGreeks, on="conId", suffixes=('_contract', '_traded'))
+    #optMarketData = optMarketData.merge(app.optPriceGreeks, on="conId", suffixes=('_traded', '_greeks'))
+    filename = f"optMarketData_{todaytime}.csv"
+    optMarketData.to_csv(filename, index=False)
+    app.optTraded.to_csv(f"optTraded_{todaytime}.csv", index=False)
+    app.optContractDetails.to_csv(f"optContractDetails_{todaytime}.csv", index=False)
+    time.sleep(3)
+
 def websocket_con():
     app.run()
     
-app = TradeApp()      
+app = MarketDataApp()      
 app.connect("127.0.0.1", 7497, clientId=1)
 
 con_thread = threading.Thread(target=websocket_con, daemon=True)
@@ -91,75 +164,6 @@ con_thread.start()
 
 time.sleep(1) 
 
-today, todaytime, nextTradingDay = getDate()
-print(f"Today: {today}, Next Business Day: {nextTradingDay}")
+optionMarketdata(app, symbol="ES")
 
-contract = Contract()
-tickerSymbol = "ES"
-tickerSecType = "FUT"
-tickerExchange = "CME"
-tickerCurrency = "USD"
-contract.symbol = tickerSymbol
-contract.secType = tickerSecType
-contract.exchange = tickerExchange
-contract.currency = tickerCurrency
-contract.lastTradeDateOrContractMonth = 202503
-
-while (app.lastPrice == -1) and (app.closePrice == -1):
-    app.reqMarketDataType(3)
-    app.reqMktData(app.nextId(), contract, "", True, False, [])
-    time.sleep(2)
-
-optContract = Contract()
-optContract.symbol = "ES"
-optContract.secType = "FOP"
-optContract.exchange = "CME"
-optContract.currency = tickerCurrency
-optContract.lastTradeDateOrContractMonth = nextTradingDay
-#optContract.right = "C"
-#optContract.multiplier = 50
-print(f'last price: {app.lastPrice}, close price: {app.closePrice}')
-
-if app.lastPrice != -1:
-    last_price = app.lastPrice
-else:
-    last_price = app.closePrice
-
-last_price = int(last_price - last_price % 5)
-strikes = [x for x in range(last_price - 120, last_price + 120, 5)]
-print(f'strikes: {strikes}')
-
-for strike in strikes:
-    app.job_done.clear()
-    optContract.strike = strike
-    app.reqContractDetails(app.nextId(), optContract)
-    app.job_done.wait()
-print(app.optContractDetails)
-
-app.job_done.clear()
-mycontract = Contract()
-for index, row in app.optContractDetails.iterrows():
-#    if row['secType'] == "FOP":
-    mycontract.symbol = row['symbol']
-    mycontract.secType = row['secType']
-    mycontract.lastTradeDateOrContractMonth = row['expiration']
-    mycontract.strike = row['strike']
-    mycontract.right = row['right']
-    mycontract.exchange = row['exchange']
-    mycontract.currency = row['currency']
-    mycontract.tradingClass = row['tradingClass']
-    int_conid = int(row['conId'])
-
-    app.reqMarketDataType(3)
-    app.reqMktData(int_conid, mycontract, "", True, False, [])
-    print(app.optPriceGreeks)
-    time.sleep(6)
-
-optMarketData = app.optContractDetails.merge(app.optPriceGreeks, on="conId", suffixes=('_contract', '_traded'))
-#optMarketData = optMarketData.merge(app.optPriceGreeks, on="conId", suffixes=('_traded', '_greeks'))
-filename = f"optMarketData_{todaytime}.csv"
-optMarketData.to_csv(filename, index=False)
-app.optTraded.to_csv(f"optTraded_{todaytime}.csv", index=False)
-app.optContractDetails.to_csv(f"optContractDetails_{todaytime}.csv", index=False)
-time.sleep(3)
 app.disconnect()

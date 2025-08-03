@@ -2,7 +2,7 @@ import json, logging, logging.config
 from logging.handlers import RotatingFileHandler
 import yaml
 import asyncio
-from tastytrade import CertificationSession, Account
+from tastytrade_sdk import Tastytrade
 
 def loggerSetup():
   logger = logging.getLogger(__name__)
@@ -17,6 +17,21 @@ def loggerSetup():
   logger.addHandler(ch)
   return logger
 
+def orderSetup(ticker='AAPL'):
+  order_ticker = {
+    "time-in-force": "Day",
+    "order-type": "Market",
+    "legs": [
+      {
+        "instrument-type": "Equity",
+        "symbol": ticker,
+        "quantity": 1,
+        "action": "Buy to Open"
+      }
+    ]
+  }
+  return order_ticker
+
 with open('config.yml', 'r') as c:
     config = yaml.safe_load(c)
     baseUrl = config['baseUrl']
@@ -27,9 +42,42 @@ with open('config.yml', 'r') as c:
   # Setup Logging
 logger = loggerSetup()
 
-session = CertificationSession('yaoliang_w@hotmail.com', 'Invest2freedom.', remember_me=True)
-remember_token = session.remember_token
+tasty = Tastytrade('api.cert.tastyworks.com').login(login='yaoliang_w@hotmail.com', password='Invest2freedom.')
 
-accounts = Account.get_accounts(session)
-logger.debug(f'remember token: {remember_token}, accounts: {accounts}')
+tasty.api.post('/sessions/validate')
 
+# Get account information
+#customer_account = tasty.api.get('/customers/me')
+#print(customer_account)
+
+equities = tasty.api.get(
+    '/instruments/equities',
+    params=[('symbol[]', 'SPY'), ('symbol[]', 'AAPL')]
+)
+print(equities)
+
+#order = tasty.api.post(
+#    'accounts/"D12345"/orders',
+#    json=orderSetup('AAPL')
+#)
+#print(order)
+
+# Subscribing to symbols across different instrument types
+# Please note: The option symbols here are expired. You need to subscribe to an unexpired symbol to receive quote data
+symbols = [
+    'BTC/USD',
+    'SPY',
+    'QQQ'
+]
+
+"""
+subscription = tasty.market_data.subscribe(
+    symbols=symbols,
+    on_quote=print,
+    on_candle=print,
+    on_greeks=print
+)
+"""
+
+# start streaming
+#subscription.open()
