@@ -1,0 +1,66 @@
+2025-08-12 13:27:39,402 - INFO - sent startApi
+2025-08-12 13:27:39,402 - INFO - REQUEST startApi {}
+2025-08-12 13:27:39,402 - INFO - SENDING startApi b'\x00\x00\x00\x0871\x002\x000\x00\x00'
+2025-08-12 13:27:39,402 - INFO - ANSWER connectAck {}
+2025-08-12 13:27:39,402 - INFO - Connected to TWS/IB Gateway
+2025-08-12 13:27:39,404 - INFO - ANSWER nextValidId {'orderId': 1}
+2025-08-12 13:27:39,404 - INFO - ANSWER managedAccounts {'accountsList': 'U5246790,U7993843,'}
+2025-08-12 13:27:39,404 - INFO - disconnecting
+2025-08-12 13:27:39,404 - INFO - ANSWER connectionClosed {}
+2025-08-12 13:28:21,732 - INFO - sent startApi
+2025-08-12 13:28:21,732 - INFO - REQUEST startApi {}
+2025-08-12 13:28:21,732 - INFO - SENDING startApi b'\x00\x00\x00\x0871\x002\x000\x00\x00'
+2025-08-12 13:28:21,732 - INFO - ANSWER connectAck {}
+2025-08-12 13:28:21,732 - INFO - Connected to TWS/IB Gateway
+2025-08-12 13:28:21,833 - INFO - ANSWER nextValidId {'orderId': 1}
+2025-08-12 13:28:21,833 - INFO - ANSWER managedAccounts {'accountsList': 'U5246790,U7993843,'}
+2025-08-12 13:28:21,833 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:hfarm', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:hfarm
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:cashfarm', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:cashfarm
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:usfuture', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:usfuture
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:usfuture.nj', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:usfuture.nj
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:afarm', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:afarm
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:jfarm', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:jfarm
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:usfarm.nj', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:usfarm.nj
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:usfarm', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:usfarm
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301638, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:usopt', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301638 2104 Market data farm connection is OK:usopt
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301639, 'errorCode': 2106, 'errorString': 'HMDS data farm connection is OK:euhmds', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301639 2106 HMDS data farm connection is OK:euhmds
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301639, 'errorCode': 2106, 'errorString': 'HMDS data farm connection is OK:apachmds', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301639 2106 HMDS data farm connection is OK:apachmds
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301639, 'errorCode': 2106, 'errorString': 'HMDS data farm connection is OK:cashhmds', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301639 2106 HMDS data farm connection is OK:cashhmds
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301639, 'errorCode': 2106, 'errorString': 'HMDS data farm connection is OK:ushmds', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301639 2106 HMDS data farm connection is OK:ushmds
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301639, 'errorCode': 2106, 'errorString': 'HMDS data farm connection is OK:fundfarm', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301639 2106 HMDS data farm connection is OK:fundfarm
+2025-08-12 13:28:21,834 - INFO - ANSWER error {'reqId': -1, 'errorTime': 1754969301639, 'errorCode': 2158, 'errorString': 'Sec-def data farm connection is OK:secdefsg', 'advancedOrderRejectJson': ''}
+2025-08-12 13:28:21,834 - ERROR - ERROR -1 1754969301639 2158 Sec-def data farm connection is OK:secdefsg
+2025-08-12 13:32:23,636 - INFO - detected KeyboardInterrupt, SystemExit
+2025-08-12 13:32:25,246 - INFO - detected KeyboardInterrupt, SystemExit
+2025-08-12 13:32:25,486 - INFO - detected KeyboardInterrupt, SystemExit
+2025-08-12 13:32:25,719 - INFO - detected KeyboardInterrupt, SystemExit
+2025-08-12 13:32:28,529 - INFO - detected KeyboardInterrupt, SystemExit
+2025-08-12 13:32:34,974 - INFO - detected KeyboardInterrupt, SystemExit
+2025-08-12 13:32:34,974 - INFO - disconnecting
+2025-08-12 13:32:34,975 - INFO - ANSWER connectionClosed {}
+2025-08-12 13:32:35,657 - INFO - sent startApi
+2025-08-12 13:32:35,657 - INFO - REQUEST startApi {}
+2025-08-12 13:32:35,657 - INFO - SENDING startApi b'\x00\x00\x00\x0871\x002\x000\x00\x00'
+2025-08-12 13:32:35,658 - INFO - ANSWER connectAck {}
+2025-08-12 13:32:35,658 - INFO - Connected to TWS/IB Gateway
+2025-08-12 13:32:35,658 - INFO - REQUEST reqExecutions {'reqId': 10001, 'execFilter': 4441406064: Object}
+2025-08-12 13:32:35,658 - INFO - SENDING reqExecutions b'\x00\x00\x00#7\x003\x0010001\x000\x00\x0020250713 13:32:35\x00\x00\x00\x00\x00'
+2025-08-12 13:32:35,658 - INFO - Requested execution details with filter: time >= 20250713 13:32:35
+2025-08-12 13:32:45,699 - INFO - disconnecting
+2025-08-12 13:32:45,702 - INFO - ANSWER connectionClosed {}
+2025-08-12 13:32:45,702 - INFO - Disconnected from TWS/IB Gateway
+2025-08-12 13:32:45,702 - WARNING - No trade data retrieved. TWS API may not support historical executions for a full month.

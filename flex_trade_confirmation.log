@@ -1,0 +1,20 @@
+2025-08-12 17:25:32,217 - INFO - Using provided authentication token
+2025-08-12 17:25:32,217 - INFO - Initiating Flex Query request with period=1M
+2025-08-12 17:25:32,856 - INFO - Sent Flex Query request: query_id=YOUR_QUERY_ID, period=1M
+2025-08-12 17:25:32,858 - ERROR - Error in request_flex_query: not well-formed (invalid token): line 1, column 0
+2025-08-12 17:25:32,858 - ERROR - Main process failed: not well-formed (invalid token): line 1, column 0
+2025-08-12 17:27:17,899 - INFO - Using provided authentication token
+2025-08-12 17:27:17,899 - INFO - Initiating Flex Query request with period=1M
+2025-08-12 17:27:18,257 - INFO - Sent Flex Query request: query_id=1271418, period=1M
+2025-08-12 17:27:18,260 - ERROR - Error in request_flex_query: not well-formed (invalid token): line 1, column 0
+2025-08-12 17:27:18,260 - ERROR - Main process failed: not well-formed (invalid token): line 1, column 0
+2025-08-12 17:28:07,217 - INFO - Using provided authentication token
+2025-08-12 17:28:07,217 - INFO - Initiating Flex Query request with period=1M
+2025-08-12 17:28:07,578 - INFO - Sent Flex Query request: query_id=1271418, period=1M
+2025-08-12 17:28:07,579 - ERROR - Error in request_flex_query: not well-formed (invalid token): line 1, column 0
+2025-08-12 17:28:07,579 - ERROR - Main process failed: not well-formed (invalid token): line 1, column 0
+2025-08-12 18:12:40,753 - INFO - Using provided authentication token
+2025-08-12 18:12:40,753 - INFO - Initiating Flex Query request with period=1M
+2025-08-12 18:12:41,242 - INFO - Sent Flex Query request: query_id=1271418, period=1M
+2025-08-12 18:12:41,242 - ERROR - Error in request_flex_query: not well-formed (invalid token): line 1, column 0
+2025-08-12 18:12:41,242 - ERROR - Main process failed: not well-formed (invalid token): line 1, column 0
