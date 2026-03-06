@@ -1,6 +1,6 @@
 #!/bin/zsh
 #
-cd /Users/nathanwang/algtrade/
+cd /Users/nathanwang/algtrade/spx0dteBot
 source ~/.zshrc
 conda activate algtrade
-python spx_0dte_bot.py
+python spx_0dte_bot.py --account DU3232524 --port 4002

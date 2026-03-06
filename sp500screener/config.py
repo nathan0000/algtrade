@@ -5,11 +5,11 @@ All parameters in one place. Edit here before running.
 
 # ─── IBKR Connection ────────────────────────────────────────────────────────
 IBKR_HOST      = "127.0.0.1"
-IBKR_PORT      = 7497          # 7497=TWS paper | 7496=TWS live | 4002=GW paper
+IBKR_PORT      = 4002          # 7497=TWS paper | 7496=TWS live | 4002=GW paper
 IBKR_CLIENT_ID = 10            # use a different ID from your 0DTE bot
 
 # ─── Account ────────────────────────────────────────────────────────────────
-ACCOUNT        = "DU000000"    # replace with your account ID
+ACCOUNT        = "DU3232524"    # replace with your account ID
 MAX_POSITIONS  = 10            # max concurrent swing positions
 POSITION_RISK_PCT = 0.02       # 2% account risk per position
 
@@ -113,9 +113,19 @@ SCAN_INTERVAL_MINUTES = 60              # re-scan every 60 min during market hou
 OUTPUT_FILE           = "screener_results.json"
 LOG_FILE              = "screener.log"
 
-# ─── Data Sources ────────────────────────────────────────────────────────────
-# pytickersymbols ships S&P 500 data bundled — no network call needed.
-# Install once: pip install pytickersymbols
+# ─── Market Data Type ────────────────────────────────────────────────────────
+# Controls what kind of market data IBKR delivers for snapshots/quotes.
+# Historical bars (reqHistoricalData) are UNAFFECTED — they use a separate
+# IBKR data service and always work with a basic IBKR account.
+#
+#   1 = Live          requires paid per-exchange subscription
+#   2 = Frozen        last known price when market is closed (free)
+#   3 = Delayed       15-min delayed prices during market hours (free)
+#   4 = Delayed-Frozen  delayed when open + frozen when closed  ← recommended
+#
+# Use 4 for the screener — you get real prices (15-min delayed) during market
+# hours and last-known prices outside hours, all without any subscription.
+MARKET_DATA_TYPE = 4
 SEC_EDGAR_13F  = "https://data.sec.gov/submissions/"
 FINVIZ_BASE    = "https://finviz.com/quote.ashx?t="
 

@@ -74,43 +74,43 @@ _IBKR_TICKER_MAP = {
 
 def _yahoo_to_ibkr(yahoo_ticker: str) -> str:
     """
-    Convert a Yahoo Finance ticker to the format expected by IBKR SMART routing.
-    Rules:
-      • Strip exchange prefix  (e.g. "NMS:AAPL" → "AAPL")
-      • Replace dots with space (e.g. "BRK.B"   → "BRK B")
-      • Uppercase and strip whitespace
+    Convert a Yahoo Finance ticker to the format expected by IBKR.
+
+    Conversions applied in order:
+      1. Strip exchange prefix  ("NMS:AAPL"  → "AAPL")
+      2. Known explicit map     ("BRK.B"     → "BRK B")
+      3. Dash class suffix      ("BRK-B"     → "BRK B")  ← Yahoo uses dash
+      4. Dot class suffix       ("BRK.B"     → "BRK B")  ← some sources use dot
+      5. Uppercase + strip
+
+    IBKR localSymbol for multi-class shares uses a SPACE between root and class
+    (e.g. "BRK B", "BF B").  Yahoo Finance uses a dash ("BRK-B").
     """
     t = yahoo_ticker.upper().strip()
-    # Remove exchange prefix (pytickersymbols occasionally includes them)
     if ":" in t:
         t = t.split(":", 1)[1]
-    # Apply known IBKR substitutions first
     if t in _IBKR_TICKER_MAP:
         return _IBKR_TICKER_MAP[t]
-    # Generic dot → space (catches any future dual-class shares)
-    return t.replace(".", " ")
+    # Dash-suffix share class (Yahoo/Google format) → IBKR space format
+    # Only convert single-letter suffixes to avoid mangling normal tickers
+    import re
+    t = re.sub(r'-([A-Z])$', r' \1', t)   # BRK-B → BRK B
+    # Dot-suffix (some data sources)
+    t = re.sub(r'\.([A-Z])$', r' \1', t)   # BRK.B → BRK B
+    return t
 
 
 def fetch_sp500_symbols() -> list[str]:
     """
-    Return IBKR-compatible ticker symbols for all S&P 500 constituents
-    using pytickersymbols as the data source.
+    Return IBKR-compatible ticker symbols for all S&P 500 constituents.
 
-    pytickersymbols bundles a versioned, regularly-updated JSON dataset
-    (no network call required at runtime — the data ships with the package).
-    This makes the universe fetch fully offline and immune to Wikipedia
-    HTML changes or scraping blocks.
+    Uses pytickersymbols' dedicated get_sp_500_nyc_yahoo_tickers() method
+    which returns only NYSE/NASDAQ-listed Yahoo tickers — exactly what we need.
 
-    Flow:
-      1. Honour SYMBOL_OVERRIDE in config.py (useful for backtests / CI).
-      2. Use PyTickerSymbols.get_stocks_by_index('S&P 500') to stream every
-         constituent dict.  Each dict contains a 'symbols' list; we prefer
-         the Yahoo ticker inside that list because it's the most reliable
-         plain symbol (e.g. 'AAPL', 'BRK.B') and convert it to IBKR format.
-      3. Fall back to the stock's top-level 'symbol' key if no Yahoo ticker
-         is present in the symbols list.
-      4. Deduplicate (some multi-class shares appear under one company entry)
-         and return a sorted, deterministic list.
+    Do NOT use get_stocks_by_index("S&P 500") + manual symbol extraction:
+    that returns raw stock dicts whose 'symbols' list contains ALL exchanges
+    (NYSE, Frankfurt, London, etc.) and the yahoo/google fields are unreliable
+    — it was producing Frankfurt Google tickers like "AMD F" instead of "AMD".
     """
     if SYMBOL_OVERRIDE:
         log.info(f"Symbol override active — using {len(SYMBOL_OVERRIDE)} symbols: "
@@ -122,47 +122,27 @@ def fetch_sp500_symbols() -> list[str]:
         from pytickersymbols import PyTickerSymbols
         pts = PyTickerSymbols()
 
-        ibkr_symbols: list[str] = []
-        metadata: list[dict]    = []   # kept for optional enrichment downstream
+        # get_sp_500_nyc_yahoo_tickers() returns only US-exchange Yahoo tickers.
+        # This is the correct method — it filters to NYSE/NASDAQ/OTCMKTS exchanges.
+        raw_tickers: list[str] = pts.get_sp_500_nyc_yahoo_tickers()
 
-        for stock in pts.get_stocks_by_index("S&P 500"):
-            # ── Extract Yahoo ticker from the symbols list ────────────────
-            yahoo_ticker = None
-            for sym_entry in stock.get("symbols", []):
-                # Each entry is a dict: {"yahoo": "AAPL", "google": "NASDAQ:AAPL"}
-                if isinstance(sym_entry, dict) and sym_entry.get("yahoo"):
-                    yahoo_ticker = sym_entry["yahoo"]
-                    break
+        if not raw_tickers:
+            raise ValueError("get_sp_500_nyc_yahoo_tickers() returned empty list")
 
-            # ── Fall back to top-level 'symbol' if no Yahoo entry ─────────
-            raw = yahoo_ticker or stock.get("symbol") or ""
-            if not raw:
-                log.debug(f"  Skipping stock with no ticker: {stock.get('name','?')}")
-                continue
+        # Convert Yahoo format → IBKR format (handle dashes, dots, prefixes)
+        ibkr_symbols = []
+        for t in raw_tickers:
+            converted = _yahoo_to_ibkr(t)
+            if converted:
+                ibkr_symbols.append(converted)
 
-            ibkr_sym = _yahoo_to_ibkr(raw)
-            if not ibkr_sym:
-                continue
-
-            ibkr_symbols.append(ibkr_sym)
-            metadata.append({
-                "ibkr":     ibkr_sym,
-                "yahoo":    raw,
-                "name":     stock.get("name", ""),
-                "country":  stock.get("country", ""),
-                "industries": stock.get("industries", []),
-            })
-
-        # Deduplicate while preserving first-seen order
+        # Deduplicate while preserving order
         seen:   set[str]  = set()
         unique: list[str] = []
         for s in ibkr_symbols:
             if s not in seen:
                 seen.add(s)
                 unique.append(s)
-
-        if not unique:
-            raise ValueError("pytickersymbols returned an empty S&P 500 list")
 
         log.info(
             f"pytickersymbols: {len(unique)} unique IBKR symbols loaded "
@@ -172,14 +152,11 @@ def fetch_sp500_symbols() -> list[str]:
         return unique
 
     except ImportError:
-        log.error(
-            "pytickersymbols is not installed. "
-            "Run: pip install pytickersymbols"
-        )
+        log.error("pytickersymbols is not installed. Run: pip install pytickersymbols")
     except Exception as e:
         log.error(f"pytickersymbols fetch failed: {e}", exc_info=True)
 
-    # ── Hard fallback: large-cap subset so the pipeline never crashes ────
+    # Hard fallback so the pipeline never crashes completely
     log.warning("Falling back to built-in large-cap subset (install pytickersymbols!)")
     return [
         "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA",

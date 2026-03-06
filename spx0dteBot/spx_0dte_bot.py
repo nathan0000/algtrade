@@ -14,6 +14,7 @@ Paper trade recommended until live validated.
 """
 
 import sys
+import re
 import time
 import threading
 import logging
@@ -55,7 +56,7 @@ class Config:
     CLIENT_ID: int  = 1
 
     # ── Account / sizing
-    ACCOUNT: str    = "DU3232524"    # Replace with your paper account ID
+    ACCOUNT: str    = "DU000000"    # Replace with your paper account ID
     MAX_ACCOUNT_RISK_PCT: float  = 0.025    # 2.5% daily max loss
     TRADE_RISK_PCT_IC: float     = 0.010    # 1.0% per Iron Condor
     TRADE_RISK_PCT_BWB: float    = 0.0075   # 0.75% per BWB
@@ -126,6 +127,9 @@ class IBKRWrapper(EWrapper):
         # VWAP bar pipeline — filled by historicalData + realtimeBars callbacks
         self.vwap_bars: list = []            # list of (high, low, close, volume) tuples
         self._hist_bars_done = threading.Event()  # signals historicalDataEnd received
+        self._rt_bucket: dict = {            # accumulator for 5-sec → 5-min bucketing
+            "highs": [], "lows": [], "closes": [], "volumes": [], "count": 0
+        }
 
     # ── Connection
     def nextValidId(self, orderId: int):
@@ -133,7 +137,7 @@ class IBKRWrapper(EWrapper):
         self._order_id_event.set()
         log.info(f"Connected. Next order ID: {orderId}")
 
-    def error(self, reqId: TickerId, errorCode: int, errorString: str, advancedOrderRejectJson="",arg5=""):
+    def error(self, reqId: TickerId, errorCode: int, errorString: str, advancedOrderRejectJson="", arg5=""):
         if errorCode in (2104, 2106, 2158, 2119):  # informational
             return
         log.error(f"IBKR Error [{reqId}] {errorCode}: {errorString}")
@@ -222,34 +226,70 @@ class IBKRWrapper(EWrapper):
     def historicalData(self, reqId: int, bar: BarData):
         """
         Called once per bar for the initial historical data request.
-        bar.date format: "20240315  09:30:00 US/Eastern" (5-min bars with useRTH=1)
-        Only include bars from today's session (9:30am onward).
+
+        SPX is an index (secType=IND) so IBKR delivers MIDPOINT bars.
+        MIDPOINT bars have no volume field (bar.volume == -1).
+        For VWAP on an index we substitute the WAP (weighted average price)
+        field as a proxy volume weight when available; otherwise fall back
+        to equal-weight (volume=1) so the VWAP formula stays meaningful.
+
+        Date formats IBKR may return for 5-min bars:
+          • "20240315 09:30:00 US/Eastern"   ← most common (single space)
+          • "20240315  09:30:00 US/Eastern"  ← occasional double space
+          • "1710494400"                      ← epoch integer string
         """
         if self._req_map.get(reqId) != "BARS_SPX":
             return
         try:
-            # Parse bar date — IBKR returns "YYYYMMDD  HH:MM:SS" or epoch int
-            bar_dt_str = bar.date.strip()
-            # Handle both string and epoch formats
-            if bar_dt_str.isdigit():
-                bar_dt = datetime.fromtimestamp(int(bar_dt_str), tz=ET)
-            else:
-                # Strip timezone label if present (e.g. " US/Eastern")
-                bar_dt_str = bar_dt_str.split(" US/")[0].strip()
-                bar_dt = ET.localize(datetime.strptime(bar_dt_str, "%Y%m%d  %H:%M:%S"))
+            raw_date = bar.date.strip()
 
-            today = datetime.now(ET).date()
+            # ── Parse date ───────────────────────────────────────────────
+            if raw_date.isdigit():
+                # Epoch seconds
+                bar_dt = datetime.fromtimestamp(int(raw_date), tz=ET)
+            else:
+                # Strip trailing timezone label (" US/Eastern", " America/New_York", etc.)
+                date_part = re.split(r"\s+US/|\s+America/", raw_date)[0].strip()
+                # Normalise multiple spaces between date and time to one
+                date_part = re.sub(r"\s+", " ", date_part)
+                for fmt in ("%Y%m%d %H:%M:%S", "%Y-%m-%d %H:%M:%S"):
+                    try:
+                        bar_dt = ET.localize(datetime.strptime(date_part, fmt))
+                        break
+                    except ValueError:
+                        continue
+                else:
+                    log.warning(f"historicalData: unrecognised date format '{bar.date}' — skipping bar")
+                    return
+
+            # ── Filter: today's RTH session only (≥ 09:30 ET) ───────────
+            today        = datetime.now(ET).date()
             session_open = ET.localize(datetime(today.year, today.month, today.day, 9, 30))
 
-            if bar_dt.date() == today and bar_dt >= session_open:
-                high   = float(bar.high)
-                low    = float(bar.low)
-                close  = float(bar.close)
-                volume = float(bar.volume) if bar.volume != -1 else 0.0
-                self.vwap_bars.append((high, low, close, volume))
-                log.debug(f"  HistBar {bar_dt.strftime('%H:%M')} H={high} L={low} C={close} V={volume}")
+            if bar_dt.date() != today or bar_dt < session_open:
+                return   # pre-market or prior-day bar — discard
+
+            # ── Extract OHLC ─────────────────────────────────────────────
+            high  = float(bar.high)
+            low   = float(bar.low)
+            close = float(bar.close)
+
+            # Volume: -1 for index MIDPOINT bars — use WAP as weight proxy.
+            # bar.barCount gives the number of underlying ticks; use it as a
+            # volume surrogate (more ticks = more activity = more weight).
+            if bar.volume not in (-1, 0):
+                volume = float(bar.volume)
+            elif hasattr(bar, "barCount") and bar.barCount > 0:
+                volume = float(bar.barCount)
+            else:
+                volume = 1.0   # equal-weight fallback
+
+            self.vwap_bars.append((high, low, close, volume))
+            log.debug(f"  HistBar {bar_dt.strftime('%H:%M')} "
+                      f"H={high:.2f} L={low:.2f} C={close:.2f} V={volume:.0f}")
+
         except Exception as e:
-            log.warning(f"historicalData parse error for reqId={reqId}: {e} | raw='{bar.date}'")
+            log.warning(f"historicalData parse error reqId={reqId}: {e} | raw='{bar.date}'")
 
     def historicalDataEnd(self, reqId: int, start: str, end: str):
         """Signals that all historical bars have been delivered."""
@@ -263,24 +303,28 @@ class IBKRWrapper(EWrapper):
     def realtimeBar(self, reqId: int, time_: int, open_: float, high: float,
                     low: float, close: float, volume: int, wap: float, count: int):
         """
-        Called every 5 seconds by reqRealTimeBars.
-        We bucket these into ~5-minute bars (60 × 5-sec = 300-sec buckets)
-        to stay consistent with the VWAP formula.
+        Called every 5 seconds by reqRealTimeBars (MIDPOINT for SPX index).
+
+        MIDPOINT real-time bars for an index always deliver volume=-1 and wap=0.
+        We use `count` (number of underlying data points in the 5-sec bar) as a
+        volume-weight proxy — exactly as IBKR recommends for index VWAP.
+        Buckets 60 × 5-sec ticks (~5 min) into a single OHLCV bar appended to
+        vwap_bars, keeping VWAP current throughout the session.
         """
         if self._req_map.get(reqId) != "RT_BARS_SPX":
             return
-        # Accumulate 5-sec bars into a rolling bucket
-        if not hasattr(self, "_rt_bucket"):
-            self._rt_bucket = {"highs": [], "lows": [], "closes": [], "volumes": [], "count": 0}
+
+        # Weight: prefer count (tick density), fall back to 1 (equal weight)
+        weight = float(count) if count > 0 else 1.0
 
         b = self._rt_bucket
         b["highs"].append(high)
         b["lows"].append(low)
         b["closes"].append(close)
-        b["volumes"].append(float(volume))
+        b["volumes"].append(weight)
         b["count"] += 1
 
-        # Every 60 ticks (~5 minutes) push a completed bar into vwap_bars
+        # Every 60 ticks (~5 minutes) flush a completed bar into vwap_bars
         if b["count"] >= 60:
             bar_high   = max(b["highs"])
             bar_low    = min(b["lows"])
@@ -288,9 +332,8 @@ class IBKRWrapper(EWrapper):
             bar_volume = sum(b["volumes"])
             self.vwap_bars.append((bar_high, bar_low, bar_close, bar_volume))
             log.info(f"RT bar flushed → H={bar_high:.2f} L={bar_low:.2f} "
-                     f"C={bar_close:.2f} V={bar_volume:.0f} | "
-                     f"Total bars: {len(self.vwap_bars)}")
-            # Reset bucket
+                     f"C={bar_close:.2f} ticks={bar_volume:.0f} | "
+                     f"VWAP bars total: {len(self.vwap_bars)}")
             self._rt_bucket = {"highs": [], "lows": [], "closes": [], "volumes": [], "count": 0}
 
 
@@ -886,52 +929,73 @@ class SPX0DTEBot:
     def request_historical_bars(self):
         """
         Two-phase bar pipeline:
-          Phase 1 — reqHistoricalData: backfills all 5-min bars since 9:30am today.
-                    Blocks until historicalDataEnd fires (up to 15s timeout).
-          Phase 2 — reqRealTimeBars:  streams 5-sec bars from TWS continuously.
-                    realtimeBar callback buckets them into ~5-min bars and appends
-                    to wrapper.vwap_bars, keeping VWAP live for the whole session.
+          Phase 1 — reqHistoricalData (MIDPOINT, useRTH=0):
+                    Backfills all available 5-min bars for today, including
+                    pre-market, then the callback filters to RTH-only (≥9:30am).
+                    useRTH=0 is essential: with useRTH=1, if the bot starts
+                    before 9:30am TWS returns zero bars and fires historicalDataEnd
+                    immediately — exactly the "0 bars loaded" bug.
+
+          Phase 2 — reqRealTimeBars (MIDPOINT):
+                    Streams live 5-sec bars. The realtimeBar callback buckets
+                    60 ticks (~5 min) into one OHLCV bar appended to vwap_bars.
+
+        Why MIDPOINT, not TRADES?
+          SPX is secType="IND" — an index has no executed trades.
+          Requesting "TRADES" on an index causes IBKR to return error 321
+          ("Invalid whatToShow") and deliver zero bars. MIDPOINT is the
+          correct data type for index price history.
         """
         # ── Phase 1: Historical backfill ────────────────────────────────
         hist_req_id = 2001
         self.wrapper._req_map[hist_req_id] = "BARS_SPX"
         self.wrapper._hist_bars_done.clear()
 
-        log.info("Requesting historical 5-min bars for VWAP backfill...")
+        log.info("Requesting historical 5-min MIDPOINT bars for VWAP backfill...")
         self.client.reqHistoricalData(
             hist_req_id,
             make_spx_contract(),
             "",           # endDateTime: empty = now
-            "1 D",        # durationStr
+            "1 D",        # durationStr: pull full day so pre-open bars exist
             "5 mins",     # barSizeSetting
-            "TRADES",     # whatToShow
-            1,            # useRTH: 1 = regular trading hours only
-            1,            # formatDate: 1 = string, 2 = epoch
-            False,        # keepUpToDate: False — we handle live via reqRealTimeBars
+            "MIDPOINT",   # ← MIDPOINT (not TRADES) — SPX is an index, no trades
+            1,            # useRTH=1: only include regular trading hours
+            1,            # formatDate=1: string "YYYYMMDD HH:MM:SS TZ"
+            False,        # keepUpToDate: False — live feed handled by reqRealTimeBars
             [],
         )
 
-        # Wait for all bars to arrive (historicalDataEnd fires the event)
-        done = self.wrapper._hist_bars_done.wait(timeout=15)
-        if done:
-            log.info(f"✅ VWAP backfill complete — {len(self.wrapper.vwap_bars)} bars loaded")
+        # Block until historicalDataEnd fires (callback sets the event)
+        done = self.wrapper._hist_bars_done.wait(timeout=20)
+        n = len(self.wrapper.vwap_bars)
+        if done and n > 0:
+            log.info(f"✅ VWAP backfill complete — {n} RTH bars loaded")
+        elif done and n == 0:
+            log.warning(
+                "⚠️  historicalDataEnd received but 0 RTH bars — "
+                "market may not have opened yet. VWAP will seed from real-time bars."
+            )
         else:
-            log.warning("⚠️  historicalDataEnd not received within 15s — VWAP may be partial. "
-                        "Check TWS market data permissions for SPX (requires OPRA/US Equity data).")
+            log.warning(
+                "⚠️  historicalDataEnd timed out after 20s. "
+                "Possible causes: TWS not subscribed to SPX market data, "
+                "or no IBKR data permission for SPX index. "
+                "VWAP will seed from real-time bars once they arrive."
+            )
 
         # ── Phase 2: Real-time 5-sec bar stream ─────────────────────────
         rt_req_id = 2002
         self.wrapper._req_map[rt_req_id] = "RT_BARS_SPX"
-        log.info("Starting real-time 5-sec bar stream for live VWAP updates...")
+        log.info("Starting real-time 5-sec MIDPOINT bar stream...")
         self.client.reqRealTimeBars(
             rt_req_id,
             make_spx_contract(),
-            5,          # barSize: only 5 is supported by IBKR
-            "TRADES",   # whatToShow
-            1,          # useRTH
+            5,            # barSize: 5 seconds (only value IBKR supports)
+            "MIDPOINT",   # ← MIDPOINT — required for SPX index
+            0,            # useRTH=0: stream starts immediately even pre-open
             [],
         )
-        log.info("Real-time bar stream active (buckets into 5-min bars every 60 ticks)")
+        log.info("✅ Real-time bar stream active — VWAP will update every ~5 min")
 
     def evaluate_and_trade(self):
         """Core decision loop — runs every 60 seconds during prime window."""
@@ -1084,9 +1148,9 @@ class SPX0DTEBot:
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="SPX 0DTE IBKR Bot")
-    parser.add_argument("--port", type=int, default=4002, help="TWS port (7497=paper, 7496=live)")
-    parser.add_argument("--account", type=str, default="DU3232524", help="IBKR account ID")
-    parser.add_argument("--host", type=str, default="127.0.0.1", help="TWS host")
+    parser.add_argument("--port", type=int, default=4002, help="TWS port (4002=paper, 4001=live)")
+    parser.add_argument("--account", type=str, default="DU000000", help="IBKR account ID")
+    parser.add_argument("--host", type=str, default="127.0.0.1", help="IBKR Gateway/TWS host")
     args = parser.parse_args()
 
     Config.PORT = args.port

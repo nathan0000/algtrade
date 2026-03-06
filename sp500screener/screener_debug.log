@@ -1,0 +1,30 @@
+2026-03-05 16:10:20,102 | INFO     | Screener | Logging initialised | console=INFO | info_log=screener.log | debug_log=screener_debug.log
+2026-03-05 16:10:20,102 | DEBUG    | Screener | [LOGGING] DEBUG handler active — all IBKR callbacks will be traced
+2026-03-05 16:10:20,102 | INFO     | Screener | Running single scan | account=$100,000 | port=4002
+2026-03-05 16:10:20,182 | INFO     | Screener.IBKR | [CONN] Connecting → 127.0.0.1:4002 clientId=10
+2026-03-05 16:10:20,194 | DEBUG    | Screener.IBKR | [CONN] connectAck received
+2026-03-05 16:10:20,194 | DEBUG    | Screener.IBKR | [CONN] Reader thread started — awaiting nextValidId …
+2026-03-05 16:10:20,205 | INFO     | Screener.IBKR | [CONN] nextValidId=1 — TWS handshake complete
+2026-03-05 16:10:20,205 | DEBUG    | Screener.IBKR | [ERR ] INFO code=2104 reqId=-1: Market data farm connection is OK:hfarm
+2026-03-05 16:10:20,205 | DEBUG    | Screener.IBKR | [ERR ] INFO code=2106 reqId=-1: HMDS data farm connection is OK:apachmds
+2026-03-05 16:10:20,205 | DEBUG    | Screener.IBKR | [ERR ] INFO code=2158 reqId=-1: Sec-def data farm connection is OK:secdefhk
+2026-03-05 16:10:20,205 | INFO     | Screener.IBKR | [CONN] ✅ Connected | port=4002 | marketDataType=4 (Delayed-Frozen)
+2026-03-05 16:10:20,205 | INFO     | Screener.IBKR | [CONN] NOTE: reqMarketDataType affects live/snapshot ticks ONLY. Historical bar requests use a separate IBKR data path and are unaffected by the market data type setting.
+2026-03-05 16:10:20,205 | INFO     | Screener.Pipeline | Building S&P 500 universe via pytickersymbols...
+2026-03-05 16:10:20,220 | INFO     | Screener.Pipeline | pytickersymbols: 176 unique IBKR symbols loaded (7 duplicates removed)
+2026-03-05 16:10:20,220 | DEBUG    | Screener.Pipeline | First 10 symbols: ['MMM', 'ABT', 'ACN', 'ADBE', 'ALB', 'ALGN', 'ALLE', 'GOOGL', 'GOOG', 'AMZN']
+2026-03-05 16:10:20,221 | INFO     | Screener.Pipeline | ═══ Starting scan of 176 symbols ═══
+2026-03-05 16:10:20,221 | INFO     | Screener.Pipeline | ── Stage 1: Technical Screen ──
+2026-03-05 16:10:20,221 | INFO     | Screener.Pipeline |   [1/176] MMM
+2026-03-05 16:10:20,221 | INFO     | Screener.IBKR | [BARS] MMM: fetch start — days=252 duration='1 Y'
+2026-03-05 16:10:20,221 | DEBUG    | Screener.IBKR | [REQID] allocated=3001
+2026-03-05 16:10:20,221 | DEBUG    | Screener.IBKR | [QUAL] → reqContractDetails reqId=3001 sym=MMM
+2026-03-05 16:10:30,227 | WARNING  | Screener.IBKR | [QUAL] ✗ MMM: no contract details returned (signalled=False count=1)
+         Symbol may be delisted, mis-spelled, or not tradeable on your account tier. Falling back to bare contract.
+2026-03-05 16:10:30,228 | DEBUG    | Screener.IBKR | [BARS] MMM: using contract conId=0 primaryExch=(unset) exch=SMART
+2026-03-05 16:10:30,228 | DEBUG    | Screener.IBKR | [REQID] allocated=3002
+2026-03-05 16:10:30,228 | DEBUG    | Screener.IBKR | [PACE] Slot granted at 00:10:30.228 ET
+2026-03-05 16:10:30,228 | INFO     | Screener.IBKR | [BARS] → reqHistoricalData reqId=3002 sym=MMM duration='1 Y' barSize='1 day' whatToShow=TRADES useRTH=1 attempt=1/2
+2026-03-05 16:10:30,229 | WARNING  | Screener.IBKR | [ERR ] code=504 reqId=3002: Not connected
+2026-03-05 16:10:30,230 | DEBUG    | Screener.IBKR | [BARS] reqId=3002 waiting up to 30.0s …
+2026-03-05 16:10:41,791 | INFO     | Screener.IBKR | [CONN] Disconnecting from IBKR

@@ -20,17 +20,75 @@ from config import (
     SYMBOL_OVERRIDE, ACCOUNT
 )
 
-# ── Logging setup ────────────────────────────────────────────────────────────
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler(LOG_FILE),
-    ],
-)
+ET = pytz.timezone("America/New_York")
+
+# ── Logging setup ─────────────────────────────────────────────────────────────
+# IMPORTANT: _setup_logging() is called from main() AFTER argparse so that
+# --loglevel actually takes effect on every handler.
+#
+# Two log files are always written:
+#   screener.log        — INFO+ (clean summary of every scan)
+#   screener_debug.log  — DEBUG (full IBKR wire-level trace, always on)
+#
+# The debug log is essential for diagnosing "no historical data" problems
+# because the [BARS]/[ERR]/[PACE] tags in ibkr_client.py log at DEBUG level.
+# Without this file you would need --loglevel DEBUG just to see them.
+#
+# To diagnose historical data issues, look for these patterns:
+#   grep "\[ERR \]" screener_debug.log   # IBKR error callbacks
+#   grep "\[BARS\]" screener_debug.log   # bar fetch lifecycle
+#   grep "TIMEOUT\|EMPTY\|FAIL" screener_debug.log
+
+DEBUG_LOG_FILE = LOG_FILE.replace(".log", "_debug.log")
+_FMT = "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+
+
+def _setup_logging(console_level: str = "INFO") -> None:
+    """
+    Configure root logger with three handlers:
+      1. StreamHandler (stdout)    — console_level (INFO by default, DEBUG with --loglevel DEBUG)
+      2. FileHandler screener.log  — INFO+, append mode
+      3. FileHandler screener_debug.log — DEBUG+, always on regardless of console_level
+
+    Must be called after argparse so --loglevel is known.
+    """
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)      # root must pass everything; handlers filter
+
+    # Remove any handlers added by a prior basicConfig call
+    for h in root.handlers[:]:
+        root.removeHandler(h)
+
+    fmt = logging.Formatter(_FMT)
+
+    # 1. Console — respects --loglevel
+    console_h = logging.StreamHandler(sys.stdout)
+    console_h.setLevel(getattr(logging, console_level.upper(), logging.INFO))
+    console_h.setFormatter(fmt)
+    root.addHandler(console_h)
+
+    # 2. Main log file — INFO+ summary (human-readable scan results)
+    info_h = logging.FileHandler(LOG_FILE, mode="a", encoding="utf-8")
+    info_h.setLevel(logging.INFO)
+    info_h.setFormatter(fmt)
+    root.addHandler(info_h)
+
+    # 3. Debug log file — DEBUG+ always on (IBKR wire trace, never filtered)
+    debug_h = logging.FileHandler(DEBUG_LOG_FILE, mode="w", encoding="utf-8")
+    debug_h.setLevel(logging.DEBUG)
+    debug_h.setFormatter(fmt)
+    root.addHandler(debug_h)
+
+    # Silence noisy third-party loggers that we don't control
+    logging.getLogger("ibapi").setLevel(logging.WARNING)
+
+    log = logging.getLogger("Screener")
+    log.info(f"Logging initialised | console={console_level} | "
+             f"info_log={LOG_FILE} | debug_log={DEBUG_LOG_FILE}")
+    log.debug("[LOGGING] DEBUG handler active — all IBKR callbacks will be traced")
+
+
 log = logging.getLogger("Screener")
-ET  = pytz.timezone("America/New_York")
 
 
 def is_market_hours() -> bool:
@@ -179,13 +237,14 @@ if __name__ == "__main__":
     parser.add_argument("--account",  type=float, default=100_000,
                         help="Account value in USD for position sizing (default 100000)")
     parser.add_argument("--port",     type=int,   default=4002,
-                        help="IBKR GW port (4002=paper, 4001=live)")
+                        help="IBKR TWS port (7497=paper, 7496=live)")
     parser.add_argument("--loglevel", default="INFO",
                         choices=["DEBUG","INFO","WARNING","ERROR"])
     args = parser.parse_args()
 
-    # Apply log level
-    logging.getLogger().setLevel(getattr(logging, args.loglevel))
+    # Initialise logging NOW — after argparse so --loglevel is known.
+    # This replaces the module-level basicConfig that ran too early.
+    _setup_logging(args.loglevel)
 
     # Apply port override
     import config as cfg_mod
