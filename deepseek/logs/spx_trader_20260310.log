@@ -1,0 +1,225 @@
+2026-03-10 15:45:02 - main - ERROR - Unexpected error: 'SPX0DTEAutoTrader' object has no attribute 'start'
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/deepseek/main.py", line 356, in main
+    if trader.start():
+       ^^^^^^^^^^^^
+AttributeError: 'SPX0DTEAutoTrader' object has no attribute 'start'
+2026-03-10 15:45:02 - main - INFO - Shutting down...
+2026-03-10 15:45:02 - connection.thread_manager - INFO - All threads stopped
+2026-03-10 15:45:02 - main - INFO - Shutdown complete
+2026-03-10 15:51:03 - main - INFO - Starting SPX 0DTE AutoTrader
+2026-03-10 15:51:03 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-10 15:51:03 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-10 15:51:03 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-10 15:51:03 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-10 15:51:03 - main - ERROR - Unexpected error: EClient.reqAccountSummary() missing 1 required positional argument: 'tags'
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/deepseek/main.py", line 358, in main
+    if trader.start():
+       ^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/deepseek/main.py", line 79, in start
+    if not self.ibkr.connect_and_run():
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/deepseek/connection/ibkr_client.py", line 212, in connect_and_run
+    self.reqAccountSummary(9001, "All")
+TypeError: EClient.reqAccountSummary() missing 1 required positional argument: 'tags'
+2026-03-10 15:51:03 - main - INFO - Shutting down...
+2026-03-10 15:51:03 - connection.thread_manager - INFO - All threads stopped
+2026-03-10 15:51:03 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-10 15:51:04 - main - INFO - Shutdown complete
+2026-03-10 15:56:13 - main - INFO - Testing connection to IBKR...
+2026-03-10 15:56:13 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-10 15:56:13 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-10 15:56:13 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-10 15:56:13 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-10 15:56:13 - main - ERROR - Unexpected error: EClient.reqAccountSummary() missing 1 required positional argument: 'tags'
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/deepseek/main.py", line 413, in main
+    if trader.ibkr.connect_and_run():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/deepseek/connection/ibkr_client.py", line 215, in connect_and_run
+    self.reqAccountSummary(9001, "All")
+TypeError: EClient.reqAccountSummary() missing 1 required positional argument: 'tags'
+2026-03-10 15:56:13 - main - INFO - Shutting down...
+2026-03-10 15:56:13 - connection.thread_manager - INFO - All threads stopped
+2026-03-10 15:56:13 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-10 15:56:14 - main - INFO - Shutdown complete
+2026-03-10 16:03:12 - main - INFO - Testing connection to IBKR...
+2026-03-10 16:03:12 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-10 16:03:12 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-10 16:03:12 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-10 16:03:12 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-10 16:03:22 - connection.ibkr_client - ERROR - Failed to connect to TWS/IB Gateway
+2026-03-10 16:03:22 - main - ERROR - Failed to connect to IBKR
+2026-03-10 16:03:22 - main - INFO - 
+Troubleshooting tips:
+2026-03-10 16:03:22 - main - INFO - 1. Make sure TWS/IB Gateway is running
+2026-03-10 16:03:22 - main - INFO - 2. Check that port 7497 is correct for paper trading
+2026-03-10 16:03:22 - main - INFO - 3. Ensure API connections are enabled in TWS/IB Gateway
+2026-03-10 16:03:22 - main - INFO - 4. Check that the client ID is not already in use
+2026-03-10 16:05:35 - main - INFO - Testing connection to IBKR...
+2026-03-10 16:05:35 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-10 16:05:35 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-10 16:05:35 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-10 16:05:35 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119135040, Message: 2104
+2026-03-10 16:05:35 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119135040, Message: 2107
+2026-03-10 16:05:35 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119135041, Message: 2158
+2026-03-10 16:05:35 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-10 16:05:35 - main - ERROR - Unexpected error: type object 'AccountSummaryTags' has no attribute 'GetAllTags'
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/deepseek/main.py", line 413, in main
+    if trader.ibkr.connect_and_run():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/deepseek/connection/ibkr_client.py", line 216, in connect_and_run
+    self.reqAccountSummary(9001, "All", AccountSummaryTags.GetAllTags())
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'AccountSummaryTags' has no attribute 'GetAllTags'. Did you mean: 'AllTags'?
+2026-03-10 16:05:35 - main - INFO - Shutting down...
+2026-03-10 16:05:35 - connection.thread_manager - INFO - All threads stopped
+2026-03-10 16:05:35 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-10 16:05:35 - main - INFO - Shutdown complete
+2026-03-10 16:08:47 - main - INFO - Testing connection to IBKR...
+2026-03-10 16:08:47 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-10 16:08:47 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-10 16:08:47 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-10 16:08:47 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119326989, Message: 2104
+2026-03-10 16:08:47 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119326989, Message: 2107
+2026-03-10 16:08:47 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119326989, Message: 2158
+2026-03-10 16:08:47 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-10 16:08:47 - main - INFO - ✅ Successfully connected to IBKR
+2026-03-10 16:08:47 - main - INFO - Account value: $0.00
+2026-03-10 16:08:47 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-10 16:08:48 - main - INFO - Disconnected from IBKR
+2026-03-10 16:08:58 - main - INFO - Starting full trading system...
+2026-03-10 16:08:58 - main - INFO - Starting SPX 0DTE AutoTrader
+2026-03-10 16:08:58 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-10 16:08:58 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-10 16:08:58 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-10 16:08:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119337440, Message: 2104
+2026-03-10 16:08:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119337440, Message: 2107
+2026-03-10 16:08:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119337441, Message: 2158
+2026-03-10 16:08:58 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-10 16:08:58 - connection.ibkr_client - WARNING - Could not parse account value: 260869.74
+2026-03-10 16:09:00 - connection.thread_manager - INFO - Started MarketData thread
+2026-03-10 16:09:00 - connection.thread_manager - INFO - Started OrderMonitor thread
+2026-03-10 16:09:00 - connection.thread_manager - INFO - Started PositionMonitor thread
+2026-03-10 16:09:00 - connection.thread_manager - INFO - Started Heartbeat thread
+2026-03-10 16:09:00 - main - ERROR - Error requesting historical data: name 'Contract' is not defined
+2026-03-10 16:09:00 - main - INFO - Entering main trading loop
+2026-03-10 16:10:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.65
+2026-03-10 16:10:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.65
+2026-03-10 16:13:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.01
+2026-03-10 16:13:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.01
+2026-03-10 16:15:51 - main - INFO - Received interrupt signal
+2026-03-10 16:15:51 - main - INFO - Shutting down...
+2026-03-10 16:15:57 - connection.thread_manager - INFO - All threads stopped
+2026-03-10 16:15:57 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-10 16:15:57 - main - INFO - Shutdown complete
+2026-03-10 16:15:57 - main - INFO - Trading system running. Press Ctrl+C to stop.
+2026-03-10 16:16:17 - main - INFO - Testing connection to IBKR...
+2026-03-10 16:16:17 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-10 16:16:17 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-10 16:16:17 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-10 16:16:17 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119777061, Message: 2104
+2026-03-10 16:16:17 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119777062, Message: 2107
+2026-03-10 16:16:17 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119777062, Message: 2158
+2026-03-10 16:16:17 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-10 16:16:17 - main - INFO - ✅ Successfully connected to IBKR
+2026-03-10 16:16:17 - main - INFO - Account value: $0.00
+2026-03-10 16:16:17 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-10 16:16:17 - main - INFO - Disconnected from IBKR
+2026-03-10 16:16:34 - main - INFO - Starting full trading system...
+2026-03-10 16:16:34 - main - INFO - Starting SPX 0DTE AutoTrader
+2026-03-10 16:16:34 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-10 16:16:34 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-10 16:16:34 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-10 16:16:34 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119793623, Message: 2104
+2026-03-10 16:16:34 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119793623, Message: 2107
+2026-03-10 16:16:34 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119793623, Message: 2158
+2026-03-10 16:16:34 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-10 16:16:34 - connection.ibkr_client - WARNING - Could not parse account value: 260871.75
+2026-03-10 16:16:34 - connection.ibkr_client - WARNING - Could not parse account value: 260871.75
+2026-03-10 16:16:36 - connection.thread_manager - INFO - Started MarketData thread
+2026-03-10 16:16:36 - connection.thread_manager - INFO - Started OrderMonitor thread
+2026-03-10 16:16:36 - connection.thread_manager - INFO - Started PositionMonitor thread
+2026-03-10 16:16:36 - connection.thread_manager - INFO - Started Heartbeat thread
+2026-03-10 16:16:36 - main - INFO - Entering main trading loop
+2026-03-10 16:16:36 - connection.ibkr_client - ERROR - Error ID: 1000, Code: 1773119795978, Message: 2174
+2026-03-10 16:16:38 - connection.ibkr_client - ERROR - Error ID: 1001, Code: 1773119797646, Message: 200
+2026-03-10 16:16:39 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773119799401, Message: 2106
+2026-03-10 16:19:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.53
+2026-03-10 16:19:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.53
+2026-03-10 16:22:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.11
+2026-03-10 16:22:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.11
+2026-03-10 16:25:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.87
+2026-03-10 16:25:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.87
+2026-03-10 16:28:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.86
+2026-03-10 16:28:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.86
+2026-03-10 16:31:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.24
+2026-03-10 16:31:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.24
+2026-03-10 16:34:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.54
+2026-03-10 16:34:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.54
+2026-03-10 16:37:21 - connection.ibkr_client - WARNING - Could not parse account value: 260869.91
+2026-03-10 16:37:21 - connection.ibkr_client - WARNING - Could not parse account value: 260869.91
+2026-03-10 16:40:21 - connection.ibkr_client - WARNING - Could not parse account value: 260868.79
+2026-03-10 16:40:21 - connection.ibkr_client - WARNING - Could not parse account value: 260868.79
+2026-03-10 16:43:21 - connection.ibkr_client - WARNING - Could not parse account value: 260868.34
+2026-03-10 16:43:21 - connection.ibkr_client - WARNING - Could not parse account value: 260868.34
+2026-03-10 16:46:21 - connection.ibkr_client - WARNING - Could not parse account value: 260868.50
+2026-03-10 16:46:21 - connection.ibkr_client - WARNING - Could not parse account value: 260868.50
+2026-03-10 16:49:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.49
+2026-03-10 16:49:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.49
+2026-03-10 16:52:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.49
+2026-03-10 16:52:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.49
+2026-03-10 16:55:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.48
+2026-03-10 16:55:21 - connection.ibkr_client - WARNING - Could not parse account value: 260870.48
+2026-03-10 16:58:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.11
+2026-03-10 16:58:21 - connection.ibkr_client - WARNING - Could not parse account value: 260871.11
+2026-03-10 17:01:21 - connection.ibkr_client - WARNING - Could not parse account value: 260874.99
+2026-03-10 17:01:21 - connection.ibkr_client - WARNING - Could not parse account value: 260874.99
+2026-03-10 17:19:55 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773123594889, Message: 1100
+2026-03-10 17:19:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773123598127, Message: 2157
+2026-03-10 17:19:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773123598132, Message: 2103
+2026-03-10 17:19:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773123598134, Message: 2105
+2026-03-10 17:20:01 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773123600993, Message: 2104
+2026-03-10 17:20:01 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773123601202, Message: 2106
+2026-03-10 17:20:01 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773123601222, Message: 2158
+2026-03-10 17:20:29 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773123629728, Message: 1102
+2026-03-10 17:20:30 - connection.ibkr_client - WARNING - Could not parse account value: 260879.09
+2026-03-10 17:20:30 - connection.ibkr_client - WARNING - Could not parse account value: 260879.09
+2026-03-10 17:35:43 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773124543274, Message: 1100
+2026-03-10 17:35:45 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773124545046, Message: 2103
+2026-03-10 17:35:45 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773124545047, Message: 2157
+2026-03-10 17:35:45 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773124545047, Message: 2105
+2026-03-10 17:35:48 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773124547783, Message: 2158
+2026-03-10 17:35:48 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773124548227, Message: 2104
+2026-03-10 17:35:48 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773124548338, Message: 2106
+2026-03-10 17:36:16 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773124576258, Message: 1102
+2026-03-10 17:36:16 - connection.ibkr_client - WARNING - Could not parse account value: 260881.01
+2026-03-10 17:36:16 - connection.ibkr_client - WARNING - Could not parse account value: 260881.01
+2026-03-10 17:37:21 - connection.ibkr_client - WARNING - Could not parse account value: 260883.28
+2026-03-10 17:37:21 - connection.ibkr_client - WARNING - Could not parse account value: 260883.28
+2026-03-10 17:55:11 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773125711552, Message: 1100
+2026-03-10 17:55:14 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773125713120, Message: 2103
+2026-03-10 17:55:14 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773125713125, Message: 2157
+2026-03-10 17:55:14 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773125713127, Message: 2105
+2026-03-10 17:55:16 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773125715815, Message: 2158
+2026-03-10 17:55:16 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773125716105, Message: 2104
+2026-03-10 17:55:16 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773125716219, Message: 2106
+2026-03-10 17:55:44 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773125744277, Message: 1102
+2026-03-10 17:55:45 - connection.ibkr_client - WARNING - Could not parse account value: 260882.26
+2026-03-10 17:55:45 - connection.ibkr_client - WARNING - Could not parse account value: 260882.26
+2026-03-10 17:58:22 - connection.ibkr_client - WARNING - Could not parse account value: 260882.92
+2026-03-10 17:58:22 - connection.ibkr_client - WARNING - Could not parse account value: 260882.92
+2026-03-10 18:16:27 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773126987423, Message: 1100
+2026-03-10 18:16:30 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773126990288, Message: 2157
+2026-03-10 18:16:30 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773126990302, Message: 2103
+2026-03-10 18:16:30 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773126990303, Message: 2105
+2026-03-10 18:16:32 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773126992285, Message: 2158
+2026-03-10 18:16:32 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773126992576, Message: 2104
+2026-03-10 18:16:32 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773126992749, Message: 2106
+2026-03-10 18:17:01 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773127021448, Message: 1102
+2026-03-10 18:17:01 - connection.ibkr_client - WARNING - Could not parse account value: 260885.24
+2026-03-10 18:17:01 - connection.ibkr_client - WARNING - Could not parse account value: 260885.24
+2026-03-10 18:19:22 - connection.ibkr_client - WARNING - Could not parse account value: 260886.50
+2026-03-10 18:19:22 - connection.ibkr_client - WARNING - Could not parse account value: 260886.50

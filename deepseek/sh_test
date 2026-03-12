@@ -1,0 +1,23 @@
+# Install test dependencies
+pip install -r requirements-test.txt
+
+# Run all tests
+pytest tests/ -v
+
+# Run with coverage
+pytest tests/ --cov=. --cov-report=html
+
+# Run specific test file
+pytest tests/test_strategies/test_put_spread.py -v
+
+# Run specific test
+pytest tests/test_strategies/test_put_spread.py::TestPutCreditSpreadStrategy::test_should_enter_optimal_conditions -v
+
+# Run with verbose output
+pytest tests/ -vv
+
+# Run and stop on first failure
+pytest tests/ -x
+
+# Run tests in parallel
+pytest tests/ -n auto
