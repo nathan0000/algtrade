@@ -958,7 +958,7 @@ class SPX0DTEBot:
             "",           # endDateTime: empty = now
             "1 D",        # durationStr: pull full day so pre-open bars exist
             "5 mins",     # barSizeSetting
-            "MIDPOINT",   # ← MIDPOINT (not TRADES) — SPX is an index, no trades
+            "TRADES",   # ← MIDPOINT (not TRADES) — SPX is an index, no trades
             1,            # useRTH=1: only include regular trading hours
             1,            # formatDate=1: string "YYYYMMDD HH:MM:SS TZ"
             False,        # keepUpToDate: False — live feed handled by reqRealTimeBars

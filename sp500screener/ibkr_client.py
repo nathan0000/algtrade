@@ -163,8 +163,8 @@ class ScreenerWrapper(EWrapper):
     def connectAck(self):
         log.debug("[CONN] connectAck received")
 
-#    def connectionClosed(self):
-#        log.warning("[CONN] connectionClosed — TWS dropped the connection!")
+    def connectionClosed(self):
+        log.warning("[CONN] connectionClosed — TWS dropped the connection!")
 
     # ── Contract qualification ────────────────────────────────────────────
     def contractDetails(self, reqId: int, contractDetails):
