@@ -39,6 +39,7 @@ class TestSentimentAnalyzer:
         sa.update_gamma_exposure(1500000)
         
         assert sa.gex_value == 1500000
+        assert sa.gex_trend == "NEUTRAL"
         
         # Update with trend
         sa.update_gamma_exposure(1600000)
@@ -111,10 +112,13 @@ class TestSentimentAnalyzer:
         # Setup normal conditions
         sa.put_call_ratio = 1.0
         sa.put_call_history = [{'ratio': 1.0} for _ in range(10)]
-        sa.consecutive_up_days = 1
+        sa.consecutive_up_days = 0
         sa.consecutive_down_days = 0
         sa.gap_direction = "NONE"
-        sa.gex_value = 1000000
+        sa.gap_size = 0.0
+        sa.is_inside_day = False
+        sa.gex_value = 0.0
+        sa.gex_trend = "NEUTRAL"
         
         signals = sa.get_sentiment_signals()
         

@@ -1,7 +1,7 @@
-# config.py (updated with dataclass imports)
+# config.py
 from dataclasses import dataclass, field
 from datetime import time
-from typing import Dict, Any, Optional
+from typing import Optional
 
 @dataclass
 class IBKRConfig:
@@ -42,7 +42,7 @@ class StrategyConfig:
     vix_threshold_normal: float = 20.0
     vix_threshold_high: float = 25.0
     
-    # Time windows (ET) - stored as time objects for comparison
+    # Time windows (ET) – stored as time objects for comparison
     morning_start: time = field(default_factory=lambda: time(9, 30))
     morning_end: time = field(default_factory=lambda: time(11, 30))
     midday_start: time = field(default_factory=lambda: time(11, 30))
@@ -52,14 +52,10 @@ class StrategyConfig:
     final_hour_start: time = field(default_factory=lambda: time(15, 30))
     market_close: time = field(default_factory=lambda: time(16, 0))
     
-    # Computed properties for convenience
+    # Computed property for entry cutoff (3:45 PM)
     @property
-    def morning_start_time(self) -> time:
-        return self.morning_start
-    
-    @property
-    def final_hour_cutoff(self) -> time:
-        return time(15, 45)  # 3:45 PM cutoff for entries
+    def entry_cutoff(self) -> time:
+        return time(15, 45)
 
 @dataclass
 class AppConfig:

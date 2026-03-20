@@ -1,0 +1,40 @@
+2026-03-17 11:09:42 - main - INFO - Testing connection to IBKR...
+2026-03-17 11:09:42 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-17 11:09:42 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-17 11:09:42 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-17 11:09:42 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773706182245, Message: 2104
+2026-03-17 11:09:42 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773706182245, Message: 2106
+2026-03-17 11:09:42 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773706182245, Message: 2106
+2026-03-17 11:09:42 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773706182245, Message: 2158
+2026-03-17 11:09:42 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-17 11:09:42 - main - INFO - ✅ Successfully connected to IBKR
+2026-03-17 11:09:42 - main - INFO - Account value: $0.00
+2026-03-17 11:09:42 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-17 11:09:42 - main - INFO - Disconnected from IBKR
+2026-03-17 11:10:23 - main - INFO - Starting full trading system...
+2026-03-17 11:10:23 - main - INFO - Starting SPX 0DTE AutoTrader
+2026-03-17 11:10:23 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-17 11:10:23 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-17 11:10:23 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-17 11:10:23 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773706222312, Message: 2104
+2026-03-17 11:10:23 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773706222312, Message: 2106
+2026-03-17 11:10:23 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773706222312, Message: 2106
+2026-03-17 11:10:23 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1773706222312, Message: 2158
+2026-03-17 11:10:23 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-17 11:10:23 - connection.ibkr_client - WARNING - Could not parse account value: 250229.96
+2026-03-17 11:10:23 - connection.ibkr_client - WARNING - Could not parse account value: 250229.96
+2026-03-17 11:10:25 - connection.thread_manager - INFO - Started MarketData thread
+2026-03-17 11:10:25 - connection.thread_manager - INFO - Started OrderMonitor thread
+2026-03-17 11:10:25 - connection.thread_manager - INFO - Started PositionMonitor thread
+2026-03-17 11:10:25 - connection.thread_manager - INFO - Started Heartbeat thread
+2026-03-17 11:10:25 - main - INFO - Entering main trading loop
+2026-03-17 11:10:25 - connection.ibkr_client - ERROR - Error ID: 1000, Code: 1773706224430, Message: 2174
+2026-03-17 11:10:26 - connection.ibkr_client - ERROR - Error ID: 1001, Code: 1773706225118, Message: 200
+2026-03-17 11:10:37 - connection.ibkr_client - WARNING - Could not parse account value: 250229.96
+2026-03-17 11:10:37 - connection.ibkr_client - WARNING - Could not parse account value: 250229.96
+2026-03-17 11:11:38 - main - INFO - Received interrupt signal
+2026-03-17 11:11:38 - main - INFO - Shutting down...
+2026-03-17 11:11:42 - connection.thread_manager - INFO - All threads stopped
+2026-03-17 11:11:42 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-17 11:11:42 - main - INFO - Shutdown complete
+2026-03-17 11:11:42 - main - INFO - Trading system running. Press Ctrl+C to stop.

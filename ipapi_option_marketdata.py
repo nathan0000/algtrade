@@ -93,7 +93,7 @@ def optionMarketdata(app, symbol="ES"):
     contract.secType = tickerSecType
     contract.exchange = tickerExchange
     contract.currency = tickerCurrency
-    contract.lastTradeDateOrContractMonth = 202509
+    contract.lastTradeDateOrContractMonth = 202606
 
     while (app.lastPrice == -1) and (app.closePrice == -1):
         app.reqMarketDataType(3)
@@ -157,7 +157,7 @@ def websocket_con():
     app.run()
     
 app = MarketDataApp()      
-app.connect("127.0.0.1", 7497, clientId=1)
+app.connect("127.0.0.1", 4002, clientId=1)
 
 con_thread = threading.Thread(target=websocket_con, daemon=True)
 con_thread.start()

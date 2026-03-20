@@ -7,7 +7,7 @@ class TestPutCreditSpreadStrategy:
     
     def test_initialization(self, mock_ibkr_client, sample_config):
         """Test strategy initialization"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         assert strategy.name == "PutCreditSpread"
     
@@ -15,7 +15,7 @@ class TestPutCreditSpreadStrategy:
                                              sample_market_state, sample_vix_state,
                                              sample_sentiment, sample_first_hour):
         """Test should_enter with optimal conditions"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         # Modify conditions for bullish bias
         sample_vix_state['regime'] = 'NORMAL'
@@ -40,7 +40,7 @@ class TestPutCreditSpreadStrategy:
                                                 sample_market_state, sample_vix_state,
                                                 sample_sentiment, sample_first_hour):
         """Test should_enter when blocked by sentiment"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         sample_sentiment['block_put_spreads'] = True
         
@@ -55,7 +55,7 @@ class TestPutCreditSpreadStrategy:
                                     sample_market_state, sample_vix_state,
                                     sample_sentiment, sample_first_hour):
         """Test should_enter with high VIX"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         sample_vix_state['regime'] = 'HIGH'
         
@@ -70,7 +70,7 @@ class TestPutCreditSpreadStrategy:
                                           sample_market_state, sample_vix_state,
                                           sample_sentiment, sample_first_hour):
         """Test should_enter with bearish market"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         sample_first_hour['market_type'] = 'trending_bearish'
         
@@ -85,7 +85,7 @@ class TestPutCreditSpreadStrategy:
                                       sample_market_state, sample_vix_state,
                                       sample_sentiment, sample_first_hour):
         """Test should_enter when price below VWAP"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         sample_market_state['current_price'] = 4990
         sample_market_state['vwap'] = 5005
@@ -99,7 +99,7 @@ class TestPutCreditSpreadStrategy:
     
     def test_calculate_strikes(self, mock_ibkr_client, sample_config, sample_market_state):
         """Test strike calculation"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         params = {
             'delta_target': 0.20,
@@ -117,7 +117,7 @@ class TestPutCreditSpreadStrategy:
     
     def test_calculate_credit_target(self, mock_ibkr_client, sample_config):
         """Test credit target calculation"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         strikes = [5000, 4995]
         credit = strategy.calculate_credit_target(strikes, {})
@@ -128,7 +128,7 @@ class TestPutCreditSpreadStrategy:
                                        sample_market_state, sample_vix_state,
                                        sample_sentiment, sample_first_hour):
         """Test rejection when confidence too low"""
-        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy)
+        strategy = PutCreditSpreadStrategy(mock_ibkr_client, sample_config.strategy, sample_config.risk)
         
         # Create poor conditions to lower confidence
         sample_vix_state['regime'] = 'NORMAL'

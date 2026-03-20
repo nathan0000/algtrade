@@ -371,7 +371,7 @@ def make_spx_option(expiry: str, strike: float, right: str) -> Contract:
     c = Contract()
     c.symbol = "SPX"
     c.secType = "OPT"
-    c.exchange = "SMART"
+    c.exchange = "CBOE"
     c.currency = "USD"
     c.lastTradeDateOrContractMonth = expiry
     c.strike = strike
@@ -920,6 +920,7 @@ class SPX0DTEBot:
         self.client.reqMktData(spx_req, make_spx_contract(), "", False, False, [])
         self.client.reqMktData(vix_req, make_vix_contract(), "", False, False, [])
         log.info("Subscribed to SPX and VIX market data")
+        time.sleep(2)  # brief pause to allow initial ticks to arrive
 
     def subscribe_account(self):
         self.client.reqAccountUpdates(True, self.cfg.ACCOUNT)

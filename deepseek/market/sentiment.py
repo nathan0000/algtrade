@@ -44,13 +44,12 @@ class SentimentAnalyzer:
             self.put_call_history = self.put_call_history[-20:]
     
     def update_gamma_exposure(self, gex: float):
-        """Update gamma exposure"""
+        old_gex = self.gex_value
         self.gex_value = gex
-        
-        if len(self.put_call_history) >= 2:
-            if gex > self.gex_value:
+        if old_gex > 0:
+            if gex > old_gex:
                 self.gex_trend = "RISING"
-            elif gex < self.gex_value:
+            elif gex < old_gex:
                 self.gex_trend = "FALLING"
     
     def update_daily_streak(self, close_price: float, prev_close: float):

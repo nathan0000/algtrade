@@ -2,6 +2,7 @@
 import pytest
 from datetime import datetime, timedelta
 import pytz
+from unittest.mock import patch
 from market.data_collector import MarketDataCollector
 
 class TestMarketDataCollector:

@@ -2,6 +2,7 @@
 import pytest
 from datetime import datetime, date, timedelta
 from order_management.risk_manager import RiskManager
+from unittest.mock import Mock, patch
 
 class TestRiskManager:
     """Test suite for Risk Manager"""
@@ -207,7 +208,7 @@ class TestRiskManager:
         assert stats['losing_trades'] == 2
         assert stats['win_rate'] == 0.6
         assert stats['total_pnl'] == 350
-        assert stats['avg_win'] == 141.67  # (150+200+75)/3
+        assert stats['avg_win'] == pytest.approx(141.67, rel=1e-2)  # (150+200+75)/3
         assert stats['avg_loss'] == -37.5  # (-50-25)/2
     
     def test_new_day_reset(self, sample_config, mock_ibkr_client):

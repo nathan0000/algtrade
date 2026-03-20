@@ -35,6 +35,8 @@ def sample_config():
     config.ibkr.port = 4002
     config.ibkr.client_id = 9999  # Use different ID for tests
     config.paper_trading = True
+#    config.strategy = StrategyConfig
+#    config.risk = RiskConfig
     return config
 
 @pytest.fixture

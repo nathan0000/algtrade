@@ -60,10 +60,10 @@ class SPX0DTEAutoTrader:
         
         # Initialize strategies
         self.strategies = [
-            PutCreditSpreadStrategy(self.ibkr, config.strategy),
-            CallCreditSpreadStrategy(self.ibkr, config.strategy),
-            IronFlyStrategy(self.ibkr, config.strategy),
-            IronCondorStrategy(self.ibkr, config.strategy)
+            PutCreditSpreadStrategy(self.ibkr, config.strategy, config.risk),
+            CallCreditSpreadStrategy(self.ibkr, config.strategy, config.risk),
+            IronFlyStrategy(self.ibkr, config.strategy, config.risk),
+            IronCondorStrategy(self.ibkr, config.strategy, config.risk)
         ]
         
         # Trading state

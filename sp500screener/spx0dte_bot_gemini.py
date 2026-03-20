@@ -6,6 +6,8 @@ import requests
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
 from ibapi.contract import Contract
+from ibapi.contract import ComboLeg
+from ibapi.order import Order
 from ibapi.common import BarData, TickerId
 
 # --- CONFIGURATION ---
@@ -84,7 +86,7 @@ class PnLApp(EWrapper, EClient):
         if reqId == 2 and tickType == 4: # Last Price for VIX
             self.vix_price = price
 
-    def error(self, reqId, errorCode, errorString):
+    def error(self, reqId, errorCode, errorString, advancedOrderRejectJson="", arg5=""):
         if errorCode not in [2104, 2106, 2158]:
             logger.error(f"IBKR Error {errorCode}: {errorString}")
 

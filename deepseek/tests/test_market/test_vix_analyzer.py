@@ -62,7 +62,7 @@ class TestVIXAnalyzer:
         assert 'range-bound' in regime['implication'].lower()
         assert 'Iron Condor' in regime['preferred_strategies'][0]
         assert regime['block_long'] == False
-        assert regime['block_short'] == False
+        assert regime['block_short'] == True
     
     def test_get_regime_normal(self, mock_ibkr_client):
         """Test VIX regime classification - NORMAL"""

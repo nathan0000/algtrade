@@ -4,14 +4,14 @@ from typing import Dict, Any, Optional, Tuple, List
 # Fix: Import from strategies.base_strategy, not base_strategy directly
 from strategies.base_strategy import BaseStrategy
 from connection.ibkr_client import IBKRClient
-from config import StrategyConfig
+from config import StrategyConfig, RiskConfig
 
 class PutCreditSpreadStrategy(BaseStrategy):
     """Bullish put credit spread strategy"""
     
-    def __init__(self, ibkr_client: IBKRClient, config: StrategyConfig):
-        super().__init__("PutCreditSpread", ibkr_client, config)
-        
+    def __init__(self, ibkr_client: IBKRClient, strategy_config: StrategyConfig, risk_config: RiskConfig):
+        super().__init__("PutCreditSpread", ibkr_client, strategy_config, risk_config)
+
     def should_enter(self, market_state: Dict[str, Any], 
                      vix_state: Dict[str, Any],
                      sentiment: Dict[str, Any],
@@ -69,8 +69,8 @@ class PutCreditSpreadStrategy(BaseStrategy):
             'strategy': 'put_credit_spread',
             'confidence': confidence,
             'direction': 'bullish',
-            'delta_target': self.config.directional_delta_target,
-            'spread_width': self.config.directional_spread_width
+            'delta_target': self.strategy_config.directional_delta_target,
+            'spread_width': self.strategy_config.directional_spread_width
         }
     
     def calculate_strikes(self, current_price: float, 
