@@ -131,10 +131,10 @@ app.req_id += 1
 
 # ====================== FILTER + REAL GREEKS ======================
 today_str = datetime.now().strftime("%Y%m%d")
-tomorrow_str = (datetime.now() + timedelta(days=1)).strftime("%Y%m%d")
+oneweek_str = (datetime.now() + timedelta(days=5)).strftime("%Y%m%d")
 
 exps = sorted({c.lastTradeDateOrContractMonth for c in app.all_options})
-filtered_exps = [e for e in exps if e in (today_str, tomorrow_str)]
+filtered_exps = [e for e in exps if e in (today_str, oneweek_str)]
 if not filtered_exps and exps:
     filtered_exps = exps[:2]
 
