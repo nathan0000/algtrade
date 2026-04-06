@@ -42,7 +42,7 @@ with open('config.yml', 'r') as c:
   # Setup Logging
 logger = loggerSetup()
 
-tasty = Tastytrade('api.cert.tastyworks.com').login(login='yaoliang_w@hotmail.com', password='Invest2freedom.')
+tasty = Tastytrade('api.cert.tastyworks.com').login(login='yaoliang_w@hotmail.com', .')
 
 tasty.api.post('/sessions/validate')
 
