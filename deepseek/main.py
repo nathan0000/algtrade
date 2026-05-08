@@ -104,9 +104,11 @@ class SPX0DTEAutoTrader:
         """Request historical data for analysis"""
         try:
             # Request SPX historical data
+            self.logger.info("Requesting historical SPX data...")
             self.market_data.request_historical_data(self.config.data_lookback_days)
             
             # Request VIX historical data
+            self.logger.info("Requesting historical VIX data...")
             self.request_vix_data()
         except Exception as e:
             self.logger.error(f"Error requesting historical data: {e}")

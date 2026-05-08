@@ -1,3 +1,4 @@
+from config import HOST, PORT, CLIENT_ID_STRATEGY, DB_FILE, DEFAULT_QUANTITY, TICK_BUFFER
 import sqlite3
 from ibapi.contract import Contract, ComboLeg          # ComboLeg imported correctly
 from ibapi.order import Order
@@ -124,7 +125,7 @@ class IBKRStrategy:
     def place_order(self, bag_contract, order, whatIf=True):
         self._connect()
         reqId = self.order_id_counter
-        self.order_id_counter += 1
+        self.order_id_counter += 2
 
         if whatIf:
             order.whatIf = True

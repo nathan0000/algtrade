@@ -119,10 +119,11 @@ class ThreadManager:
     def create_vix_contract() -> Contract:
         """Create VIX futures contract"""
         contract = Contract()
+        contract.conId = 13455763  # Use resolved conId for VIX index
         contract.symbol = 'VIX'
-        contract.secType = 'FUT'
-        contract.exchange = 'CFE'
+        contract.secType = 'IND'  # VIX index contract, future contracts would be 'FUT'
+        contract.exchange = 'CBOE' # VIX index is on CBOE, futures are on CFE
         contract.currency = 'USD'
         # Use front month
-        contract.lastTradeDateOrContractMonth = datetime.now().strftime('%Y%m')
+     #   contract.lastTradeDateOrContractMonth = datetime.now().strftime('%Y%m')
         return contract

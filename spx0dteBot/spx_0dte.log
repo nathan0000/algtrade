@@ -49,3 +49,62 @@
 2026-03-14 18:01:16,128 | INFO     | disconnecting
 2026-03-14 18:01:16,130 | INFO     | ANSWER connectionClosed {}
 2026-03-14 18:01:16,130 | INFO     | Disconnected. Goodbye.
+2026-03-24 10:02:39,130 | INFO     | ============================================================
+2026-03-24 10:02:39,131 | INFO     | SPX 0DTE Bot starting...
+2026-03-24 10:02:39,131 | INFO     | Account: DU000000 | Port: 4002
+2026-03-24 10:02:39,131 | INFO     | ============================================================
+2026-03-24 10:02:39,142 | INFO     | sent startApi
+2026-03-24 10:02:39,142 | INFO     | REQUEST startApi {}
+2026-03-24 10:02:39,142 | INFO     | SENDING startApi b'\x00\x00\x00\x0871\x002\x001\x00\x00'
+2026-03-24 10:02:39,142 | INFO     | ANSWER connectAck {}
+2026-03-24 10:02:39,143 | INFO     | Waiting for next valid order ID...
+2026-03-24 10:02:39,148 | INFO     | ANSWER managedAccounts {'accountsList': 'DU3232524'}
+2026-03-24 10:02:39,148 | INFO     | Connected. Next order ID: 1
+2026-03-24 10:02:39,148 | INFO     | ✅ Connected to IBKR | Account: DU000000
+2026-03-24 10:02:39,148 | ERROR    | IBKR Error [-1] 1774306958061: 2104
+2026-03-24 10:02:39,149 | INFO     | REQUEST reqAccountUpdates {'subscribe': True, 'acctCode': 'DU000000'}
+2026-03-24 10:02:39,149 | ERROR    | IBKR Error [-1] 1774306958061: 2106
+2026-03-24 10:02:39,149 | INFO     | SENDING reqAccountUpdates b'\x00\x00\x00\x0f6\x002\x001\x00DU000000\x00'
+2026-03-24 10:02:39,149 | ERROR    | IBKR Error [-1] 1774306958061: 2106
+2026-03-24 10:02:39,149 | ERROR    | IBKR Error [-1] 1774306958061: 2158
+2026-03-24 10:02:39,167 | INFO     | ANSWER updateAccountTime {'timeStamp': '19:01'}
+2026-03-24 10:02:39,168 | INFO     | Account NLV: $249,515
+2026-03-24 10:02:39,168 | INFO     | REQUEST reqMktData {'reqId': 1001, 'contract': 4371821920: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': False, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-03-24 10:02:39,168 | INFO     | SENDING reqMktData b'\x00\x00\x00/1\x0011\x001001\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x000\x000\x00\x00'
+2026-03-24 10:02:39,168 | INFO     | REQUEST reqMktData {'reqId': 1002, 'contract': 4366140912: 0,VIX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': False, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-03-24 10:02:39,168 | INFO     | SENDING reqMktData b'\x00\x00\x00/1\x0011\x001002\x000\x00VIX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x000\x000\x00\x00'
+2026-03-24 10:02:39,168 | INFO     | Subscribed to SPX and VIX market data
+2026-03-24 10:02:39,667 | ERROR    | IBKR Error [-1] 1774306958580: 2119
+2026-03-24 10:02:42,034 | ERROR    | IBKR Error [-1] 1774306960945: 2104
+2026-03-24 10:02:42,607 | INFO     | ANSWER marketDataType {'reqId': 1001, 'marketDataType': 1}
+2026-03-24 10:02:42,607 | INFO     | ANSWER tickReqParams {'tickerId': 1001, 'minTick': 0.01, 'bboExchange': '', 'snapshotPermissions': 0}
+2026-03-24 10:02:42,619 | INFO     | ANSWER marketDataType {'reqId': 1002, 'marketDataType': 1}
+2026-03-24 10:02:42,620 | INFO     | ANSWER tickReqParams {'tickerId': 1002, 'minTick': 0.01, 'bboExchange': '', 'snapshotPermissions': 0}
+2026-03-24 10:02:42,620 | INFO     | ANSWER tickString {'reqId': 1001, 'tickType': 45, 'value': '0'}
+2026-03-24 10:02:42,620 | INFO     | ANSWER tickString {'reqId': 1002, 'tickType': 45, 'value': '0'}
+2026-03-24 10:02:42,622 | INFO     | ANSWER tickSize {'reqId': 1001, 'tickType': 5, 'size': Decimal('170141183460469231731687303715884105727')}
+2026-03-24 10:02:42,622 | INFO     | ANSWER tickString {'reqId': 1001, 'tickType': 45, 'value': '1774300298'}
+2026-03-24 10:02:42,627 | INFO     | ANSWER tickSize {'reqId': 1001, 'tickType': 0, 'size': Decimal('170141183460469231731687303715884105727')}
+2026-03-24 10:02:42,627 | INFO     | ANSWER tickSize {'reqId': 1001, 'tickType': 3, 'size': Decimal('170141183460469231731687303715884105727')}
+2026-03-24 10:02:42,628 | INFO     | ANSWER tickSize {'reqId': 1002, 'tickType': 5, 'size': Decimal('170141183460469231731687303715884105727')}
+2026-03-24 10:02:42,628 | INFO     | ANSWER tickString {'reqId': 1002, 'tickType': 45, 'value': '1774296901'}
+2026-03-24 10:02:42,628 | INFO     | ANSWER tickSize {'reqId': 1002, 'tickType': 0, 'size': Decimal('170141183460469231731687303715884105727')}
+2026-03-24 10:02:42,628 | INFO     | ANSWER tickSize {'reqId': 1002, 'tickType': 3, 'size': Decimal('170141183460469231731687303715884105727')}
+2026-03-24 10:02:43,177 | INFO     | Requesting historical 5-min MIDPOINT bars for VWAP backfill...
+2026-03-24 10:02:43,177 | INFO     | REQUEST reqHistoricalData {'reqId': 2001, 'contract': 4371822640: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '1 D', 'barSizeSetting': '5 mins', 'whatToShow': 'TRADES', 'useRTH': 1, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-03-24 10:02:43,177 | INFO     | SENDING reqHistoricalData b'\x00\x00\x00A20\x002001\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x005 mins\x001 D\x001\x00TRADES\x001\x000\x00\x00'
+2026-03-24 10:02:44,017 | INFO     | Historical bars loaded: 66 today-session bars | range 20260322 18:02:42 US/Central → 20260323 18:02:42 US/Central
+2026-03-24 10:02:44,017 | INFO     | ✅ VWAP backfill complete — 66 RTH bars loaded
+2026-03-24 10:02:44,017 | INFO     | Starting real-time 5-sec MIDPOINT bar stream...
+2026-03-24 10:02:44,017 | INFO     | REQUEST reqRealTimeBars {'reqId': 2002, 'contract': 4329063536: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'barSize': 5, 'whatToShow': 'MIDPOINT', 'useRTH': 0, 'realTimeBarsOptions': []}
+2026-03-24 10:02:44,017 | INFO     | SENDING reqRealTimeBars b'\x00\x00\x00550\x003\x002002\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x005\x00MIDPOINT\x000\x00\x00'
+2026-03-24 10:02:44,017 | INFO     | ✅ Real-time bar stream active — VWAP will update every ~5 min
+2026-03-24 10:02:44,017 | INFO     | Bot running. Will evaluate every 60 seconds during trading hours.
+2026-03-24 10:02:44,541 | ERROR    | IBKR Error [2002] 1774306963453: 420
+2026-03-24 10:04:22,650 | INFO     | ANSWER updateAccountTime {'timeStamp': '19:04'}
+2026-03-24 10:04:22,653 | INFO     | ANSWER updateAccountTime {'timeStamp': '19:04'}
+2026-03-24 10:05:22,386 | INFO     | KeyboardInterrupt — shutting down
+2026-03-24 10:05:22,388 | INFO     | Shutting down — closing all positions...
+2026-03-24 10:05:24,393 | INFO     | disconnecting
+2026-03-24 10:05:24,394 | INFO     | ANSWER connectionClosed {}
+2026-03-24 10:05:24,394 | INFO     | Disconnected. Goodbye.

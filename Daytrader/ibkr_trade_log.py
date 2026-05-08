@@ -17,9 +17,9 @@ class IBKRTradeLogger(EWrapper, EClient):
         self.req_id = 1
         self.done = False
 
-    def execDetails(self, reqId: int, contract: Contract, execution: Execution):
+    def execDetails(self, reqId: int, contract: Contract, execution: Execution):        
         self.exec_details.append((contract, execution))
-        print(f"Exec: {execution.time} | {contract.symbol} | {execution.side} {execution.shares} @ {execution.price}")
+        print(f"Exec: {execution.time} | {contract.symbol} | {contract.strike} | {contract.right} | {contract.lastTradeDateOrContractMonth} | {execution.side} {execution.shares} @ {execution.price}")
 
     def commissionReport(self, commissionReport: CommissionAndFeesReport):
         self.commission_reports[commissionReport.execId] = commissionReport
@@ -78,6 +78,9 @@ CREATE TABLE IF NOT EXISTS trades (
     secType TEXT,
     exchange TEXT,
     currency TEXT,
+    optionStrike REAL,
+    optionRight TEXT,
+    optionExpiry TEXT,
     side TEXT,
     shares REAL,
     price REAL,
@@ -100,10 +103,10 @@ for contract, execution in app.exec_details:
     try:
         cur.execute("""
             INSERT OR IGNORE INTO trades 
-            (execId, time, symbol, secType, exchange, currency, side, shares, price, 
+            (execId, time, symbol, secType, exchange, currency, optionStrike, optionRight, optionExpiry, side, shares, price, 
              avgPrice, cumQty, commission, comm_currency, realizedPNL, 
              orderId, permId, clientId)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             exec_id,
             execution.time,
@@ -111,6 +114,9 @@ for contract, execution in app.exec_details:
             contract.secType,
             contract.exchange,
             contract.currency,
+            contract.strike if hasattr(contract, 'strike') else None,
+            contract.right if hasattr(contract, 'right') else None,
+            contract.lastTradeDateOrContractMonth if hasattr(contract, 'lastTradeDateOrContractMonth') else None,
             execution.side,
             execution.shares,
             execution.price,

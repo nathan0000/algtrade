@@ -1,0 +1,168 @@
+2026-03-24 11:19:03 - __main__ - INFO - Testing connection to IBKR...
+2026-03-24 11:19:03 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-24 11:19:03 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-24 11:19:03 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-24 11:19:03 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774311543390, Message: 2104
+2026-03-24 11:19:03 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774311543391, Message: 2106
+2026-03-24 11:19:03 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774311543391, Message: 2106
+2026-03-24 11:19:03 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774311543391, Message: 2158
+2026-03-24 11:19:03 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-24 11:19:03 - __main__ - INFO - ✅ Successfully connected to IBKR
+2026-03-24 11:19:03 - __main__ - INFO - Account value: $0.00
+2026-03-24 11:19:03 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-24 11:19:03 - __main__ - INFO - Disconnected from IBKR
+2026-03-24 11:19:07 - __main__ - INFO - Starting full trading system...
+2026-03-24 11:19:07 - __main__ - INFO - Starting SPX 0DTE AutoTrader
+2026-03-24 11:19:07 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-24 11:19:07 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-24 11:19:07 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-24 11:19:07 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774311546840, Message: 2104
+2026-03-24 11:19:07 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774311546840, Message: 2106
+2026-03-24 11:19:07 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774311546840, Message: 2106
+2026-03-24 11:19:07 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774311546840, Message: 2158
+2026-03-24 11:19:07 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-24 11:19:07 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:19:07 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:19:09 - connection.thread_manager - INFO - Started MarketData thread
+2026-03-24 11:19:09 - connection.thread_manager - INFO - Started OrderMonitor thread
+2026-03-24 11:19:09 - connection.thread_manager - INFO - Started PositionMonitor thread
+2026-03-24 11:19:09 - connection.thread_manager - INFO - Started Heartbeat thread
+2026-03-24 11:19:09 - __main__ - INFO - Requesting historical SPX data...
+2026-03-24 11:19:09 - __main__ - INFO - Requesting historical VIX data...
+2026-03-24 11:19:09 - __main__ - INFO - Entering main trading loop
+2026-03-24 11:19:09 - connection.ibkr_client - ERROR - Error ID: 1000, Code: 1774311548951, Message: 2174
+2026-03-24 11:19:10 - connection.ibkr_client - ERROR - Error ID: 1001, Code: 1774311550111, Message: 162
+2026-03-24 11:19:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:19:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:22:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:22:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:24:14 - __main__ - INFO - Received interrupt signal
+2026-03-24 11:24:14 - __main__ - INFO - Shutting down...
+2026-03-24 11:24:20 - connection.thread_manager - INFO - All threads stopped
+2026-03-24 11:24:20 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-24 11:24:20 - __main__ - INFO - Shutdown complete
+2026-03-24 11:24:20 - __main__ - INFO - Trading system running. Press Ctrl+C to stop.
+2026-03-24 11:27:58 - __main__ - INFO - Testing connection to IBKR...
+2026-03-24 11:27:58 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-24 11:27:58 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-24 11:27:58 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-24 11:27:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312077535, Message: 2104
+2026-03-24 11:27:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312077535, Message: 2106
+2026-03-24 11:27:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312077535, Message: 2106
+2026-03-24 11:27:58 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312077535, Message: 2158
+2026-03-24 11:27:58 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-24 11:27:58 - __main__ - INFO - ✅ Successfully connected to IBKR
+2026-03-24 11:27:58 - __main__ - INFO - Account value: $0.00
+2026-03-24 11:27:58 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-24 11:27:58 - __main__ - INFO - Disconnected from IBKR
+2026-03-24 11:28:00 - __main__ - INFO - Starting full trading system...
+2026-03-24 11:28:00 - __main__ - INFO - Starting SPX 0DTE AutoTrader
+2026-03-24 11:28:00 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-24 11:28:00 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-24 11:28:00 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-24 11:28:00 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312079903, Message: 2104
+2026-03-24 11:28:00 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312079903, Message: 2106
+2026-03-24 11:28:00 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312079903, Message: 2106
+2026-03-24 11:28:00 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312079903, Message: 2158
+2026-03-24 11:28:00 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-24 11:28:01 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:28:01 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:28:02 - connection.thread_manager - INFO - Started MarketData thread
+2026-03-24 11:28:02 - connection.thread_manager - INFO - Started OrderMonitor thread
+2026-03-24 11:28:02 - connection.thread_manager - INFO - Started PositionMonitor thread
+2026-03-24 11:28:02 - connection.thread_manager - INFO - Started Heartbeat thread
+2026-03-24 11:28:02 - __main__ - INFO - Requesting historical SPX data...
+2026-03-24 11:28:02 - __main__ - INFO - Requesting historical VIX data...
+2026-03-24 11:28:02 - __main__ - INFO - Entering main trading loop
+2026-03-24 11:28:02 - connection.ibkr_client - ERROR - Error ID: 1000, Code: 1774312082023, Message: 2174
+2026-03-24 11:28:03 - connection.ibkr_client - ERROR - Error ID: 1001, Code: 1774312082633, Message: 200
+2026-03-24 11:28:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:28:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:31:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:31:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:32:44 - __main__ - INFO - Received interrupt signal
+2026-03-24 11:32:44 - __main__ - INFO - Shutting down...
+2026-03-24 11:32:49 - connection.thread_manager - INFO - All threads stopped
+2026-03-24 11:32:49 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-24 11:32:50 - __main__ - INFO - Shutdown complete
+2026-03-24 11:32:50 - __main__ - INFO - Trading system running. Press Ctrl+C to stop.
+2026-03-24 11:34:02 - __main__ - INFO - Testing connection to IBKR...
+2026-03-24 11:34:02 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-24 11:34:02 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-24 11:34:02 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-24 11:34:02 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312442708, Message: 2104
+2026-03-24 11:34:02 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312442708, Message: 2106
+2026-03-24 11:34:02 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312442708, Message: 2106
+2026-03-24 11:34:02 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312442708, Message: 2158
+2026-03-24 11:34:03 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-24 11:34:03 - __main__ - INFO - ✅ Successfully connected to IBKR
+2026-03-24 11:34:03 - __main__ - INFO - Account value: $0.00
+2026-03-24 11:34:03 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-24 11:34:03 - __main__ - INFO - Disconnected from IBKR
+2026-03-24 11:34:06 - __main__ - INFO - Starting full trading system...
+2026-03-24 11:34:06 - __main__ - INFO - Starting SPX 0DTE AutoTrader
+2026-03-24 11:34:06 - connection.ibkr_client - INFO - Connecting to TWS/IB Gateway at 127.0.0.1:4002
+2026-03-24 11:34:06 - connection.ibkr_client - INFO - Managed accounts: ['DU3232524']
+2026-03-24 11:34:06 - connection.ibkr_client - INFO - Next valid order ID: 1
+2026-03-24 11:34:06 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312446135, Message: 2104
+2026-03-24 11:34:06 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312446135, Message: 2106
+2026-03-24 11:34:06 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312446135, Message: 2106
+2026-03-24 11:34:06 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774312446137, Message: 2158
+2026-03-24 11:34:06 - connection.ibkr_client - INFO - Successfully connected to TWS/IB Gateway
+2026-03-24 11:34:06 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:34:06 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:34:08 - connection.thread_manager - INFO - Started MarketData thread
+2026-03-24 11:34:08 - connection.thread_manager - INFO - Started OrderMonitor thread
+2026-03-24 11:34:08 - connection.thread_manager - INFO - Started PositionMonitor thread
+2026-03-24 11:34:08 - connection.thread_manager - INFO - Started Heartbeat thread
+2026-03-24 11:34:08 - __main__ - INFO - Requesting historical SPX data...
+2026-03-24 11:34:08 - __main__ - INFO - Requesting historical VIX data...
+2026-03-24 11:34:08 - __main__ - INFO - Entering main trading loop
+2026-03-24 11:34:08 - connection.ibkr_client - ERROR - Error ID: 1000, Code: 1774312448243, Message: 2174
+2026-03-24 11:34:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:34:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:37:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:37:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:40:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:40:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:43:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:43:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:46:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:46:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:49:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:49:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:52:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:52:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:55:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 11:55:32 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 12:12:26 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314746467, Message: 2105
+2026-03-24 12:12:28 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314747950, Message: 1100
+2026-03-24 12:12:30 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314750041, Message: 2103
+2026-03-24 12:12:30 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314750042, Message: 2157
+2026-03-24 12:12:30 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314750042, Message: 2105
+2026-03-24 12:12:30 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314750045, Message: 2105
+2026-03-24 12:12:32 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314751789, Message: 2158
+2026-03-24 12:12:33 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314752037, Message: 2106
+2026-03-24 12:12:33 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314752059, Message: 2104
+2026-03-24 12:12:33 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314752268, Message: 2106
+2026-03-24 12:12:33 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314752307, Message: 1102
+2026-03-24 12:12:33 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 12:12:33 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 12:14:40 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314879787, Message: 1100
+2026-03-24 12:14:43 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314883030, Message: 2103
+2026-03-24 12:14:43 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314883031, Message: 2157
+2026-03-24 12:14:43 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314883031, Message: 2105
+2026-03-24 12:14:43 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314883031, Message: 2105
+2026-03-24 12:14:46 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314885822, Message: 2158
+2026-03-24 12:14:46 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314886075, Message: 2106
+2026-03-24 12:14:46 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314886080, Message: 2104
+2026-03-24 12:14:46 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314886297, Message: 2106
+2026-03-24 12:14:47 - connection.ibkr_client - ERROR - Error ID: -1, Code: 1774314887045, Message: 1102
+2026-03-24 12:14:47 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 12:14:47 - connection.ibkr_client - INFO - Account DU3232524 Net Liquidation: $249,515.08
+2026-03-24 12:14:56 - __main__ - INFO - Received interrupt signal
+2026-03-24 12:14:56 - __main__ - INFO - Shutting down...
+2026-03-24 12:15:02 - connection.thread_manager - INFO - All threads stopped
+2026-03-24 12:15:02 - connection.ibkr_client - WARNING - Connection to TWS/IB Gateway closed
+2026-03-24 12:15:02 - __main__ - INFO - Shutdown complete
+2026-03-24 12:15:02 - __main__ - INFO - Trading system running. Press Ctrl+C to stop.

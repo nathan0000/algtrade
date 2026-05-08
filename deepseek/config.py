@@ -10,6 +10,8 @@ class IBKRConfig:
     port: int = 4002  # 7497 for paper, 7496 for live
     client_id: int = 1
     account: str = ""  # Leave empty for first account
+    spx_conid: Optional[int] = 416904  # Will be auto-resolved if None
+    vix_conid: Optional[int] = 620468  # Will be auto-resolved if None
 
 @dataclass
 class RiskConfig:

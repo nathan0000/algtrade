@@ -88,10 +88,26 @@ class IBKRClient(EWrapper, EClient):
         """Receive account summary data"""
         if tag == 'NetLiquidation':
             try:
-                self.account_value = float(value)
-                self.logger.info(f"Account {account} Net Liquidation: ${value:,.2f}")
-            except ValueError:
-                self.logger.warning(f"Could not parse account value: {value}")
+                # If value is already numeric, use it directly
+                if isinstance(value, (int, float)):
+                    self.account_value = float(value)
+                else:
+                    # Convert to string, strip, remove commas, then float
+                    cleaned = str(value).strip().replace(',', '')
+                    self.account_value = float(cleaned)
+                self.logger.info(f"Account {account} Net Liquidation: ${self.account_value:,.2f}")
+            except (ValueError, AttributeError) as e:
+                self.logger.warning(f"Could not parse account value '{value}': {e}")
+                # Fallback: try regex extraction
+                import re
+                match = re.search(r'[\d,\.]+', str(value))
+                if match:
+                    try:
+                        num = match.group().replace(',', '')
+                        self.account_value = float(num)
+                        self.logger.info(f"Parsed account value as: ${self.account_value:,.2f}")
+                    except:
+                        pass
             
     @iswrapper
     def accountSummaryEnd(self, reqId: int):
