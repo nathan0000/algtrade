@@ -1951,3 +1951,193 @@ of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002
 2026-05-08 14:37:20,265 [INFO] SENDING reqHistoricalData b'\x00\x00\x00G20\x00102\x00800674914\x00VX\x00FUT\x00\x000.0\x00\x00\x00CFE\x00\x00USD\x00\x00\x000\x00\x001 day\x001 D\x000\x00MIDPOINT\x001\x000\x00\x00'
 2026-05-08 14:37:30,275 [INFO] disconnecting
 2026-05-08 14:37:30,276 [INFO] ANSWER connectionClosed {}
+2026-05-11 14:30:08,454 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778473808454, 'errorCode': 502, 'errorString': 'Couldn\'t connect to TWS. Confirm that "Enable ActiveX and Socket EClients" \nis enabled and connection port is the same as "Socket Port" on the \nTWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: \nTWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations \nof version 954.1 or newer:  TWS: 7497; IB Gateway: 4002', 'advancedOrderRejectJson': ''}
+2026-05-11 14:30:08,454 [ERROR] ERROR -1 1778473808454 502 Couldn't connect to TWS. Confirm that "Enable ActiveX and Socket EClients" 
+is enabled and connection port is the same as "Socket Port" on the 
+TWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: 
+TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations 
+of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002
+2026-05-11 14:30:08,454 [INFO] could not connect
+2026-05-11 14:30:08,454 [INFO] disconnecting
+2026-05-11 14:30:08,454 [INFO] ANSWER connectionClosed {}
+2026-05-11 14:30:09,465 [INFO] REQUEST reqContractDetails {'reqId': 201, 'contract': 4329111040: 0,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-11 14:30:09,466 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778473809466, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-11 14:30:09,466 [ERROR] ERROR -1 1778473809466 504 Not connected
+2026-05-11 14:30:19,473 [WARNING] Term structure search failed; injecting hardcoded fallbacks.
+2026-05-11 14:30:19,473 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-11 14:30:19,473 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_BACK: 812239044
+2026-05-11 14:30:19,474 [INFO] REQUEST reqMarketDataType {'marketDataType': 3}
+2026-05-11 14:30:19,474 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778473819474, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-11 14:30:19,474 [ERROR] ERROR -1 1778473819474 504 Not connected
+2026-05-11 14:30:19,474 [INFO] REQUEST reqMktData {'reqId': 300, 'contract': 4356999216: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-11 14:30:19,474 [INFO] ANSWER error {'reqId': 300, 'errorTime': 1778473819475, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-11 14:30:19,475 [ERROR] ERROR 300 1778473819475 504 Not connected
+2026-05-11 14:30:19,475 [INFO] REQUEST reqMktData {'reqId': 301, 'contract': 4362410880: 812239044,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-11 14:30:19,475 [INFO] ANSWER error {'reqId': 301, 'errorTime': 1778473819475, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-11 14:30:19,475 [ERROR] ERROR 301 1778473819475 504 Not connected
+2026-05-11 14:30:29,501 [WARNING] IBKR API 1778473829501: 502
+2026-05-11 14:30:29,502 [INFO] could not connect
+2026-05-11 14:30:29,502 [INFO] disconnecting
+2026-05-11 14:30:29,502 [INFO] ANSWER connectionClosed {}
+2026-05-11 14:30:30,513 [INFO] REQUEST reqContractDetails {'reqId': 501, 'contract': 4369974432: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:}
+2026-05-11 14:30:30,514 [WARNING] IBKR API 1778473830514: 504
+2026-05-11 14:30:35,521 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-11 14:30:35,522 [INFO] REQUEST reqContractDetails {'reqId': 502, 'contract': 4317382560: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-11 14:30:35,522 [WARNING] IBKR API 1778473835523: 504
+2026-05-11 14:30:40,533 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-11 14:30:40,534 [INFO] REQUEST reqHistoricalData {'reqId': 101, 'contract': 4369974432: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '14400 S', 'barSizeSetting': '5 mins', 'whatToShow': 'TRADES', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-11 14:30:40,534 [WARNING] IBKR API 1778473840534: 504
+2026-05-11 14:30:40,534 [INFO] REQUEST reqHistoricalData {'reqId': 102, 'contract': 4371863776: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '1 D', 'barSizeSetting': '1 day', 'whatToShow': 'MIDPOINT', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-11 14:30:40,534 [WARNING] IBKR API 1778473840535: 504
+2026-05-12 14:30:10,775 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778560210775, 'errorCode': 502, 'errorString': 'Couldn\'t connect to TWS. Confirm that "Enable ActiveX and Socket EClients" \nis enabled and connection port is the same as "Socket Port" on the \nTWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: \nTWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations \nof version 954.1 or newer:  TWS: 7497; IB Gateway: 4002', 'advancedOrderRejectJson': ''}
+2026-05-12 14:30:10,775 [ERROR] ERROR -1 1778560210775 502 Couldn't connect to TWS. Confirm that "Enable ActiveX and Socket EClients" 
+is enabled and connection port is the same as "Socket Port" on the 
+TWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: 
+TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations 
+of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002
+2026-05-12 14:30:10,775 [INFO] could not connect
+2026-05-12 14:30:10,775 [INFO] disconnecting
+2026-05-12 14:30:10,775 [INFO] ANSWER connectionClosed {}
+2026-05-12 14:30:11,790 [INFO] REQUEST reqContractDetails {'reqId': 201, 'contract': 4350355664: 0,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-12 14:30:11,791 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778560211791, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-12 14:30:11,791 [ERROR] ERROR -1 1778560211791 504 Not connected
+2026-05-12 14:30:21,803 [WARNING] Term structure search failed; injecting hardcoded fallbacks.
+2026-05-12 14:30:21,805 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-12 14:30:21,805 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_BACK: 812239044
+2026-05-12 14:30:21,805 [INFO] REQUEST reqMarketDataType {'marketDataType': 3}
+2026-05-12 14:30:21,806 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778560221806, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-12 14:30:21,806 [ERROR] ERROR -1 1778560221806 504 Not connected
+2026-05-12 14:30:21,806 [INFO] REQUEST reqMktData {'reqId': 300, 'contract': 4317218624: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-12 14:30:21,806 [INFO] ANSWER error {'reqId': 300, 'errorTime': 1778560221806, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-12 14:30:21,806 [ERROR] ERROR 300 1778560221806 504 Not connected
+2026-05-12 14:30:21,806 [INFO] REQUEST reqMktData {'reqId': 301, 'contract': 4364093152: 812239044,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-12 14:30:21,806 [INFO] ANSWER error {'reqId': 301, 'errorTime': 1778560221807, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-12 14:30:21,806 [ERROR] ERROR 301 1778560221807 504 Not connected
+2026-05-12 14:41:01,369 [WARNING] IBKR API 1778560861369: 502
+2026-05-12 14:41:01,370 [INFO] could not connect
+2026-05-12 14:41:01,370 [INFO] disconnecting
+2026-05-12 14:41:01,370 [INFO] ANSWER connectionClosed {}
+2026-05-12 14:41:02,375 [INFO] REQUEST reqContractDetails {'reqId': 501, 'contract': 4317065632: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:}
+2026-05-12 14:41:02,377 [WARNING] IBKR API 1778560862377: 504
+2026-05-12 14:41:07,384 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-12 14:41:07,385 [INFO] REQUEST reqContractDetails {'reqId': 502, 'contract': 4364696176: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-12 14:41:07,385 [WARNING] IBKR API 1778560867385: 504
+2026-05-12 14:41:12,393 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-12 14:41:12,395 [INFO] REQUEST reqHistoricalData {'reqId': 101, 'contract': 4317065632: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '14400 S', 'barSizeSetting': '5 mins', 'whatToShow': 'TRADES', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-12 14:41:12,395 [WARNING] IBKR API 1778560872396: 504
+2026-05-12 14:41:12,395 [INFO] REQUEST reqHistoricalData {'reqId': 102, 'contract': 4364093152: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '1 D', 'barSizeSetting': '1 day', 'whatToShow': 'MIDPOINT', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-12 14:41:12,396 [WARNING] IBKR API 1778560872397: 504
+2026-05-13 14:32:33,606 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778646753606, 'errorCode': 502, 'errorString': 'Couldn\'t connect to TWS. Confirm that "Enable ActiveX and Socket EClients" \nis enabled and connection port is the same as "Socket Port" on the \nTWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: \nTWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations \nof version 954.1 or newer:  TWS: 7497; IB Gateway: 4002', 'advancedOrderRejectJson': ''}
+2026-05-13 14:32:33,606 [ERROR] ERROR -1 1778646753606 502 Couldn't connect to TWS. Confirm that "Enable ActiveX and Socket EClients" 
+is enabled and connection port is the same as "Socket Port" on the 
+TWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: 
+TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations 
+of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002
+2026-05-13 14:32:33,606 [INFO] could not connect
+2026-05-13 14:32:33,606 [INFO] disconnecting
+2026-05-13 14:32:33,606 [INFO] ANSWER connectionClosed {}
+2026-05-13 14:32:34,609 [INFO] REQUEST reqContractDetails {'reqId': 201, 'contract': 4369120288: 0,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-13 14:32:34,610 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778646754610, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-13 14:32:34,610 [ERROR] ERROR -1 1778646754610 504 Not connected
+2026-05-13 14:32:44,618 [WARNING] Term structure search failed; injecting hardcoded fallbacks.
+2026-05-13 14:32:44,619 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-13 14:32:44,619 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_BACK: 812239044
+2026-05-13 14:32:44,619 [INFO] REQUEST reqMarketDataType {'marketDataType': 3}
+2026-05-13 14:32:44,619 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778646764620, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-13 14:32:44,619 [ERROR] ERROR -1 1778646764620 504 Not connected
+2026-05-13 14:32:44,620 [INFO] REQUEST reqMktData {'reqId': 300, 'contract': 4368589424: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-13 14:32:44,620 [INFO] ANSWER error {'reqId': 300, 'errorTime': 1778646764620, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-13 14:32:44,620 [ERROR] ERROR 300 1778646764620 504 Not connected
+2026-05-13 14:32:44,620 [INFO] REQUEST reqMktData {'reqId': 301, 'contract': 4386382208: 812239044,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-13 14:32:44,620 [INFO] ANSWER error {'reqId': 301, 'errorTime': 1778646764621, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-13 14:32:44,620 [ERROR] ERROR 301 1778646764621 504 Not connected
+2026-05-13 14:32:54,645 [WARNING] IBKR API 1778646774646: 502
+2026-05-13 14:32:54,646 [INFO] could not connect
+2026-05-13 14:32:54,647 [INFO] disconnecting
+2026-05-13 14:32:54,647 [INFO] ANSWER connectionClosed {}
+2026-05-13 14:32:55,658 [INFO] REQUEST reqContractDetails {'reqId': 501, 'contract': 4369627664: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:}
+2026-05-13 14:32:55,659 [WARNING] IBKR API 1778646775660: 504
+2026-05-13 14:33:00,674 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-13 14:33:00,675 [INFO] REQUEST reqContractDetails {'reqId': 502, 'contract': 4391291504: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-13 14:33:00,676 [WARNING] IBKR API 1778646780676: 504
+2026-05-13 14:33:05,686 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-13 14:33:05,687 [INFO] REQUEST reqHistoricalData {'reqId': 101, 'contract': 4369627664: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '14400 S', 'barSizeSetting': '5 mins', 'whatToShow': 'TRADES', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-13 14:33:05,692 [WARNING] IBKR API 1778646785689: 504
+2026-05-13 14:33:05,692 [INFO] REQUEST reqHistoricalData {'reqId': 102, 'contract': 4391711328: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '1 D', 'barSizeSetting': '1 day', 'whatToShow': 'MIDPOINT', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-13 14:33:05,692 [WARNING] IBKR API 1778646785693: 504
+2026-05-14 14:30:09,669 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778733009669, 'errorCode': 502, 'errorString': 'Couldn\'t connect to TWS. Confirm that "Enable ActiveX and Socket EClients" \nis enabled and connection port is the same as "Socket Port" on the \nTWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: \nTWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations \nof version 954.1 or newer:  TWS: 7497; IB Gateway: 4002', 'advancedOrderRejectJson': ''}
+2026-05-14 14:30:09,669 [ERROR] ERROR -1 1778733009669 502 Couldn't connect to TWS. Confirm that "Enable ActiveX and Socket EClients" 
+is enabled and connection port is the same as "Socket Port" on the 
+TWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: 
+TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations 
+of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002
+2026-05-14 14:30:09,669 [INFO] could not connect
+2026-05-14 14:30:09,669 [INFO] disconnecting
+2026-05-14 14:30:09,669 [INFO] ANSWER connectionClosed {}
+2026-05-14 14:30:10,680 [INFO] REQUEST reqContractDetails {'reqId': 201, 'contract': 4370090176: 0,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-14 14:30:10,681 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778733010681, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-14 14:30:10,681 [ERROR] ERROR -1 1778733010681 504 Not connected
+2026-05-14 14:30:20,690 [WARNING] Term structure search failed; injecting hardcoded fallbacks.
+2026-05-14 14:30:20,691 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-14 14:30:20,691 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_BACK: 812239044
+2026-05-14 14:30:20,691 [INFO] REQUEST reqMarketDataType {'marketDataType': 3}
+2026-05-14 14:30:20,691 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778733020692, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-14 14:30:20,692 [ERROR] ERROR -1 1778733020692 504 Not connected
+2026-05-14 14:30:20,692 [INFO] REQUEST reqMktData {'reqId': 300, 'contract': 4370447056: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-14 14:30:20,692 [INFO] ANSWER error {'reqId': 300, 'errorTime': 1778733020693, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-14 14:30:20,692 [ERROR] ERROR 300 1778733020693 504 Not connected
+2026-05-14 14:30:20,692 [INFO] REQUEST reqMktData {'reqId': 301, 'contract': 4329792112: 812239044,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-14 14:30:20,693 [INFO] ANSWER error {'reqId': 301, 'errorTime': 1778733020693, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-14 14:30:20,693 [ERROR] ERROR 301 1778733020693 504 Not connected
+2026-05-14 14:30:30,715 [WARNING] IBKR API 1778733030716: 502
+2026-05-14 14:30:30,716 [INFO] could not connect
+2026-05-14 14:30:30,716 [INFO] disconnecting
+2026-05-14 14:30:30,717 [INFO] ANSWER connectionClosed {}
+2026-05-14 14:30:31,726 [INFO] REQUEST reqContractDetails {'reqId': 501, 'contract': 4324681888: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:}
+2026-05-14 14:30:31,727 [WARNING] IBKR API 1778733031727: 504
+2026-05-14 14:30:36,735 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-14 14:30:36,736 [INFO] REQUEST reqContractDetails {'reqId': 502, 'contract': 4362747536: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-14 14:30:36,736 [WARNING] IBKR API 1778733036737: 504
+2026-05-14 14:38:49,764 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-14 14:38:49,765 [INFO] REQUEST reqHistoricalData {'reqId': 101, 'contract': 4324681888: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '14400 S', 'barSizeSetting': '5 mins', 'whatToShow': 'TRADES', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-14 14:38:49,765 [WARNING] IBKR API 1778733529765: 504
+2026-05-14 14:38:49,765 [INFO] REQUEST reqHistoricalData {'reqId': 102, 'contract': 4351022128: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '1 D', 'barSizeSetting': '1 day', 'whatToShow': 'MIDPOINT', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-14 14:38:49,765 [WARNING] IBKR API 1778733529765: 504
+2026-05-15 14:38:52,280 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778819932280, 'errorCode': 502, 'errorString': 'Couldn\'t connect to TWS. Confirm that "Enable ActiveX and Socket EClients" \nis enabled and connection port is the same as "Socket Port" on the \nTWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: \nTWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations \nof version 954.1 or newer:  TWS: 7497; IB Gateway: 4002', 'advancedOrderRejectJson': ''}
+2026-05-15 14:38:52,280 [ERROR] ERROR -1 1778819932280 502 Couldn't connect to TWS. Confirm that "Enable ActiveX and Socket EClients" 
+is enabled and connection port is the same as "Socket Port" on the 
+TWS "Edit->Global Configuration...->API->Settings" menu. Live Trading ports: 
+TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations 
+of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002
+2026-05-15 14:38:52,280 [INFO] could not connect
+2026-05-15 14:38:52,280 [INFO] disconnecting
+2026-05-15 14:38:52,280 [INFO] ANSWER connectionClosed {}
+2026-05-15 14:38:53,291 [INFO] REQUEST reqContractDetails {'reqId': 201, 'contract': 4433110336: 0,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-15 14:38:53,292 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778819933292, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-15 14:38:53,292 [ERROR] ERROR -1 1778819933292 504 Not connected
+2026-05-15 14:39:03,301 [WARNING] Term structure search failed; injecting hardcoded fallbacks.
+2026-05-15 14:39:03,302 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-15 14:39:03,302 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_BACK: 812239044
+2026-05-15 14:39:03,302 [INFO] REQUEST reqMarketDataType {'marketDataType': 3}
+2026-05-15 14:39:03,302 [INFO] ANSWER error {'reqId': -1, 'errorTime': 1778819943303, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-15 14:39:03,302 [ERROR] ERROR -1 1778819943303 504 Not connected
+2026-05-15 14:39:03,303 [INFO] REQUEST reqMktData {'reqId': 300, 'contract': 4433117056: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-15 14:39:03,303 [INFO] ANSWER error {'reqId': 300, 'errorTime': 1778819943303, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-15 14:39:03,303 [ERROR] ERROR 300 1778819943303 504 Not connected
+2026-05-15 14:39:03,303 [INFO] REQUEST reqMktData {'reqId': 301, 'contract': 4429773712: 812239044,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-05-15 14:39:03,303 [INFO] ANSWER error {'reqId': 301, 'errorTime': 1778819943303, 'errorCode': 504, 'errorString': 'Not connected', 'advancedOrderRejectJson': ''}
+2026-05-15 14:39:03,303 [ERROR] ERROR 301 1778819943303 504 Not connected
+2026-05-15 14:39:13,327 [WARNING] IBKR API 1778819953328: 502
+2026-05-15 14:39:13,328 [INFO] could not connect
+2026-05-15 14:39:13,329 [INFO] disconnecting
+2026-05-15 14:39:13,329 [INFO] ANSWER connectionClosed {}
+2026-05-15 14:39:14,338 [INFO] REQUEST reqContractDetails {'reqId': 501, 'contract': 4416660608: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:}
+2026-05-15 14:39:14,339 [WARNING] IBKR API 1778819954340: 504
+2026-05-15 14:39:19,347 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-15 14:39:19,349 [INFO] REQUEST reqContractDetails {'reqId': 502, 'contract': 4429773712: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:}
+2026-05-15 14:39:19,350 [WARNING] IBKR API 1778819959350: 504
+2026-05-15 14:39:24,354 [WARNING] ⚠️ Falling back to hardcoded ConId for VX_FRONT: 800674914
+2026-05-15 14:39:24,355 [INFO] REQUEST reqHistoricalData {'reqId': 101, 'contract': 4416660608: 0,ES,FUT,202606,,0,,,CME,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '14400 S', 'barSizeSetting': '5 mins', 'whatToShow': 'TRADES', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-15 14:39:24,355 [WARNING] IBKR API 1778819964356: 504
+2026-05-15 14:39:24,356 [INFO] REQUEST reqHistoricalData {'reqId': 102, 'contract': 4429772560: 800674914,VX,FUT,,,0,,,CFE,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '1 D', 'barSizeSetting': '1 day', 'whatToShow': 'MIDPOINT', 'useRTH': 0, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-05-15 14:39:24,356 [WARNING] IBKR API 1778819964356: 504
