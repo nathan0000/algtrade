@@ -17,8 +17,8 @@ class TestApp(EClient, EWrapper):
     self.orderId += 1
     return self.orderId
    
-  def error(self, reqId, errorCode, errorString, advancedOrderReject):
-    print(f"reqId: {reqId}, errorCode: {errorCode}, errorString: {errorString}, orderReject: {advancedOrderReject}")
+  def error(self, reqId, errorCode, errorString, advancedOrderReject, arg5):
+    print(f"reqId: {reqId}, errorCode: {errorCode}, errorString: {errorString}")
 
   def contractDetails(self, reqId, contractDetails):
     attrs = vars(contractDetails)
@@ -54,7 +54,7 @@ class TestApp(EClient, EWrapper):
     print(f"Option chain exchange: {exchange} trading class: {tradingClass}, expirations: {expirations}, strikes: {strikes}")
 
 app = TestApp()
-app.connect("127.0.0.1", 7497, 0)
+app.connect("192.168.1.116", 4002, 0)
 threading.Thread(target=app.run).start()
 time.sleep(1)
 
@@ -71,7 +71,7 @@ mycontract.symbol = "10Y"
 mycontract.secType = "FUT"
 mycontract.currency = "USD"
 mycontract.exchange = "CBOT"
-mycontract.lastTradeDateOrContractMonth = 20250331
+mycontract.lastTradeDateOrContractMonth = 20260630
 
 # Option
 #mycontract.symbol = "IBM"

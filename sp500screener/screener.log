@@ -15,3 +15,35 @@
 2026-03-05 16:10:30,228 | INFO     | Screener.IBKR | [BARS] → reqHistoricalData reqId=3002 sym=MMM duration='1 Y' barSize='1 day' whatToShow=TRADES useRTH=1 attempt=1/2
 2026-03-05 16:10:30,229 | WARNING  | Screener.IBKR | [ERR ] code=504 reqId=3002: Not connected
 2026-03-05 16:10:41,791 | INFO     | Screener.IBKR | [CONN] Disconnecting from IBKR
+2026-06-15 20:46:29,646 | INFO     | Screener | Logging initialised | console=INFO | info_log=screener.log | debug_log=screener_debug.log
+2026-06-15 20:46:29,646 | INFO     | Screener | Running single scan | account=$100,000 | port=4002
+2026-06-15 20:46:29,751 | INFO     | Screener.IBKR | [CONN] Connecting → 192.168.1.116:4002 clientId=10
+2026-06-15 20:46:29,810 | INFO     | Screener.IBKR | [CONN] nextValidId=1 — TWS handshake complete
+2026-06-15 20:46:29,811 | INFO     | Screener.IBKR | [CONN] ✅ Connected | port=4002 | marketDataType=4 (Delayed-Frozen)
+2026-06-15 20:46:29,811 | INFO     | Screener.IBKR | [CONN] NOTE: reqMarketDataType affects live/snapshot ticks ONLY. Historical bar requests use a separate IBKR data path and are unaffected by the market data type setting.
+2026-06-15 20:46:29,811 | INFO     | Screener.Pipeline | Building S&P 500 universe via pytickersymbols...
+2026-06-15 20:46:29,823 | INFO     | Screener.Pipeline | pytickersymbols: 176 unique IBKR symbols loaded (7 duplicates removed)
+2026-06-15 20:46:29,823 | INFO     | Screener.Pipeline | ═══ Starting scan of 176 symbols ═══
+2026-06-15 20:46:29,824 | INFO     | Screener.Pipeline | ── Stage 1: Technical Screen ──
+2026-06-15 20:46:29,824 | INFO     | Screener.Pipeline |   [1/176] MMM
+2026-06-15 20:46:29,824 | INFO     | Screener.IBKR | [BARS] MMM: fetch start — days=252 duration='1 Y'
+2026-06-15 20:46:31,281 | WARNING  | Screener.IBKR | [CONN] connectionClosed — TWS dropped the connection!
+2026-06-15 20:46:39,825 | WARNING  | Screener.IBKR | [QUAL] ✗ MMM: no contract details returned (signalled=False count=1)
+         Symbol may be delisted, mis-spelled, or not tradeable on your account tier. Falling back to bare contract.
+2026-06-15 20:46:39,826 | INFO     | Screener.IBKR | [BARS] → reqHistoricalData reqId=3002 sym=MMM duration='1 Y' barSize='1 day' whatToShow=TRADES useRTH=1 attempt=1/2
+2026-06-15 20:46:39,826 | WARNING  | Screener.IBKR | [ERR ] code=504 reqId=3002: Not connected
+2026-06-15 20:46:40,856 | INFO     | Screener.IBKR | [CONN] Disconnecting from IBKR
+2026-06-17 06:35:18,601 | INFO     | Screener | Logging initialised | console=INFO | info_log=screener.log | debug_log=screener_debug.log
+2026-06-17 06:35:18,601 | INFO     | Screener | Running single scan | account=$100,000 | port=4002
+2026-06-17 06:35:18,709 | INFO     | Screener.IBKR | [CONN] Connecting → 192.168.1.116:4002 clientId=10
+2026-06-17 06:35:18,867 | INFO     | Screener.IBKR | [CONN] nextValidId=1 — TWS handshake complete
+2026-06-17 06:35:18,867 | INFO     | Screener.IBKR | [CONN] ✅ Connected | port=4002 | marketDataType=4 (Delayed-Frozen)
+2026-06-17 06:35:18,868 | INFO     | Screener.IBKR | [CONN] NOTE: reqMarketDataType affects live/snapshot ticks ONLY. Historical bar requests use a separate IBKR data path and are unaffected by the market data type setting.
+2026-06-17 06:35:18,868 | INFO     | Screener.Pipeline | Building S&P 500 universe via pytickersymbols...
+2026-06-17 06:35:18,886 | INFO     | Screener.Pipeline | pytickersymbols: 176 unique IBKR symbols loaded (7 duplicates removed)
+2026-06-17 06:35:18,886 | INFO     | Screener.Pipeline | ═══ Starting scan of 176 symbols ═══
+2026-06-17 06:35:18,887 | INFO     | Screener.Pipeline | ── Stage 1: Technical Screen ──
+2026-06-17 06:35:18,887 | INFO     | Screener.Pipeline |   [1/176] MMM
+2026-06-17 06:35:18,887 | INFO     | Screener.IBKR | [BARS] MMM: fetch start — days=252 duration='1 Y'
+2026-06-17 06:35:19,627 | WARNING  | Screener.IBKR | [CONN] connectionClosed — TWS dropped the connection!
+2026-06-17 06:35:25,094 | INFO     | Screener.IBKR | [CONN] Disconnecting from IBKR

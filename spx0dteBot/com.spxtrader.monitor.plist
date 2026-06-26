@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+    <!--
+      com.spxtrader.monitor — the persistent exit-management daemon.
+
+      Runs continuously (KeepAlive=true → launchd restarts it if it ever
+      exits/crashes). Holds ONE long-lived IBKR connection (client_id=1,
+      fixed) and polls the shared positions.json store for new positions
+      created by entry_runner.py's separate short-lived connections
+      (client_ids 100-199).
+
+      Unlike the entry job, this one does NOT need a StartInterval — it's
+      meant to be always-on. RunAtLoad=true so it starts immediately when
+      loaded, and KeepAlive=true so launchd relaunches it if it dies.
+
+      NOTE: this daemon does not itself enforce a trading-hours boundary —
+      it monitors whatever's in the position store, which only ever gets
+      populated during the entry window by entry_runner.py. It will idle
+      harmlessly with zero active positions outside trading hours.
+    -->
+
+    <key>Label</key>
+    <string>com.spxtrader.monitor</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <!-- TODO: replace with your actual python3 path: `which python3` -->
+        <string>/opt/miniconda3/envs/algtrade/bin/python</string>
+        <!-- TODO: replace with the absolute path to monitor_daemon.py -->
+        <string>/Users/nathanwang/algtrade/spx0dteBot/monitor_daemon.py</string>
+    </array>
+
+    <!-- TODO: replace with your actual project root -->
+    <key>WorkingDirectory</key>
+    <string>/Users/nathanwang/algtrade/spx0dteBot</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/nathanwang/algtrade/spx0dteBot/logs/monitor_daemon.stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/nathanwang/algtrade/spx0dteBot/logs/monitor_daemon.stderr.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>PYTHONPATH</key>
+        <string>/Users/nathanwang/algtrade/spx0dteBot</string>
+    </dict>
+
+    <!-- Persistent daemon: start on load, restart automatically if it
+         crashes or IB Gateway connection drops and the process exits. -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Avoid restart storms if it crash-loops (e.g. IB Gateway down) -->
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+
+</dict>
+</plist>

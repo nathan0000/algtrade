@@ -1,0 +1,202 @@
+2026-06-26 07:30:42,319  INFO      EntryRunner     Entry runner invoked at 2026-06-25 17:30:42 EDT
+2026-06-26 07:30:42,320  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 17:30 ET) — skipping
+2026-06-26 07:35:42,457  INFO      EntryRunner     Entry runner invoked at 2026-06-25 17:35:42 EDT
+2026-06-26 07:35:42,458  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 17:35 ET) — skipping
+2026-06-26 07:40:42,662  INFO      EntryRunner     Entry runner invoked at 2026-06-25 17:40:42 EDT
+2026-06-26 07:40:42,662  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 17:40 ET) — skipping
+2026-06-26 07:45:42,817  INFO      EntryRunner     Entry runner invoked at 2026-06-25 17:45:42 EDT
+2026-06-26 07:45:42,818  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 17:45 ET) — skipping
+2026-06-26 07:50:43,033  INFO      EntryRunner     Entry runner invoked at 2026-06-25 17:50:43 EDT
+2026-06-26 07:50:43,034  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 17:50 ET) — skipping
+2026-06-26 07:55:43,235  INFO      EntryRunner     Entry runner invoked at 2026-06-25 17:55:43 EDT
+2026-06-26 07:55:43,236  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 17:55 ET) — skipping
+2026-06-26 08:00:43,439  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:00:43 EDT
+2026-06-26 08:00:43,440  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:00 ET) — skipping
+2026-06-26 08:05:43,650  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:05:43 EDT
+2026-06-26 08:05:43,651  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:05 ET) — skipping
+2026-06-26 08:10:43,829  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:10:43 EDT
+2026-06-26 08:10:43,830  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:10 ET) — skipping
+2026-06-26 08:15:43,968  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:15:43 EDT
+2026-06-26 08:15:43,969  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:15 ET) — skipping
+2026-06-26 08:20:44,154  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:20:44 EDT
+2026-06-26 08:20:44,155  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:20 ET) — skipping
+2026-06-26 08:25:44,329  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:25:44 EDT
+2026-06-26 08:25:44,330  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:25 ET) — skipping
+2026-06-26 08:30:44,502  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:30:44 EDT
+2026-06-26 08:30:44,503  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:30 ET) — skipping
+2026-06-26 08:35:44,674  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:35:44 EDT
+2026-06-26 08:35:44,675  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:35 ET) — skipping
+2026-06-26 08:40:44,857  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:40:44 EDT
+2026-06-26 08:40:44,857  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:40 ET) — skipping
+2026-06-26 08:45:45,040  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:45:45 EDT
+2026-06-26 08:45:45,040  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:45 ET) — skipping
+2026-06-26 08:50:45,236  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:50:45 EDT
+2026-06-26 08:50:45,236  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:50 ET) — skipping
+2026-06-26 08:55:45,456  INFO      EntryRunner     Entry runner invoked at 2026-06-25 18:55:45 EDT
+2026-06-26 08:55:45,458  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 18:55 ET) — skipping
+2026-06-26 09:17:52,512  INFO      EntryRunner     Entry runner invoked at 2026-06-25 19:17:52 EDT
+2026-06-26 09:17:52,514  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 19:17 ET) — skipping
+2026-06-26 09:38:42,066  INFO      EntryRunner     Entry runner invoked at 2026-06-25 19:38:42 EDT
+2026-06-26 09:38:42,067  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 19:38 ET) — skipping
+2026-06-26 09:43:42,272  INFO      EntryRunner     Entry runner invoked at 2026-06-25 19:43:42 EDT
+2026-06-26 09:43:42,273  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 19:43 ET) — skipping
+2026-06-26 09:48:42,467  INFO      EntryRunner     Entry runner invoked at 2026-06-25 19:48:42 EDT
+2026-06-26 09:48:42,467  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 19:48 ET) — skipping
+2026-06-26 09:53:42,580  INFO      EntryRunner     Entry runner invoked at 2026-06-25 19:53:42 EDT
+2026-06-26 09:53:42,581  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 19:53 ET) — skipping
+2026-06-26 09:58:42,762  INFO      EntryRunner     Entry runner invoked at 2026-06-25 19:58:42 EDT
+2026-06-26 09:58:42,763  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 19:58 ET) — skipping
+2026-06-26 10:03:42,971  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:03:42 EDT
+2026-06-26 10:03:42,972  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:03 ET) — skipping
+2026-06-26 10:08:43,177  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:08:43 EDT
+2026-06-26 10:08:43,178  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:08 ET) — skipping
+2026-06-26 10:13:43,345  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:13:43 EDT
+2026-06-26 10:13:43,346  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:13 ET) — skipping
+2026-06-26 10:18:43,488  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:18:43 EDT
+2026-06-26 10:18:43,489  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:18 ET) — skipping
+2026-06-26 10:23:43,681  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:23:43 EDT
+2026-06-26 10:23:43,682  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:23 ET) — skipping
+2026-06-26 10:28:43,988  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:28:43 EDT
+2026-06-26 10:28:43,990  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:28 ET) — skipping
+2026-06-26 10:33:44,176  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:33:44 EDT
+2026-06-26 10:33:44,176  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:33 ET) — skipping
+2026-06-26 10:38:44,306  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:38:44 EDT
+2026-06-26 10:38:44,307  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:38 ET) — skipping
+2026-06-26 10:43:44,756  INFO      EntryRunner     Entry runner invoked at 2026-06-25 20:43:44 EDT
+2026-06-26 10:43:44,756  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 20:43 ET) — skipping
+2026-06-26 11:14:02,507  INFO      EntryRunner     Entry runner invoked at 2026-06-25 21:14:02 EDT
+2026-06-26 11:14:02,507  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 21:14 ET) — skipping
+2026-06-26 11:19:02,715  INFO      EntryRunner     Entry runner invoked at 2026-06-25 21:19:02 EDT
+2026-06-26 11:19:02,716  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 21:19 ET) — skipping
+2026-06-26 11:24:02,925  INFO      EntryRunner     Entry runner invoked at 2026-06-25 21:24:02 EDT
+2026-06-26 11:24:02,926  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 21:24 ET) — skipping
+2026-06-26 11:29:03,180  INFO      EntryRunner     Entry runner invoked at 2026-06-25 21:29:03 EDT
+2026-06-26 11:29:03,181  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 21:29 ET) — skipping
+2026-06-26 11:34:03,307  INFO      EntryRunner     Entry runner invoked at 2026-06-25 21:34:03 EDT
+2026-06-26 11:34:03,308  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 21:34 ET) — skipping
+2026-06-26 12:54:05,909  INFO      EntryRunner     Entry runner invoked at 2026-06-25 22:54:05 EDT
+2026-06-26 12:54:05,911  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 22:54 ET) — skipping
+2026-06-26 14:05:07,986  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:05:07 EDT
+2026-06-26 14:05:07,987  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:05 ET) — skipping
+2026-06-26 14:24:27,236  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:24:27 EDT
+2026-06-26 14:24:27,239  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:24 ET) — skipping
+2026-06-26 14:29:27,462  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:29:27 EDT
+2026-06-26 14:29:27,464  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:29 ET) — skipping
+2026-06-26 14:34:27,683  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:34:27 EDT
+2026-06-26 14:34:27,685  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:34 ET) — skipping
+2026-06-26 14:39:27,904  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:39:27 EDT
+2026-06-26 14:39:27,907  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:39 ET) — skipping
+2026-06-26 14:44:28,107  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:44:28 EDT
+2026-06-26 14:44:28,108  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:44 ET) — skipping
+2026-06-26 14:49:28,303  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:49:28 EDT
+2026-06-26 14:49:28,305  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:49 ET) — skipping
+2026-06-26 14:54:28,518  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:54:28 EDT
+2026-06-26 14:54:28,520  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:54 ET) — skipping
+2026-06-26 14:59:28,751  INFO      EntryRunner     Entry runner invoked at 2026-06-26 00:59:28 EDT
+2026-06-26 14:59:28,753  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 00:59 ET) — skipping
+2026-06-26 15:04:28,959  INFO      EntryRunner     Entry runner invoked at 2026-06-26 01:04:28 EDT
+2026-06-26 15:04:28,960  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 01:04 ET) — skipping
+2026-06-26 15:09:29,188  INFO      EntryRunner     Entry runner invoked at 2026-06-26 01:09:29 EDT
+2026-06-26 15:09:29,189  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 01:09 ET) — skipping
+2026-06-26 15:14:29,408  INFO      EntryRunner     Entry runner invoked at 2026-06-26 01:14:29 EDT
+2026-06-26 15:14:29,408  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 01:14 ET) — skipping
+2026-06-26 15:41:32,193  INFO      EntryRunner     Entry runner invoked at 2026-06-26 01:41:32 EDT
+2026-06-26 15:41:32,195  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 01:41 ET) — skipping
+2026-06-26 15:46:32,408  INFO      EntryRunner     Entry runner invoked at 2026-06-26 01:46:32 EDT
+2026-06-26 15:46:32,409  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 01:46 ET) — skipping
+2026-06-26 15:51:32,603  INFO      EntryRunner     Entry runner invoked at 2026-06-26 01:51:32 EDT
+2026-06-26 15:51:32,604  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 01:51 ET) — skipping
+2026-06-26 15:56:32,792  INFO      EntryRunner     Entry runner invoked at 2026-06-26 01:56:32 EDT
+2026-06-26 15:56:32,794  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 01:56 ET) — skipping
+2026-06-26 16:01:33,006  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:01:33 EDT
+2026-06-26 16:01:33,007  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:01 ET) — skipping
+2026-06-26 16:06:33,209  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:06:33 EDT
+2026-06-26 16:06:33,211  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:06 ET) — skipping
+2026-06-26 16:11:33,417  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:11:33 EDT
+2026-06-26 16:11:33,419  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:11 ET) — skipping
+2026-06-26 16:16:33,662  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:16:33 EDT
+2026-06-26 16:16:33,665  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:16 ET) — skipping
+2026-06-26 16:21:33,872  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:21:33 EDT
+2026-06-26 16:21:33,875  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:21 ET) — skipping
+2026-06-26 16:26:34,065  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:26:34 EDT
+2026-06-26 16:26:34,068  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:26 ET) — skipping
+2026-06-26 16:31:34,288  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:31:34 EDT
+2026-06-26 16:31:34,290  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:31 ET) — skipping
+2026-06-26 16:36:34,478  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:36:34 EDT
+2026-06-26 16:36:34,481  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:36 ET) — skipping
+2026-06-26 16:41:34,672  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:41:34 EDT
+2026-06-26 16:41:34,674  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:41 ET) — skipping
+2026-06-26 16:46:34,902  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:46:34 EDT
+2026-06-26 16:46:34,903  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:46 ET) — skipping
+2026-06-26 16:51:35,097  INFO      EntryRunner     Entry runner invoked at 2026-06-26 02:51:35 EDT
+2026-06-26 16:51:35,099  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 02:51 ET) — skipping
+2026-06-26 17:35:26,722  INFO      EntryRunner     Entry runner invoked at 2026-06-26 03:35:26 EDT
+2026-06-26 17:35:26,723  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 03:35 ET) — skipping
+2026-06-26 17:40:26,909  INFO      EntryRunner     Entry runner invoked at 2026-06-26 03:40:26 EDT
+2026-06-26 17:40:26,910  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 03:40 ET) — skipping
+2026-06-26 17:45:27,120  INFO      EntryRunner     Entry runner invoked at 2026-06-26 03:45:27 EDT
+2026-06-26 17:45:27,122  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 03:45 ET) — skipping
+2026-06-26 17:50:27,338  INFO      EntryRunner     Entry runner invoked at 2026-06-26 03:50:27 EDT
+2026-06-26 17:50:27,339  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 03:50 ET) — skipping
+2026-06-26 17:55:27,495  INFO      EntryRunner     Entry runner invoked at 2026-06-26 03:55:27 EDT
+2026-06-26 17:55:27,496  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 03:55 ET) — skipping
+2026-06-26 18:00:27,646  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:00:27 EDT
+2026-06-26 18:00:27,648  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:00 ET) — skipping
+2026-06-26 18:05:27,834  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:05:27 EDT
+2026-06-26 18:05:27,836  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:05 ET) — skipping
+2026-06-26 18:10:28,057  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:10:28 EDT
+2026-06-26 18:10:28,058  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:10 ET) — skipping
+2026-06-26 18:15:28,253  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:15:28 EDT
+2026-06-26 18:15:28,254  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:15 ET) — skipping
+2026-06-26 18:20:28,465  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:20:28 EDT
+2026-06-26 18:20:28,466  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:20 ET) — skipping
+2026-06-26 18:25:29,023  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:25:29 EDT
+2026-06-26 18:25:29,024  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:25 ET) — skipping
+2026-06-26 18:30:29,219  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:30:29 EDT
+2026-06-26 18:30:29,220  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:30 ET) — skipping
+2026-06-26 18:35:29,843  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:35:29 EDT
+2026-06-26 18:35:29,844  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:35 ET) — skipping
+2026-06-26 18:40:29,984  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:40:29 EDT
+2026-06-26 18:40:29,986  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:40 ET) — skipping
+2026-06-26 18:45:30,153  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:45:30 EDT
+2026-06-26 18:45:30,154  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:45 ET) — skipping
+2026-06-26 18:50:30,347  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:50:30 EDT
+2026-06-26 18:50:30,348  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:50 ET) — skipping
+2026-06-26 18:55:30,522  INFO      EntryRunner     Entry runner invoked at 2026-06-26 04:55:30 EDT
+2026-06-26 18:55:30,523  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 04:55 ET) — skipping
+2026-06-26 19:00:30,688  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:00:30 EDT
+2026-06-26 19:00:30,689  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:00 ET) — skipping
+2026-06-26 19:05:30,856  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:05:30 EDT
+2026-06-26 19:05:30,858  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:05 ET) — skipping
+2026-06-26 19:10:31,014  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:10:31 EDT
+2026-06-26 19:10:31,015  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:10 ET) — skipping
+2026-06-26 19:15:31,166  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:15:31 EDT
+2026-06-26 19:15:31,171  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:15 ET) — skipping
+2026-06-26 19:20:31,355  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:20:31 EDT
+2026-06-26 19:20:31,356  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:20 ET) — skipping
+2026-06-26 19:25:31,544  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:25:31 EDT
+2026-06-26 19:25:31,546  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:25 ET) — skipping
+2026-06-26 19:30:31,734  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:30:31 EDT
+2026-06-26 19:30:31,736  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:30 ET) — skipping
+2026-06-26 19:35:31,892  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:35:31 EDT
+2026-06-26 19:35:31,894  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:35 ET) — skipping
+2026-06-26 19:40:32,060  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:40:32 EDT
+2026-06-26 19:40:32,061  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:40 ET) — skipping
+2026-06-26 19:45:32,212  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:45:32 EDT
+2026-06-26 19:45:32,213  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:45 ET) — skipping
+2026-06-26 19:50:32,379  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:50:32 EDT
+2026-06-26 19:50:32,380  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:50 ET) — skipping
+2026-06-26 19:55:32,547  INFO      EntryRunner     Entry runner invoked at 2026-06-26 05:55:32 EDT
+2026-06-26 19:55:32,548  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 05:55 ET) — skipping
+2026-06-26 20:00:32,724  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:00:32 EDT
+2026-06-26 20:00:32,725  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:00 ET) — skipping
+2026-06-26 20:05:33,026  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:05:33 EDT
+2026-06-26 20:05:33,027  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:05 ET) — skipping
+2026-06-26 20:10:33,213  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:10:33 EDT
+2026-06-26 20:10:33,214  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:10 ET) — skipping
+2026-06-26 20:15:33,360  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:15:33 EDT
+2026-06-26 20:15:33,361  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:15 ET) — skipping
+2026-06-26 20:20:33,593  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:20:33 EDT
+2026-06-26 20:20:33,594  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:20 ET) — skipping
+2026-06-26 20:25:33,792  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:25:33 EDT
+2026-06-26 20:25:33,793  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:25 ET) — skipping

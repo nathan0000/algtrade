@@ -4,7 +4,7 @@ All parameters in one place. Edit here before running.
 """
 
 # ─── IBKR Connection ────────────────────────────────────────────────────────
-IBKR_HOST      = "127.0.0.1"
+IBKR_HOST      = "192.168.1.116"
 IBKR_PORT      = 4002          # 7497=TWS paper | 7496=TWS live | 4002=GW paper
 IBKR_CLIENT_ID = 10            # use a different ID from your 0DTE bot
 

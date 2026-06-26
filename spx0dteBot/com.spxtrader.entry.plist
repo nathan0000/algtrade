@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+    <!--
+      com.spxtrader.entry — fires entry_runner.py every 5 minutes, 24/7.
+
+      WHY EVERY 5 MINUTES INSTEAD OF EXACTLY ON THE DESIRED ET SLOTS:
+
+      Your Mac's system clock is Australia/Sydney. The desired window is
+      11:30-14:30 AMERICA/NEW_YORK. The ET<->Sydney offset is NOT constant —
+      it is 14 hours in (NH summer / SH winter) and 16 hours in
+      (NH winter / SH summer) because the two hemispheres' DST seasons are
+      opposite. A launchd StartCalendarInterval is defined in LOCAL
+      (Sydney) wall-clock time and has no timezone awareness, so any fixed
+      Sydney time you hardcode will be WRONG for roughly half the year.
+
+      The fix: launchd fires frequently (every 5 min), and entry_runner.py
+      itself computes the current America/New_York time using Python's
+      zoneinfo (which correctly tracks both DST calendars) and only acts
+      if "now" is within 11:30-14:30 ET AND within 4 minutes of a 30-minute
+      slot boundary. Every other invocation is a fast no-op (connects to
+      nothing, exits in milliseconds). This makes the schedule correct
+      year-round with zero manual DST adjustment.
+    -->
+
+    <key>Label</key>
+    <string>com.spxtrader.entry</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <!-- TODO: replace with your actual python3 path: `which python3` -->
+        <string>/opt/miniconda3/envs/algtrade/bin/python</string>
+        <!-- TODO: replace with the absolute path to entry_runner.py -->
+        <string>/Users/nathanwang/algtrade/spx0dteBot/entry_runner.py</string>
+    </array>
+
+    <!-- TODO: replace with your actual project root -->
+    <key>WorkingDirectory</key>
+    <string>/Users/nathanwang/algtrade/spx0dteBot</string>
+
+    <!-- Fire every 300 seconds (5 minutes), all day. The script's internal
+         time gate is what actually restricts trading to 11:30-14:30 ET. -->
+    <key>StartInterval</key>
+    <integer>300</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/nathanwang/algtrade/spx0dteBot/logs/entry_runner.stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/nathanwang/algtrade/spx0dteBot/logs/entry_runner.stderr.log</string>
+
+    <!-- Ensure PATH is sane for any subprocess/library that shells out -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <!-- PYTHONPATH so `from spx_trader import ...` resolves regardless
+             of WorkingDirectory quirks under launchd -->
+        <key>PYTHONPATH</key>
+        <string>/Users/nathanwang/algtrade/spx0dteBot</string>
+    </dict>
+
+    <!-- Do NOT keep alive — this is a short-lived, run-to-completion task
+         triggered on an interval, not a persistent daemon. -->
+    <key>KeepAlive</key>
+    <false/>
+
+    <!-- Don't run immediately on load; wait for the first StartInterval tick -->
+    <key>RunAtLoad</key>
+    <false/>
+
+</dict>
+</plist>

@@ -51,7 +51,7 @@ ET = pytz.timezone("America/New_York")
 # ════════════════════════════════════════════════════════════════════════════
 class Config:
     # ── Connection
-    HOST: str       = "127.0.0.1"
+    HOST: str       = "192.168.1.116"
     PORT: int       = 4002          # 7497 = TWS paper | 7496 = TWS live | 4002 = Gateway paper
     CLIENT_ID: int  = 1
 
@@ -1151,7 +1151,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SPX 0DTE IBKR Bot")
     parser.add_argument("--port", type=int, default=4002, help="TWS port (4002=paper, 4001=live)")
     parser.add_argument("--account", type=str, default="DU000000", help="IBKR account ID")
-    parser.add_argument("--host", type=str, default="127.0.0.1", help="IBKR Gateway/TWS host")
+    parser.add_argument("--host", type=str, default="192.168.1.116", help="IBKR Gateway/TWS host")
     args = parser.parse_args()
 
     Config.PORT = args.port

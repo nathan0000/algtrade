@@ -1,0 +1,65 @@
+2026-06-18 04:51:01,172  INFO      Connecting to IB Gateway 192.168.1.116:4002 (paper) clientId=1
+2026-06-18 04:51:01,203  INFO      sent startApi
+2026-06-18 04:51:01,204  INFO      REQUEST startApi {}
+2026-06-18 04:51:01,204  INFO      SENDING startApi b'\x00\x00\x00\x0871\x002\x001\x00\x00'
+2026-06-18 04:51:01,204  INFO      ANSWER connectAck {}
+2026-06-18 04:51:01,211  INFO      ANSWER managedAccounts {'accountsList': 'DU3232524'}
+2026-06-18 04:51:01,251  INFO      Connected. Next order ID: 1
+2026-06-18 04:51:01,251  ERROR     [-1] Error 1781722260359: 2104
+2026-06-18 04:51:01,251  INFO      Getting SPX spot price …
+2026-06-18 04:51:01,251  ERROR     [-1] Error 1781722260360: 2106
+2026-06-18 04:51:01,251  INFO      REQUEST reqMktData {'reqId': 1001, 'contract': 4358673600: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-06-18 04:51:01,251  ERROR     [-1] Error 1781722260360: 2105
+2026-06-18 04:51:01,251  INFO      SENDING reqMktData b'\x00\x00\x00/1\x0011\x001001\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x001\x000\x00\x00'
+2026-06-18 04:51:01,252  ERROR     [-1] Error 1781722260360: 2158
+2026-06-18 04:51:01,721  ERROR     [-1] Error 1781722260869: 2119
+2026-06-18 04:51:04,034  ERROR     [-1] Error 1781722263511: 2104
+2026-06-18 04:51:04,336  INFO      ANSWER marketDataType {'reqId': 1001, 'marketDataType': 1}
+2026-06-18 04:51:04,339  INFO      ANSWER tickReqParams {'tickerId': 1001, 'minTick': 0.01, 'bboExchange': '', 'snapshotPermissions': 0}
+2026-06-18 04:51:04,668  INFO      ANSWER tickString {'reqId': 1001, 'tickType': 45, 'value': '0'}
+2026-06-18 04:51:04,707  INFO      ANSWER tickSize {'reqId': 1001, 'tickType': 0, 'size': Decimal('1')}
+2026-06-18 04:51:04,708  INFO      ANSWER tickSize {'reqId': 1001, 'tickType': 3, 'size': Decimal('1')}
+2026-06-18 04:51:04,897  INFO      REQUEST cancelMktData {'reqId': 1001}
+2026-06-18 04:51:04,898  INFO      SENDING cancelMktData b'\x00\x00\x00\t2\x002\x001001\x00'
+2026-06-18 04:51:04,899  INFO      SPX spot: 7497.02
+2026-06-18 04:51:04,899  INFO      Requesting SPX option chain …
+2026-06-18 04:51:04,899  INFO      REQUEST reqSecDefOptParams {'reqId': 2000, 'underlyingSymbol': 'SPX', 'futFopExchange': '', 'underlyingSecType': 'IND', 'underlyingConId': 0}
+2026-06-18 04:51:04,899  INFO      SENDING reqSecDefOptParams b'\x00\x00\x00\x1378\x002000\x00SPX\x00\x00IND\x000\x00'
+2026-06-18 04:51:05,003  ERROR     [2000] Error 1781722264481: 321
+2026-06-18 04:51:34,903  ERROR     Strategy error: Option chain request timed out
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/spx0dteBot/spx_iron_condor.py", line 765, in run_strategy
+    self.fetch_chain()
+  File "/Users/nathanwang/algtrade/spx0dteBot/spx_iron_condor.py", line 272, in fetch_chain
+    raise TimeoutError("Option chain request timed out")
+TimeoutError: Option chain request timed out
+2026-06-18 04:51:34,907  INFO      Disconnecting …
+2026-06-18 04:51:34,907  INFO      disconnecting
+2026-06-18 04:51:34,907  INFO      ANSWER connectionClosed {}
+2026-06-19 04:48:50,166  INFO      Connecting to IB Gateway 192.168.1.116:4002 (paper) clientId=1
+2026-06-19 04:48:50,195  INFO      sent startApi
+2026-06-19 04:48:50,196  INFO      REQUEST startApi {}
+2026-06-19 04:48:50,196  INFO      SENDING startApi b'\x00\x00\x00\x0871\x002\x001\x00\x00'
+2026-06-19 04:48:50,196  INFO      ANSWER connectAck {}
+2026-06-19 04:48:50,202  INFO      ANSWER managedAccounts {'accountsList': 'DU3232524'}
+2026-06-19 04:48:50,244  INFO      Connected. Next order ID: 1
+2026-06-19 04:48:50,245  ERROR     [-1] Error 1781808529181: 2104
+2026-06-19 04:48:50,245  INFO      Getting SPX spot price …
+2026-06-19 04:48:50,245  ERROR     [-1] Error 1781808529182: 2104
+2026-06-19 04:48:50,245  INFO      REQUEST reqMktData {'reqId': 1001, 'contract': 4310111328: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-06-19 04:48:50,246  ERROR     [-1] Error 1781808529182: 2107
+2026-06-19 04:48:50,246  INFO      SENDING reqMktData b'\x00\x00\x00/1\x0011\x001001\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x001\x000\x00\x00'
+2026-06-19 04:48:50,247  ERROR     [-1] Error 1781808529183: 2106
+2026-06-19 04:48:50,248  ERROR     [-1] Error 1781808529183: 2158
+2026-06-19 04:48:55,678  ERROR     [1001] Error 1781808534656: 10197
+2026-06-19 04:49:00,268  ERROR     Strategy error: Could not get SPX spot price
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/spx0dteBot/spx_iron_condor.py", line 761, in run_strategy
+    spot = self.get_spx_price()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/spx0dteBot/spx_iron_condor.py", line 498, in get_spx_price
+    raise RuntimeError("Could not get SPX spot price")
+RuntimeError: Could not get SPX spot price
+2026-06-19 04:49:00,274  INFO      Disconnecting …
+2026-06-19 04:49:00,274  INFO      disconnecting
+2026-06-19 04:49:00,275  INFO      ANSWER connectionClosed {}

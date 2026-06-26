@@ -2,7 +2,7 @@ import os
 import logging
 
 # --- IBKR Connection Settings ---
-IB_HOST = "127.0.0.1"
+IB_HOST = "192.168.1.116"
 IB_PORT = 4002  # TWS Paper: 7497 | TWS Live: 7496 | Gateway Paper: 4002 | Gateway Live: 4001
 IB_CLIENT_ID = 1
 

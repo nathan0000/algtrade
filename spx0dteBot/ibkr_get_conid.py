@@ -33,7 +33,7 @@ def get_vix_conid():
     app = IBApp()
     
     # Connect to TWS/Gateway (7497 for paper, 7496 for live by default)
-    app.connect("127.0.0.1", 4002, clientId=1)
+    app.connect("192.168.1.116", 4002, clientId=1)
 
     # Start the socket thread
     api_thread = threading.Thread(target=run_loop, args=(app,), daemon=True)
