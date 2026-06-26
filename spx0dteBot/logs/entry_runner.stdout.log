@@ -6467,3 +6467,9 @@ helpers.market_data.MarketDataError: Historical data request timed out — could
 2026-06-26 20:20:33,594  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:20 ET) — skipping
 2026-06-26 20:25:33,792  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:25:33 EDT
 2026-06-26 20:25:33,793  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:25 ET) — skipping
+2026-06-26 20:30:33,993  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:30:33 EDT
+2026-06-26 20:30:33,994  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:30 ET) — skipping
+2026-06-26 20:35:34,170  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:35:34 EDT
+2026-06-26 20:35:34,172  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:35 ET) — skipping
+2026-06-26 20:40:34,303  INFO      EntryRunner     Entry runner invoked at 2026-06-26 06:40:34 EDT
+2026-06-26 20:40:34,304  INFO      EntryRunner     Outside entry window 11:00–15:00 ET (now 06:40 ET) — skipping
