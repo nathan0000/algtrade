@@ -23,6 +23,7 @@ from ibapi.contract import Contract
 
 from .gateway import IBGateway
 from .models  import OptionLeg, OptionRight
+from .greeks  import greeks_from_market_price, time_to_expiry_years
 
 log = logging.getLogger("MarketData")
 
@@ -390,33 +391,37 @@ class MarketData:
     def snapshot_prices_and_greeks(
         self,
         legs: list[OptionLeg],
-        timeout: float = 15.0
+        timeout: float = 15.0,
+        spot: Optional[float] = None,
     ):
         """
-        Populate bid/ask and delta/gamma/theta/vega for each leg in-place.
+        Populate bid/ask AND delta/gamma/theta/vega for each leg in-place.
 
-        IMPORTANT: IBKR does NOT allow combining snapshot=True with a
-        non-empty genericTickList — requesting Greeks (generic tick "100")
-        on a snapshot raises:
-            "Snapshot market data subscription is not applicable to
-             generic ticks"
-        and the request is rejected outright (no data ever arrives).
+        IBKR's streamed Greeks are PRIMARY; our own local Black-Scholes
+        calculation (greeks.py) is a FALLBACK used per-leg whenever IBKR's
+        don't arrive in time. When both are available for a leg, they are
+        logged side-by-side for comparison (and the discrepancy is flagged
+        if it's large), but IBKR's value is what gets used — IBKR's model
+        reflects the market's actual priced-in skew and term structure,
+        which a flat-vol Black-Scholes fallback cannot replicate exactly.
 
-        Greeks are only available via STREAMING market data. So this method
-        requests streaming data (snapshot=False) for every leg, polls the
-        gateway's tick/greek stores directly until both price and delta
-        have arrived (or timeout), then explicitly cancels each streaming
-        subscription — streaming requests do not auto-cancel the way
-        snapshots do, so leaving them open would leak market data lines.
+        This requires STREAMING market data (snapshot=False), since IBKR
+        rejects snapshot=True combined with a non-empty genericTickList
+        (Greeks require generic tick "100"). Streaming subscriptions must
+        be explicitly cancelled afterward — they don't auto-close like
+        snapshots do.
+
+        Args:
+            spot: current SPX/underlying price, used only for the LOCAL
+                  fallback calculation (IBKR's own Greeks don't need it
+                  from us). If not provided and a fallback computation is
+                  needed, this method calls self.get_spx_spot() lazily —
+                  but only once, and only if IBKR's Greeks didn't cover
+                  every leg.
 
         SAFETY CAP: if more than MAX_CONCURRENT_LINES legs are passed in,
-        only the first MAX_CONCURRENT_LINES are requested — IBKR's default
-        account limit is 100 concurrent market data lines, and silently
-        exceeding it causes ALL overflow requests to return no data with no
-        error surfaced to tick_data/greek_data (this is what previously
-        produced "Priced 0/478 legs": the candidate band was wide enough to
-        generate hundreds of legs, blowing past both the line limit and the
-        50 msg/sec request-rate limit in one tight loop).
+        only the first MAX_CONCURRENT_LINES are requested — see prior
+        "Priced 0/478 legs" incident for why this cap exists.
         """
         chain = self.get_chain()
         trading_class = chain["trading_class"]
@@ -424,9 +429,8 @@ class MarketData:
         if len(legs) > self.MAX_CONCURRENT_LINES:
             log.warning(
                 f"snapshot_prices_and_greeks called with {len(legs)} legs, "
-                f"exceeding the {self.MAX_CONCURRENT_LINES}-line safety cap "
-                f"(IBKR default account limit is 100 concurrent market data "
-                f"lines). Truncating to the first {self.MAX_CONCURRENT_LINES}. "
+                f"exceeding the {self.MAX_CONCURRENT_LINES}-line safety cap. "
+                f"Truncating to the first {self.MAX_CONCURRENT_LINES}. "
                 f"The caller should narrow its candidate set instead of "
                 f"relying on this cap."
             )
@@ -447,9 +451,6 @@ class MarketData:
             self.gw.reqMktData(req_id, contract, GREEK_TICK, False, False, [])
 
             # Throttle to stay under IBKR's 50 msg/sec API rate limit.
-            # Without this, a loop of even ~100 reqMktData calls can fire
-            # faster than TWS can process them, risking dropped requests
-            # or a forced disconnect.
             if (i + 1) % self.MAX_REQ_PER_SECOND == 0:
                 time.sleep(1.0)
 
@@ -475,35 +476,100 @@ class MarketData:
                 time.sleep(0.2)
 
         if outstanding:
-            log.warning(
-                f"Timed out waiting for {len(outstanding)}/{len(legs)} leg(s) "
-                f"to fully populate price+Greeks; using whatever data arrived"
+            log.info(
+                f"{len(outstanding)}/{len(legs)} leg(s) did not get IBKR "
+                f"Greeks within {timeout}s — local Black-Scholes fallback "
+                f"will be used for those"
             )
 
-        # Apply whatever data arrived (complete or partial) to each leg,
-        # then cancel the streaming subscription — required cleanup since
-        # streaming requests, unlike snapshots, stay open until cancelled.
+        # ── Apply IBKR data (price always; Greeks where available) ───────────
         for req_id, leg_idx in req_to_leg.items():
             ticks  = self.gw.tick_data.get(req_id, {})
             greeks = self.gw.greek_data.get(req_id, {})
 
             leg = legs[leg_idx]
-            leg.bid   = ticks.get("bid",  0.0)
-            leg.ask   = ticks.get("ask",  0.0)
-            leg.last  = ticks.get("last", 0.0)
-            leg.delta = greeks.get("delta", 0.0)
-            leg.gamma = greeks.get("gamma", 0.0)
-            leg.theta = greeks.get("theta", 0.0)
-            leg.vega  = greeks.get("vega",  0.0)
-            leg.iv    = greeks.get("iv",    0.0)
+            leg.bid  = ticks.get("bid",  0.0)
+            leg.ask  = ticks.get("ask",  0.0)
+            leg.last = ticks.get("last", 0.0)
 
-            log.debug(f"  {leg.right.value}{leg.strike}: "
-                      f"bid={leg.bid} ask={leg.ask} Δ={leg.delta:.3f}")
+            if "delta" in greeks:
+                leg.delta = greeks.get("delta", 0.0)
+                leg.gamma = greeks.get("gamma", 0.0)
+                leg.theta = greeks.get("theta", 0.0)
+                leg.vega  = greeks.get("vega",  0.0)
+                leg.iv    = greeks.get("iv",    0.0)
+                leg.delta_source = "ibkr"
 
             self.gw.cancelMktData(req_id)
 
         priced = sum(1 for l in legs if l.has_price)
-        log.info(f"Priced {priced}/{len(legs)} legs")
+        ibkr_greeked = sum(1 for l in legs if l.delta_source == "ibkr")
+        log.info(f"Priced {priced}/{len(legs)} legs  "
+                 f"(IBKR Greeks: {ibkr_greeked}/{len(legs)})")
+
+        # ── Local fallback + comparison ───────────────────────────────────────
+        # Compute the local Black-Scholes value for EVERY priced leg — not
+        # just the ones missing IBKR Greeks — so a side-by-side comparison
+        # is possible whenever both numbers exist. The local value never
+        # overwrites a leg that already has leg.delta_source == "ibkr"
+        # unless IBKR genuinely never supplied one.
+        legs_needing_fallback = [l for l in legs if l.has_price]
+        if legs_needing_fallback:
+            if spot is None:
+                spot = self.get_spx_spot()
+            time_years = time_to_expiry_years(legs[0].expiry)
+
+            local_computed = 0
+            fallback_used  = 0
+            for leg in legs_needing_fallback:
+                g = greeks_from_market_price(
+                    market_price=leg.mid,
+                    spot=spot,
+                    strike=leg.strike,
+                    time_years=time_years,
+                    right=leg.right.value,
+                )
+                if g is None:
+                    if leg.delta_source != "ibkr":
+                        log.debug(
+                            f"  {leg.right.value}{leg.strike}: local IV solve "
+                            f"failed AND no IBKR delta — leg has no usable "
+                            f"Greeks at all"
+                        )
+                    continue
+
+                leg.delta_local = g.delta
+                local_computed += 1
+
+                if leg.delta_source == "ibkr":
+                    # Both available — log comparison, keep IBKR's value.
+                    diff = abs(leg.delta - g.delta)
+                    level = log.warning if diff > 0.05 else log.debug
+                    level(
+                        f"  {leg.right.value}{leg.strike}: Δ_ibkr={leg.delta:.3f} "
+                        f"vs Δ_local={g.delta:.3f}  diff={diff:.3f}"
+                        + ("  ⚠ LARGE DISCREPANCY" if diff > 0.05 else "")
+                    )
+                else:
+                    # IBKR never supplied a delta for this leg — use local.
+                    leg.delta = g.delta
+                    leg.gamma = g.gamma
+                    leg.theta = g.theta
+                    leg.vega  = g.vega
+                    leg.iv    = g.iv
+                    leg.delta_source = "local"
+                    fallback_used += 1
+                    log.debug(
+                        f"  {leg.right.value}{leg.strike}: no IBKR delta — "
+                        f"using local Δ={g.delta:.3f} (IV={g.iv:.3f})"
+                    )
+
+            log.info(
+                f"Local Black-Scholes computed for {local_computed}/"
+                f"{len(legs_needing_fallback)} priced legs "
+                f"({fallback_used} used as fallback where IBKR had none, "
+                f"{local_computed - fallback_used} kept for comparison only)"
+            )
 
     def refresh_leg_prices(self, legs: list[OptionLeg], timeout: float = 10.0):
         """

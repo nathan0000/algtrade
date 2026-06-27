@@ -67,12 +67,22 @@ class OptionLeg:
     ask:   float = 0.0
     last:  float = 0.0
 
-    # Greeks (populated via generic tick 100)
+    # Greeks (populated from IBKR streaming ticks, or local Black-Scholes
+    # fallback when IBKR's don't arrive — see market_data.py)
     delta: float = 0.0
     gamma: float = 0.0
     theta: float = 0.0
     vega:  float = 0.0
     iv:    float = 0.0
+
+    # Provenance + comparison fields. delta_source records which path
+    # ultimately populated `delta` ("ibkr" or "local"); delta_local always
+    # holds the locally-computed Black-Scholes value when computable,
+    # independent of which source won, so a value can be logged
+    # side-by-side with whatever IBKR sent for sanity-checking even when
+    # IBKR's value was used.
+    delta_source: str = ""        # "ibkr" | "local" | "" (neither available)
+    delta_local:  float = 0.0     # local Black-Scholes delta, if computed
 
     @property
     def mid(self) -> float:

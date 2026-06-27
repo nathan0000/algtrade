@@ -360,7 +360,7 @@ class IronCondorStrategy:
             f"{len(put_pairs)} put pairs) …"
         )
         self.md.resolve_conids(all_legs)
-        self.md.snapshot_prices_and_greeks(all_legs)
+        self.md.snapshot_prices_and_greeks(all_legs, spot=spot)
 
         # ── Select best call spread ───────────────────────────────────────────
         best_call = self._pick_best_spread(
@@ -419,7 +419,8 @@ class IronCondorStrategy:
 
             log.info(
                 f"  {side.value} {short_leg.strike}/{long_leg.strike}  "
-                f"Δ={delta:.3f}  credit=${credit:.0f}  "
+                f"Δ={delta:.3f} [{short_leg.delta_source or 'none'}]  "
+                f"credit=${credit:.0f}  "
                 f"(short bid={short_leg.bid} ask={short_leg.ask}  "
                 f"long bid={long_leg.bid} ask={long_leg.ask})"
             )

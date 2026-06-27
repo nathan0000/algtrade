@@ -1,0 +1,97 @@
+2026-06-27 08:30:56,672  INFO      Gateway         Connecting to IB Gateway 192.168.1.116:4002 clientId=1
+2026-06-27 08:30:56,683  INFO      ibapi.client    sent startApi
+2026-06-27 08:30:56,684  INFO      ibapi.utils     REQUEST startApi {}
+2026-06-27 08:30:56,684  INFO      ibapi.client    SENDING startApi b'\x00\x00\x00\x0871\x002\x001\x00\x00'
+2026-06-27 08:30:56,684  INFO      ibapi.utils     ANSWER connectAck {}
+2026-06-27 08:30:56,692  INFO      ibapi.utils     ANSWER managedAccounts {'accountsList': 'DU3232524'}
+2026-06-27 08:30:56,694  INFO      Gateway         Connected. Next order ID: 1
+2026-06-27 08:30:56,694  INFO      Gateway         IBKR system message 2105: HMDS data farm connection is broken:ushmds
+2026-06-27 08:30:57,700  INFO      MarketData      Requesting SPX live spot price (reqId=10001)
+2026-06-27 08:30:57,700  INFO      ibapi.utils     REQUEST reqMktData {'reqId': 10001, 'contract': 4357858144: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-06-27 08:30:57,700  INFO      ibapi.client    SENDING reqMktData b'\x00\x00\x0001\x0011\x0010001\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x001\x000\x00\x00'
+2026-06-27 08:30:57,966  INFO      Gateway         IBKR system message 2119: Market data farm is connecting:usfarm.nj
+2026-06-27 08:31:00,474  INFO      ibapi.utils     ANSWER marketDataType {'reqId': 10001, 'marketDataType': 1}
+2026-06-27 08:31:00,475  INFO      ibapi.utils     ANSWER tickReqParams {'tickerId': 10001, 'minTick': 0.01, 'bboExchange': '', 'snapshotPermissions': 0}
+2026-06-27 08:31:08,990  WARNING   MarketData      Live SPX snapshot failed (No usable live tick for SPX. Tick data: {'bid_size': Decimal('0'), 'ask_size': Decimal('0')}. IBKR errors for this request: none reported) — falling back to historical daily bar
+2026-06-27 08:31:08,992  INFO      MarketData      Requesting SPX daily historical bar (reqId=10002) as RTH-closed fallback
+2026-06-27 08:31:08,992  INFO      ibapi.utils     REQUEST reqHistoricalData {'reqId': 10002, 'contract': 4357858192: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '2 D', 'barSizeSetting': '1 day', 'whatToShow': 'TRADES', 'useRTH': 1, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-06-27 08:31:08,992  INFO      ibapi.client    SENDING reqHistoricalData b'\x00\x00\x00A20\x0010002\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x001 day\x002 D\x001\x00TRADES\x001\x000\x00\x00'
+2026-06-27 08:31:23,998  ERROR     IronCondor      Unhandled error during entry
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/market_data.py", line 79, in get_spx_spot
+    return self._get_spx_spot_live(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/market_data.py", line 113, in _get_spx_spot_live
+    raise MarketDataError(
+helpers.market_data.MarketDataError: No usable live tick for SPX. Tick data: {'bid_size': Decimal('0'), 'ask_size': Decimal('0')}. IBKR errors for this request: none reported
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/strategy_iron_condor.py", line 168, in enter_condor
+    spot   = self.md.get_spx_spot()
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/market_data.py", line 87, in get_spx_spot
+    return self._get_spx_spot_from_history()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/market_data.py", line 161, in _get_spx_spot_from_history
+    raise MarketDataError(
+helpers.market_data.MarketDataError: Historical data request timed out — could not resolve SPX spot via either live ticks or daily bars. IBKR errors for this request: none reported. Check market data subscriptions for SPX/CBOE, and confirm IB Gateway is connected and logged in.
+2026-06-27 08:31:24,005  INFO      Gateway         Disconnecting from IB Gateway
+2026-06-27 08:31:24,005  INFO      ibapi.client    disconnecting
+2026-06-27 08:31:24,005  WARNING   Gateway         Connection closed by IB Gateway
+2026-06-27 08:31:24,005  INFO      Main            Done.
+2026-06-27 08:33:24,275  INFO      Gateway         Connecting to IB Gateway 192.168.1.116:4002 clientId=1
+2026-06-27 08:33:24,288  INFO      ibapi.client    sent startApi
+2026-06-27 08:33:24,289  INFO      ibapi.utils     REQUEST startApi {}
+2026-06-27 08:33:24,289  INFO      ibapi.client    SENDING startApi b'\x00\x00\x00\x0871\x002\x001\x00\x00'
+2026-06-27 08:33:24,289  INFO      ibapi.utils     ANSWER connectAck {}
+2026-06-27 08:33:24,294  INFO      ibapi.utils     ANSWER managedAccounts {'accountsList': 'DU3232524'}
+2026-06-27 08:33:24,333  INFO      Gateway         Connected. Next order ID: 1
+2026-06-27 08:33:24,333  INFO      Gateway         IBKR system message 2105: HMDS data farm connection is broken:ushmds
+2026-06-27 08:33:25,334  INFO      MarketData      Requesting SPX live spot price (reqId=10001)
+2026-06-27 08:33:25,334  INFO      ibapi.utils     REQUEST reqMktData {'reqId': 10001, 'contract': 4348491008: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'genericTickList': '', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2026-06-27 08:33:25,334  INFO      ibapi.client    SENDING reqMktData b'\x00\x00\x0001\x0011\x0010001\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x001\x000\x00\x00'
+2026-06-27 08:33:25,875  INFO      ibapi.utils     ANSWER marketDataType {'reqId': 10001, 'marketDataType': 1}
+2026-06-27 08:33:25,877  INFO      ibapi.utils     ANSWER tickReqParams {'tickerId': 10001, 'minTick': 0.01, 'bboExchange': '', 'snapshotPermissions': 0}
+2026-06-27 08:33:36,592  WARNING   MarketData      Live SPX snapshot failed (No usable live tick for SPX. Tick data: {'bid_size': Decimal('0'), 'ask_size': Decimal('0')}. IBKR errors for this request: none reported) — falling back to historical daily bar
+2026-06-27 08:33:36,593  INFO      MarketData      Requesting SPX daily historical bar (reqId=10002) as RTH-closed fallback
+2026-06-27 08:33:36,593  INFO      ibapi.utils     REQUEST reqHistoricalData {'reqId': 10002, 'contract': 4348491680: 0,SPX,IND,,,0,,,CBOE,,USD,,,False,,,,combo:, 'endDateTime': '', 'durationStr': '2 D', 'barSizeSetting': '1 day', 'whatToShow': 'TRADES', 'useRTH': 1, 'formatDate': 1, 'keepUpToDate': False, 'chartOptions': []}
+2026-06-27 08:33:36,594  INFO      ibapi.client    SENDING reqHistoricalData b'\x00\x00\x00A20\x0010002\x000\x00SPX\x00IND\x00\x000.0\x00\x00\x00CBOE\x00\x00USD\x00\x00\x000\x00\x001 day\x002 D\x001\x00TRADES\x001\x000\x00\x00'
+2026-06-27 08:33:51,600  ERROR     IronCondor      Unhandled error during entry
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/market_data.py", line 79, in get_spx_spot
+    return self._get_spx_spot_live(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/market_data.py", line 113, in _get_spx_spot_live
+    raise MarketDataError(
+helpers.market_data.MarketDataError: No usable live tick for SPX. Tick data: {'bid_size': Decimal('0'), 'ask_size': Decimal('0')}. IBKR errors for this request: none reported
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/strategy_iron_condor.py", line 168, in enter_condor
+    spot   = self.md.get_spx_spot()
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/market_data.py", line 87, in get_spx_spot
+    return self._get_spx_spot_from_history()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathanwang/algtrade/spx0dteBot/helpers/market_data.py", line 161, in _get_spx_spot_from_history
+    raise MarketDataError(
+helpers.market_data.MarketDataError: Historical data request timed out — could not resolve SPX spot via either live ticks or daily bars. IBKR errors for this request: none reported. Check market data subscriptions for SPX/CBOE, and confirm IB Gateway is connected and logged in.
+2026-06-27 08:33:51,603  INFO      Gateway         Disconnecting from IB Gateway
+2026-06-27 08:33:51,603  INFO      ibapi.client    disconnecting
+2026-06-27 08:33:51,603  WARNING   Gateway         Connection closed by IB Gateway
+2026-06-27 08:33:51,603  INFO      Main            Done.
+2026-06-27 16:59:21,405  INFO      Gateway         Connecting to IB Gateway 192.168.1.116:4002 clientId=1
+2026-06-27 16:59:21,626  INFO      ibapi.client    sent startApi
+2026-06-27 16:59:21,627  INFO      ibapi.utils     REQUEST startApi {}
+2026-06-27 16:59:21,627  INFO      ibapi.client    SENDING startApi b'\x00\x00\x00\x0871\x002\x001\x00\x00'
+2026-06-27 16:59:21,627  INFO      ibapi.utils     ANSWER connectAck {}
+2026-06-27 16:59:21,700  INFO      ibapi.utils     ANSWER managedAccounts {'accountsList': 'DU3232524'}
+2026-06-27 16:59:21,700  INFO      Gateway         Connected. Next order ID: 1
+2026-06-27 16:59:22,702  WARNING   IronCondor      Past entry cutoff 10:30 — skipping
+2026-06-27 16:59:22,703  INFO      Gateway         Disconnecting from IB Gateway
+2026-06-27 16:59:22,703  INFO      ibapi.client    disconnecting
+2026-06-27 16:59:22,704  WARNING   Gateway         Connection closed by IB Gateway
+2026-06-27 16:59:22,704  INFO      Main            Done.
